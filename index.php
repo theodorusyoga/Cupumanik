@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Cupumanik.id - Welcome</title>
+<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -10,7 +11,12 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 </head>
-<body>
-	
+<body style="background-color: #000000">
+	<div class="header">
+		<div class="subheader">
+			<img class="logo" src="assets/logo.png" />
+		</div>
+	</div>
+	<div class="main">&nbsp;</div>
 </body>
 </html>

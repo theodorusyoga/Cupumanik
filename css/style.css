@@ -1,0 +1,31 @@
+.logo{
+	max-height: 100px;
+}
+
+.header{
+	text-align: center;
+	left: 50%;
+	margin-top: 2%;
+	margin-bottom: 0%;
+	z-index: 1;
+	position: absolute;
+}
+
+.subheader{
+	left: -50%;
+	position: relative;
+}
+
+.main{
+	z-index: 2; 
+	background-color: #ffffff;
+	background: url("../images/home.png") no-repeat fixed center;
+	margin-bottom: 0px;
+	min-height: 100%;
+	max-height: 100%;
+	overflow: hidden;
+	border-width: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+}
