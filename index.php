@@ -1,6 +1,8 @@
 <html>
 <head>
 <title>Cupumanik.id - Welcome</title>
+<link href='https://fonts.googleapis.com/css?family=Raleway'
+	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -17,6 +19,22 @@
 			<img class="logo" src="assets/logo.png" />
 		</div>
 	</div>
-	<div class="main">&nbsp;</div>
+	<div class="main">
+		<span class="coverage">&nbsp;</span>
+		<div class="content">
+			<div class="submain">
+				<ul class="list">
+					<li><a class="link" href="#">Batik</a>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
+					<li><a class="link" href="#">Furniture</a>
+						<p>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
+					<li><a class="link" href="#">Guesthouse</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- <div class="preview">
+			PREVIEW APPEAR HERE
+		</div> -->
+	</div>
 </body>
 </html>

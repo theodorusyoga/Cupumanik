@@ -1,8 +1,57 @@
-.logo{
+.list {
+	list-style: none;
+}
+
+.list li {
+	display: inline;
+}
+
+.coverage {
+	position: absolute;
+	top: 30%;
+	min-width: 100%;
+	background-color: black;
+	opacity: 0.6;
+	z-index: 3;
+	font-size: 40px;
+}
+
+.content {
+	z-index: 4;
+	left: 50%;
+	position: absolute;
+	top: 30%;
+	min-width: 100%;
+}
+
+.submain {
+	left: -25%;
+	position: relative;
+}
+
+.list p {
+	display: inline;
+	color: white;
+	font-family: 'Raleway', serif;
+	font-size: 40px;
+}
+
+.link {
+	font-family: 'Raleway', serif;
+	font-size: 40px;
+	color: white;
+}
+
+.link:HOVER{
+	text-decoration: none;
+	background-color: lightgrey;
+}
+
+.logo {
 	max-height: 100px;
 }
 
-.header{
+.header {
 	text-align: center;
 	left: 50%;
 	margin-top: 2%;
@@ -11,13 +60,13 @@
 	position: absolute;
 }
 
-.subheader{
+.subheader {
 	left: -50%;
 	position: relative;
 }
 
-.main{
-	z-index: 2; 
+.main {
+	z-index: 2;
 	background-color: #ffffff;
 	background: url("../images/home.png") no-repeat fixed center;
 	margin-bottom: 0px;
@@ -28,4 +77,13 @@
 	margin-left: 0px;
 	margin-top: 0px;
 	margin-right: 0px;
+}
+
+.preview{
+	z-index: 5;
+	background: #ffffff;
+	top: 50%;
+	min-height: 60%;
+	min-width: 100%;
+	position: absolute;
 }
