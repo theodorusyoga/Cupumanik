@@ -2,16 +2,21 @@
 
 body 
 { 
-	padding-top: 70px; 
+	padding-top: 40px; 
 }
 
-.navbar-default {
+/*.navbar-default {
 	min-height: 40px !important;
-}
+}*/
 
 .navbar-brand {
-	height: 40px !important;
-	padding: 10px !important;
+	/*height: 40px !important;*/
+	padding: 5px 5% !important;
+}
+
+.navbar-collapse {	
+    padding-left: 5% !important;
+    padding-right: 5% !important;
 }
 
 .nav-menu {
@@ -30,7 +35,7 @@ body
 	display: block;
 	color: black !important;
     text-align: center;
-    padding: 10px 15px !important;
+    /*padding: 10px 15px !important;*/
     text-decoration: none;
     font-family: 'Raleway', serif;
     border-bottom: 3px solid #f8f8f8;

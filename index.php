@@ -16,7 +16,7 @@
 <body style="background-color: #000000">
 	<div class="header">
 		<div class="subheader">
-			<img class="logo" src="assets/logo.png" />
+			<img class="logo" src="assets/logo-white.png" />
 		</div>
 	</div>
 	<div class="main">
