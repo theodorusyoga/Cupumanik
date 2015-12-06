@@ -1,0 +1,45 @@
+@CHARSET "ISO-8859-1";
+
+body 
+{ 
+	padding-top: 70px; 
+}
+
+.navbar-default {
+	min-height: 40px !important;
+}
+
+.navbar-brand {
+	height: 40px !important;
+	padding: 10px !important;
+}
+
+.nav-menu {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: auto;
+    list-style-type: none;
+}
+
+.nav-menu li {
+	display: inline-block;
+}
+
+.nav-menu li a {
+	display: block;
+	color: black !important;
+    text-align: center;
+    padding: 10px 15px !important;
+    text-decoration: none;
+    font-family: 'Raleway', serif;
+    border-bottom: 3px solid #f8f8f8;
+}
+
+.nav-menu li a:hover {
+	border-bottom: 3px solid #08a;
+}
+
+.nav-menu li:last-child {
+	border-left: 3px solid #bbb;
+}
