@@ -48,3 +48,51 @@ body
 .nav-menu li:last-child {
 	border-left: 3px solid #bbb;
 }
+
+.carousel .item {
+	min-height: 500px;
+	
+}
+
+.carousel-caption {
+	width: 27%;
+	background-color: rgba(26, 26, 26, 0.5);
+	margin: 0;
+	padding: 1%;
+	padding-top: 300px !important;
+	min-height: 500px;
+	bottom: 0 !important;
+}
+
+.carousel-caption h2, .carousel-caption h4, .carousel-caption button {
+	text-align: left;	
+}
+
+.carousel-caption button {
+	left: 0 !important;
+	float: left;
+}
+
+.product-title {
+	font-family: 'Alegreya', Georgia;
+}
+
+.product-price {
+	font-family: 'Montserrat', Helvetica;
+	color: #f55;
+}
+
+.carousel-text {
+	bottom: 100px !important;
+}
+
+.btn-info {
+	border: none !important;
+	border-radius: 0 !important;
+	background-color: #08a !important;
+	font-family: 'Raleway', Serif;
+}
+
+/*.carousel-inner img {
+	height: 500px !important;
+}*/
