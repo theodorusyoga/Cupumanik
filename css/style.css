@@ -10,8 +10,6 @@
 	position: absolute;
 	top: 30%;
 	min-width: 100%;
-	background-color: black;
-	opacity: 0.6;
 	z-index: 3;
 	font-size: 40px;
 }
@@ -21,11 +19,11 @@
 	left: 50%;
 	position: absolute;
 	top: 30%;
-	min-width: 100%;
+	max-width: 100%;
 }
 
 .submain {
-	left: -25%;
+	left: -50%;
 	position: relative;
 }
 
@@ -33,7 +31,7 @@
 	display: inline;
 	color: white;
 	font-family: 'Raleway', serif;
-	font-size: 40px;
+	font-size: 32px;
 }
 
 .link {
@@ -42,7 +40,7 @@
 	color: white;
 }
 
-.link:HOVER{
+.link:HOVER {
 	text-decoration: none;
 	background-color: lightgrey;
 }
@@ -79,11 +77,72 @@
 	margin-right: 0px;
 }
 
-.preview{
-	z-index: 5;
-	background: #ffffff;
-	top: 50%;
-	min-height: 60%;
+.preview {
+	z-index: 3;
+	bottom: 0px;
+	top: 45%;
 	min-width: 100%;
 	position: absolute;
+	min-height: 50%;
+}
+
+.previewcontent {
+	background: #000000;
+	opacity: 0.6;
+	min-height: 100%;
+	min-width: 100%;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+.foot {
+	z-index: 10;
+	font-family: 'Raleway', serif;
+	color: #ffffff;
+	font-size: 14px;
+	margin-bottom: 0px;
+	bottom: 0%;
+	text-align: center;
+	position: fixed;
+	left: 50%;
+}
+
+.foot p{
+	left: -50%;
+	position: relative;
+}
+
+.foot a{
+	color: #ffffff;
+    text-decoration: underline;
+}
+
+.foot a:HOVER{
+	background-color: lightgrey;
+}
+
+.images{
+	border: 0;
+	right: 0;
+	left: 0;
+	min-height: 100%;
+}
+
+.column{
+	max-width: 33.1%;
+	display: inline-table;
+	right: 0;
+	left: 0;
+}
+
+.column img{
+	max-width: 100%;
+	min-width: 100%;
+	border: 0;
+	right: 0;
+	left: 0;
+	position: relative;	
 }
