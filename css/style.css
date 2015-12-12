@@ -29,7 +29,7 @@
 
 .list p {
 	display: inline;
-	color: white;
+	color: black;
 	font-family: 'Raleway', serif;
 	font-size: 32px;
 }
@@ -37,12 +37,30 @@
 .link {
 	font-family: 'Raleway', serif;
 	font-size: 40px;
-	color: white;
+	color: black;
 }
 
-.link:HOVER {
+.menu .link {
+	font-family: 'Raleway', serif;
+	font-size: 16px;
+	border-bottom: 2px solid lightgrey;
+	padding-bottom: 2%;
+}
+
+.menu .link:HOVER {
+	border-bottom: 2px solid #FF8D05;
 	text-decoration: none;
-	background-color: lightgrey;
+}
+
+.menu p {
+	font-size: 18px;
+	color: #585755;
+}
+
+.submain .link:HOVER {
+	text-decoration: none;
+	border-bottom: 2px solid #FF8D05;
+	padding-bottom: 2%;
 }
 
 .logo {
@@ -63,10 +81,21 @@
 	position: relative;
 }
 
+.overlay {
+	background: white;
+	background: -webkit-linear-gradient(lightgrey, white, white, white);
+	background: -o-linear-gradient(lightgrey, white, white, white);
+	background: -moz-linear-gradient(lightgrey, white, white, white);
+	background: linear-gradient(lightgrey, white, white, white);
+	min-height: 100%;
+	min-width: 100%;
+	overflow: hidden;
+}
+
 .main {
 	z-index: 2;
 	background-color: #ffffff;
-	background: url("../images/home.png") no-repeat fixed center;
+	/* background: url("../images/home.png") no-repeat center; */
 	margin-bottom: 0px;
 	min-height: 100%;
 	max-height: 100%;
@@ -87,7 +116,7 @@
 }
 
 .previewcontent {
-	background: #000000;
+	background: #ffffff;
 	opacity: 0.6;
 	min-height: 100%;
 	min-width: 100%;
@@ -101,7 +130,7 @@
 .foot {
 	z-index: 10;
 	font-family: 'Raleway', serif;
-	color: #ffffff;
+	color: black;
 	font-size: 14px;
 	margin-bottom: 0px;
 	bottom: 0%;
@@ -110,39 +139,46 @@
 	left: 50%;
 }
 
-.foot p{
+.foot p {
 	left: -50%;
 	position: relative;
 }
 
-.foot a{
-	color: #ffffff;
-    text-decoration: underline;
+.foot a {
+	color: #000000;
+	text-decoration: underline;
 }
 
-.foot a:HOVER{
+.foot a:HOVER {
 	background-color: lightgrey;
 }
 
-.images{
+.images {
 	border: 0;
 	right: 0;
 	left: 0;
 	min-height: 100%;
 }
 
-.column{
+.column {
 	max-width: 33.1%;
 	display: inline-table;
 	right: 0;
 	left: 0;
 }
 
-.column img{
+.column img {
 	max-width: 100%;
 	min-width: 100%;
 	border: 0;
 	right: 0;
 	left: 0;
-	position: relative;	
+	position: relative;
+}
+
+.menu {
+	position: fixed;
+	color: black;
+	right: 0;
+	top: 2%;
 }
