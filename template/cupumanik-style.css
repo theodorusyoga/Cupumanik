@@ -75,6 +75,7 @@ body
 
 .product-title {
 	font-family: 'Alegreya', Georgia;
+	color: #fff;
 }
 
 .product-price {
@@ -96,3 +97,48 @@ body
 /*.carousel-inner img {
 	height: 500px !important;
 }*/
+
+.product-list-container {
+	padding: 10px 5%;
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.list-title {
+	font-family: 'Raleway', serif;
+	margin-left: 0 !important;
+}
+
+.product-list {
+	margin: 0 -5px !important;
+}
+
+.product-item {
+	padding: 5px !important;
+}
+
+.product-info {
+	display: table;
+	width: 100%;
+	text-decoration: none !important;
+	height: 250px;
+	vertical-align: middle;
+}
+
+.product-info span {
+	display: table-cell;
+	margin: auto;
+	background-color: rgba(5, 5, 5, 0.9);
+	vertical-align: middle;
+	line-height: 250px !important;
+}
+
+.product-item h3, .product-item h5 {
+	margin: 0;
+	padding: 5px;
+	text-align: center;
+}
+
+.product-item-inner {
+	height: 250px;
+}
