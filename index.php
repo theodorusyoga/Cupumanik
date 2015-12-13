@@ -16,6 +16,7 @@
 	crossorigin="anonymous"></script>
 <script src="../Cupumanik/javascript/function.js" type="text/javascript"></script>
 </head>
+<?php include('/template/functions.php') ?>
 <body style="background-color: #000000">
 	<div class="header">
 		<div class="subheader">
@@ -90,6 +91,7 @@
 				Copyright &copy; 2015 <a
 					href="https://www.facebook.com/theodorus.yoga" target="_blank">T&S
 					Design and Program Team</a>
+					<?php echo(getProducts()); ?>
 			</p>
 		</div>
 	</div>
