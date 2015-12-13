@@ -3,6 +3,7 @@ $servername = 'localhost';
 $dbname = 'cupumanik';
 $dbuser = 'theodorus';
 $dbpass = 'pass@word1';
+
 function getProducts() {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
@@ -13,7 +14,6 @@ function getProducts() {
 	$result = $conn->query ( $query );
 	$strresult = '';
 	if ($result->num_rows > 0) {
-		
 		while ( $item = $result->fetch_assoc () ) {
 			$single = new stdClass ();
 			$single->id = $item ['id'];

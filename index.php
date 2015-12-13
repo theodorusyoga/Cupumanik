@@ -16,20 +16,22 @@
 	crossorigin="anonymous"></script>
 <script src="../Cupumanik/javascript/function.js" type="text/javascript"></script>
 </head>
-<?php include('/template/functions.php') ?>
+
+<?php include('/template/functions.php')?>
 <body style="background-color: #000000">
 	<div class="header">
 		<div class="subheader">
-			<img class="logo" src="assets/logo-black.png" />
+			<img class="logo" src="assets/logo-black.png"/>
 		</div>
 	</div>
 	<div class="menu">
 		<ul class="list">
 			<li><a class="link" href="/batik">ABOUT US</a></li>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp; <a class="link" href="#">CONTACT US</a>
+			<li><a class="link" href="#">CONTACT US</a>
 			</li>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp; <a class="link" href="#" target="_blank">FACEBOOK</a>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp; <a class="link" href="#" target="_blank">TWITTER</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<li><a class="link" href="#" target="_blank">FACEBOOK</a>
+			
+			<li><a class="link" href="#" target="_blank">TWITTER</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</li>
 		</ul>
 	</div>
@@ -39,10 +41,8 @@
 		<div class="content">
 			<div class="submain">
 				<ul class="list">
-					<li><a id="batiklink" class="link" href="/batik">Batik</a>
-						<p>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
-					<li><a id="furnilink" class="link" href="#">Furniture</a>
-						<p>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</p></li>
+					<li><a id="batiklink" class="link" href="/batik">Batik</a></li>
+					<li><a id="furnilink" class="link" href="#">Furniture</a></li>
 					<li><a id="guesthouselink" class="link" href="#">Guesthouse</a></li>
 				</ul>
 			</div>
@@ -91,10 +91,12 @@
 				Copyright &copy; 2015 <a
 					href="https://www.facebook.com/theodorus.yoga" target="_blank">T&S
 					Design and Program Team</a>
-					<?php echo(getProducts()); ?>
 			</p>
+			<!-- <button id="testremove">CLICK ME TO REMOVE!!!</button>
+			<input type="hidden" value="1" id="productid" /> -->
 		</div>
 	</div>
 
 </body>
+
 </html>
