@@ -33,6 +33,19 @@
 			$(this).find('.product-info').hide();
 			$(this).find('.product-info-small').show();
 		});
+		$('#banner-1').show();
+		$('#banner-2').hide();
+		$('#banner-3').hide();
+		sessionStorage.banner = 1;
+		var interval = window.setInterval(function() {
+			var index = Number(sessionStorage.banner);
+			var nextIndex = index < 3 ? (index + 1) : 1;
+			//alert(index);
+			$('#banner-' + index).fadeOut(500, function() {
+				$('#banner-' + nextIndex).fadeIn(500);
+			});
+			sessionStorage.banner = nextIndex;
+		}, 5000);
 	});
 </script>
 </head>
@@ -60,6 +73,9 @@
 	</div>
 	
 	<div id="home-banner">
+		<div id="banner-1" class="banner-bg"></div>
+		<div id="banner-2" class="banner-bg"></div>
+		<div id="banner-3" class="banner-bg"></div>
 		<div id="home-content" class="row">
 			<div id="banner-content" class="col-sm-5 col-xs-12">
 				<h3>
@@ -80,7 +96,7 @@
        				</div>
 				</div>
 			</div>
-			<div class="col-sm-7 col-xs-0">
+			<div id="banner-empty" class="col-sm-7 col-xs-0">
 				&nbsp;
 			</div>
 		</div>
@@ -251,7 +267,15 @@
 					</ul>
 				</div>
 				<div class="shop-footer shop-map col-md-5 col-xs-12">
-					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.285349342276!2d110.38723571437622!3d-7.7595316791016025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59af47e65003%3A0xdf8e8c7fb3dcee6e!2sCupumanik+Batik!5e0!3m2!1sen!2sid!4v1449979825410" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.285349342276!2d110.38723571437622!3d-7.7595316791016025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59af47e65003%3A0xdf8e8c7fb3dcee6e!2sCupumanik+Batik!5e0!3m2!1sen!2sid!4v1449979825410" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+					<h4>
+						Alamat
+					</h4>
+					<p>
+						Jl. Ring Road Utara No.4A, Kec. Depok, Sleman,
+						<br/>
+						Daerah Istimewa Yogyakarta 55283, Indonesia
+					</p>
 				</div>
 			</div>
 			</div>
