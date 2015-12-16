@@ -1,0 +1,269 @@
+@CHARSET "ISO-8859-1";
+
+body 
+{ 
+	padding-top: 40px; 
+	overflow-y: auto;
+}
+
+/*.navbar-default {
+	min-height: 40px !important;
+}*/
+
+/* navbar */
+
+.navbar-default .container {
+	max-width: 1100px;
+	border: none;
+}
+
+.navbar-brand {
+	/*height: 40px !important;*/
+	padding: 5px 5% !important;
+	margin-left: 0 !important;
+}
+
+.navbar-collapse {	
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    /*overflow: hidden;*/
+}
+
+.nav-menu {
+    margin: 0;
+    padding: 0;
+    /*overflow: hidden;*/
+    width: auto;
+    list-style-type: none;
+}
+
+.nav-menu li {
+	display: inline-block;
+}
+
+.nav-menu li a {
+	display: block;
+	color: black !important;
+    text-align: center;
+    /*padding: 10px 15px !important;*/
+    text-decoration: none;
+    font-family: 'Raleway', serif;
+    border-bottom: 3px solid #f8f8f8;
+}
+
+.nav-menu li a:hover {
+	border-bottom: 3px solid #08a;
+}
+
+.nav-menu li:last-child {
+	/* border-left: 2px solid #bbb;
+	border-right: 2px solid #bbb; */
+}
+
+.nav-menu li:last-child a {
+	background-color: #2D3C40;
+	border-bottom: 3px solid #2D3C40;
+	color: #fff !important;
+}
+
+.nav-menu li:last-child a:hover {
+	background-color: #447B82 !important;
+}
+
+/* banner */
+
+#home-banner {
+	background: url('../images/batik2.png') no-repeat center fixed; 
+	background-size: cover;
+	width: 100%;
+}
+
+#home-content {
+	padding: 0 5%;
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+#banner-content {
+	padding: 50px 20px;
+	background-color: rgba(5, 5, 5, 0.9);
+	min-height: 500px;
+	color: #fff;
+	font-family: 'Raleway', Serif;
+}
+
+#banner-content h3 {
+	font-weight: 700;
+}
+
+#banner-content p {
+	font-wight: 300;
+	font-size: 110%;
+}
+
+.input-group input {
+	border: none !important;
+	border-radius: 0 !important;
+}
+
+.input-group button {
+	height: 34px;
+}
+
+.product-title {
+	font-family: 'Alegreya', Georgia;
+	color: #fff;
+}
+
+.product-price {
+	font-family: 'Alegreya Sans', Helvetica;
+	font-weight: 500;
+	font-size: 125%;
+	color: #f55;
+}
+
+.carousel-text {
+	bottom: 100px !important;
+}
+
+.btn-info {
+	border: none !important;
+	border-radius: 0 !important;
+	background-color: #08a !important;
+	font-family: 'Raleway', Serif;
+}
+
+/*.carousel-inner img {
+	height: 500px !important;
+}*/
+
+.product-list-container {
+	padding: 10px 5%;
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.list-title {
+	font-family: 'Raleway', serif;
+	margin-left: 0 !important;
+}
+
+.product-list {
+	margin: 0 -5px !important;
+}
+
+.product-item {
+	padding: 5px !important;
+}
+
+.product-info, .product-info-small {
+	display: table;
+	width: 100%;
+	text-decoration: none !important;	
+	height: 250px;
+	vertical-align: middle;
+	/*background-color: rgba(5, 5, 5, 0.9);	*/
+}
+
+.product-info-small {
+	padding-top: 180px;
+}
+
+.product-item span {
+	display: table-cell;
+	margin: auto;
+	background-color: rgba(5, 5, 5, 0.9);
+	vertical-align: middle;
+}
+
+.product-info span {
+	line-height: 250px !important;	
+}
+
+.product-info-small span {
+	line-height: 60px !important;
+}
+
+.product-item h3, .product-item h5 {
+	margin: 0;
+	padding: 5px;
+	text-align: center;
+}
+
+.product-item h3 {
+	font-size: 150%;
+}
+
+.product-item-inner {
+	height: 250px;
+}
+
+.footer {
+	font-family: 'Alegreya Sans', Helvetica;
+	color: #fff;
+	margin-top: 20px;
+}
+
+.footer h3 {
+	font-family: 'Raleway', Serif;
+}
+
+.footer ul {
+	padding-left: 0 !important;
+}
+
+.footer li {	
+	list-style-type: none;
+	display: block;
+	padding: 2px 0;
+	font-size: 110%;
+	vertical-align: middle;
+}
+
+.footer a {
+	color: white;
+}
+
+.footer a:hover {
+	color: #f8f8f8;
+}
+
+.footer .container {
+	background-color: #447B82;
+	margin: 0 !important;
+	width: 100%;
+	padding: 30px 0;
+}
+
+.footer-info {
+	
+}
+
+.inner-container {	
+	width: 100%;
+	max-width: 1100px;
+	padding: 0 5%;
+	margin: 0 auto;
+}
+
+.shop-footer {
+	width: 100%;
+}
+
+.shop-info p {
+	padding: 10px 0;
+	font-size: 115%;
+}
+
+.copyright-info {
+	background-color: #2D3C40;
+	padding: 15px 0;
+}
+
+.copyright-info p {
+	margin: 0 auto;
+	max-width: 1100px;
+	padding: 0 5%;
+	font-family: 'Raleway', Serif;
+	font-size: 90%;
+}
