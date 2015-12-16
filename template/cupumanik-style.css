@@ -3,11 +3,14 @@
 body 
 { 
 	padding-top: 40px; 
+	overflow-y: auto;
 }
 
 /*.navbar-default {
 	min-height: 40px !important;
 }*/
+
+/* navbar */
 
 .navbar-default .container {
 	max-width: 1100px;
@@ -23,13 +26,13 @@ body
 .navbar-collapse {	
     padding-left: 5% !important;
     padding-right: 5% !important;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .nav-menu {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: auto;
     list-style-type: none;
 }
@@ -67,28 +70,44 @@ body
 	background-color: #447B82 !important;
 }
 
-.carousel .item {
+/* banner */
+
+#home-banner {
+	background: url('../images/batik2.png') no-repeat center fixed; 
+	background-size: cover;
+	width: 100%;
+}
+
+#home-content {
+	padding: 0 5%;
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+#banner-content {
+	padding: 50px 20px;
+	background-color: rgba(5, 5, 5, 0.9);
 	min-height: 500px;
-	
+	color: #fff;
+	font-family: 'Raleway', Serif;
 }
 
-.carousel-caption {
-	width: 27%;
-	background-color: rgba(26, 26, 26, 0.5);
-	margin: 0;
-	padding: 1%;
-	padding-top: 300px !important;
-	min-height: 500px;
-	bottom: 0 !important;
+#banner-content h3 {
+	font-weight: 700;
 }
 
-.carousel-caption h2, .carousel-caption h4, .carousel-caption button {
-	text-align: left;	
+#banner-content p {
+	font-wight: 300;
+	font-size: 110%;
 }
 
-.carousel-caption button {
-	left: 0 !important;
-	float: left;
+.input-group input {
+	border: none !important;
+	border-radius: 0 !important;
+}
+
+.input-group button {
+	height: 34px;
 }
 
 .product-title {
