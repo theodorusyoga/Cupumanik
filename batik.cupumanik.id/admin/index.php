@@ -46,23 +46,88 @@ include ($path);
 			</button>
 			<div class="navbar-collapse collapse pull-right">
 				<ul class="nav navbar-nav nav-menu">
-					<li><a href="" style="cursor: default !IMPORTANT;">Masuk ke
-							Cupumanik Administrator</a></li>
+					<li><a href="#" id="login">Masuk ke Cupumanik Administrator</a></li>
+					<li><a href="" id="logout">Keluar</a></li>
 					<li><a href="">Kembali ke Halaman Utama&nbsp;<span
 							class="glyphicon glyphicon-home"></span></a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
+	<div class="main-body" >
+		<div id="warningcontainer" class="alert alert-info" id="warning"></div>
+		<div>
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#products"
+					aria-controls="products" role="tab" data-toggle="tab">Daftar Produk</a></li>
+				<li role="presentation"><a href="#orders" aria-controls="orders"
+					role="tab" data-toggle="tab">Pemesanan</a></li>
+				<li role="presentation"><a href="#others" aria-controls="others"
+					role="tab" data-toggle="tab">Pengaturan Lainnya</a></li>
+			</ul>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="products">Products</div>
+				<div role="tabpanel" class="tab-pane" id="orders">Pemesanan</div>
+				<div role="tabpanel" class="tab-pane" id="others">Pengaturan</div>
+			</div>
+
+		</div>
+	</div>
 
 	<!-- LOGIN MODAL -->
-	<div id="loginbox" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+	<div id="loginbox" class="modal fade" tabindex="-1" role="dialog"
 		aria-labelledby="mySmallModalLabel">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog">
+
 			<div class="modal-content">
-					Username:
-					<button id="loginbtn" class="btn">Masuk</button>
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span> -->
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Masuk ke Administrator</h4>
+				</div>
+				<form>
+					<div class="modal-body">
+						<div class="row" id="alertdanger">
+							<div class="alert alert-danger">
+								<strong>Terjadi kesalahan: </strong>username atau password
+								salah.
+							</div>
+						</div>
+						<div class="row" id="alertsuccess">
+							<div class="alert alert-success">
+								<strong>Login berhasil. </strong> Harap tunggu...
+							</div>
+						</div>
+						<div class="row" id="alertwait">
+							<div class="alert alert-info">
+								<strong>Menunggu... </strong><img
+									src="../../assets/ajax-loader.gif" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">Username:</div>
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="usernameTb" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">Password:</div>
+							<div class="col-md-8">
+								<input type="password" class="form-control" id="passwordTb" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
+						<button type="submit" id="loginbtn" class="btn btn-primary">Masuk</button>
+					</div>
+				</form>
 			</div>
+
 		</div>
 	</div>
 </body>
