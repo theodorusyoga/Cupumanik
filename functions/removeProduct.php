@@ -12,7 +12,7 @@ if (isset ( $_POST ['id'] )) {
 	}
 	$query = 'DELETE FROM products WHERE id=' . ( string ) $idint . ' LIMIT 1';
 	$result = $conn->query ( $query );
-	return true;
+	echo true;
 } else
-	return false;
+	echo false;
 ?>

@@ -55,8 +55,10 @@ include ($path);
 		</div>
 	</div>
 	<div class="main-body" >
-		<div id="warningcontainer" class="alert alert-info" id="warning"></div>
-		<div>
+		<h2>Cupumanik Administrator</h2>
+		<br/>
+		<div id="warningcontainer" class="alert alert-info"></div>
+		<div id="admin-content">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#products"
@@ -68,7 +70,9 @@ include ($path);
 			</ul>
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="products">Products</div>
+				<div role="tabpanel" class="tab-pane active" id="products">
+						<?php echo printProducts(); ?>
+				</div>
 				<div role="tabpanel" class="tab-pane" id="orders">Pemesanan</div>
 				<div role="tabpanel" class="tab-pane" id="others">Pengaturan</div>
 			</div>
