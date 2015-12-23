@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Cupumanik</title>
+<title>Produk 1</title>
 <link href='https://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
@@ -33,19 +33,16 @@
 			$(this).find('.product-info').hide();
 			$(this).find('.product-info-small').show();
 		});
-		$('#banner-1').show();
-		$('#banner-2').hide();
-		$('#banner-3').hide();
-		sessionStorage.banner = 1;
-		var interval = window.setInterval(function() {
-			var index = Number(sessionStorage.banner);
-			var nextIndex = index < 3 ? (index + 1) : 1;
-			//alert(index);
-			$('#banner-' + index).fadeOut(500, function() {
-				$('#banner-' + nextIndex).fadeIn(500);
-			});
-			sessionStorage.banner = nextIndex;
-		}, 5000);
+		$('.product-gallery-item').bind('mousedown', function() {
+			var background = $(this).css('background-image');
+			//alert(background);
+			$('.product-image').css('background-image', background);
+			$('.product-image').css('background-repeat', 'no-repeat');
+			$('.product-image').css('background-position', 'center');
+			$('.product-image').css('background-size', 'cover');
+			$('.product-gallery-item').removeClass('selected');
+			$(this).addClass('selected');
+		});
 	});
 </script>
 </head>
@@ -72,39 +69,48 @@
 	</div>
 	</div>
 	
-	<div id="home-banner">
-		<div id="banner-1" class="banner-bg"></div>
-		<div id="banner-2" class="banner-bg"></div>
-		<div id="banner-3" class="banner-bg"></div>
-		<div id="home-content" class="main-body row">
-			<div id="banner-content" class="col-sm-5 col-xs-12">
-				<h3>
-					BATIK EKSKLUSIF TERBAIK DI YOGYAKARTA
-				</h3>
-				<br />
-				<hr />
-				<p>
-					Lebih dari 100 koleksi batik dan kain batik terbaik ada di sini. Temukan favorit anda di sini
-				</p>	
-				<br /> 			
-				<div id="search-box">
+	<div class="main-body">
+	<div id="product-detail">
+		<div class="product-detail-content row">
+			<div class="product-picture col-sm-5 col-xs-12">
+				<div class="product-image" style="background-image: url('../assets/produk-baru-2.jpg'); background-repeat: no-repeat; background-position: center;  background-size: cover"></div>
+				<div class="product-gallery row">
+					<div class="product-gallery-item selected col-xs-4" title="Klik untuk melihat detail gambar" style="background-image: url('../assets/produk-baru-2.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
+					<div class="product-gallery-item col-xs-4" title="Klik untuk melihat detail gambar" style="background-image: url('../assets/dasi-1.jpg'); background-repeat: no-repeat; background-position: center;  background-size: cover"></div>
+					<div class="product-gallery-item col-xs-4" title="Klik untuk melihat detail gambar" style="background-image: url('../assets/dasi-2.jpg'); background-repeat: no-repeat; background-position: center;  background-size: cover"></div>
+					<div class="product-gallery-item col-xs-4" title="Klik untuk melihat detail gambar" style="background-image: url('../assets/dasi-3.jpg'); background-repeat: no-repeat; background-position: center;  background-size: cover"></div>
+				</div>
+			</div>
+			<div class="product-detail col-sm-7 col-xs-12">
+				<div class="product-header row">
+					<div class="col-xs-6">
+						<h2 class="product-title">Dasi Batik</h2>
+					</div>
+					<div class="col-xs-6">
+						<h3 class="product-price pull-right">Rp 103.000,00</h3>
+					</div>
+				</div>
+				<br/>
+				<p class="product-description">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius tellus orci, nec pharetra sapien aliquet sit amet. Nam suscipit velit non condimentum sollicitudin. Nunc posuere ac est nec accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+				</p>
+				<br/>
+				<h5 class="product-stock">Stok tersisa: <strong>20</strong></h5>
+				<br/>
+				<hr/>
+				<h3 class="list-title">Pesan:</h3>
+				<div id="order-box">
 					<div class="input-group">
-						<input type="Search" id="search-input" placeholder="Cari busana atau kain batik" class="form-control" />
+       					<input type="number" min="1" max="20" step="1" value="1" class="order-qty form-control" />
        					<div class="input-group-btn">
-           					<button class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+           					<button id="button-order" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span>Tambahkan ke daftar belanja</button>
        					</div>
        				</div>
 				</div>
-			</div>
-			<div id="banner-empty" class="col-sm-7 col-xs-0">
-				&nbsp;
-			</div>
 		</div>
-	</div>
-	
-	<div class="main-body">
-	<div id="new-product-list" class="product-list-container">
-		<h3 class="list-title">Produk Terbaru</h3>
+		</div>
+		<hr/>
+		<h3 class="list-title">Produk Terkait</h3>
 		<div class="product-list row">
 			<div id="product-1" class="product-item col-md-3 col-sm-6 col-xs-12" >
 				<div id="product-1-inner" class="product-item-inner" style="background: url('../assets/produk-baru-1.jpg') no-repeat center; background-size: cover">
@@ -154,64 +160,6 @@
 						<span>
 							<h3 class="product-title">Dress Batik Short</h3>
 							<h5 class="product-price">Rp 282.000,00</h5>
-						</span>
-					</a>
-				</div>
-			</div>	
-		</div>
-	</div>
-	
-	<div id="top-product-list" class="product-list-container">
-		<h3 class="list-title">Produk Terlaris</h3>
-		<div class="product-list row">
-			<div id="product-1" class="product-item col-md-3 col-sm-6 col-xs-12" >
-				<div id="product-1-inner" class="product-item-inner" style="background: url('../assets/produk-laris-1.jpg') no-repeat center; background-size: cover">
-					<div id="product-1-info-small" class="product-info-small">
-						<span><h3 class="product-title">T-shirt Batik Cokelat</h3></span>
-					</div>
-					<a href="#product-1" id="product-1-info" class="product-info">
-						<span>
-							<h3 class="product-title">T-shirt Batik Cokelat</h3>
-							<h5 class="product-price">Rp 129.000,00</h5>
-						</span>
-					</a>
-				</div>
-			</div>	
-			<div id="product-2" class="product-item col-md-3 col-sm-6 col-xs-12">
-				<div id="product-2-inner" class="product-item-inner" style="background: url('../assets/produk-laris-2.jpg') no-repeat center; background-size: cover">
-					<div id="product-2-info-small" class="product-info-small">
-						<span><h3 class="product-title">Selendang Batik Sutera</h3></span>
-					</div>
-					<a href="#product-2" id="product-2-info" class="product-info">
-						<span>
-							<h3 class="product-title">Selendang Batik Sutera</h3>
-							<h5 class="product-price">Rp 372.000,00</h5>
-						</span>
-					</a>
-				</div>
-			</div>	
-			<div id="product-3" class="product-item col-md-3 col-sm-6 col-xs-12" >
-				<div id="product-3-inner" class="product-item-inner" style="background: url('../assets/produk-laris-3.jpg') no-repeat center; background-size: cover">
-					<div id="product-3-info-small" class="product-info-small">
-						<span><h3 class="product-title">T-shirt Batik Biru</h3></span>
-					</div>
-					<a href="#product-3" id="product-3-info" class="product-info">
-						<span>
-							<h3 class="product-title">T-shirt Batik Biru</h3>
-							<h5 class="product-price">Rp 152.000,00</h5>
-						</span>
-					</a>
-				</div>
-			</div>	
-			<div id="product-4" class="product-item col-md-3 col-sm-6 col-xs-12">
-				<div id="product-4-inner" class="product-item-inner" style="background: url('../assets/produk-laris-4.jpg') no-repeat center; background-size: cover">
-					<div id="product-4-info-small" class="product-info-small">
-						<span><h3 class="product-title">Rok Batik Panjang Multicorak</h3></span>
-					</div>
-					<a href="#product-4" id="product-4-info" class="product-info">
-						<span>
-							<h3 class="product-title">Rok Batik Panjang Multicorak</h3>
-							<h5 class="product-price">Rp 225.000,00</h5>
 						</span>
 					</a>
 				</div>
@@ -293,5 +241,6 @@
 			</p>
 		</div>
 	</div>
+	
 </body>
 </html>
