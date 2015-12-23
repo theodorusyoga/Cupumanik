@@ -7,14 +7,18 @@ $(document)
 						backdrop : 'static',
 						keyboard : false
 					});
+
 					$('#alertdanger').hide();
 					$('#alertwarning').hide();
+					$('#detaildanger').hide();
+					$('#detailwait').hide();
 					$('#alertsuccess').hide();
 					$('#alertwait').hide();
 					$('#login').hide();
 					$('#logout').hide();
 					$('#warningcontainer').hide();
 					$('#admin-content').hide();
+					$('#imagewarning').hide();
 					check();
 					$('#loginbtn').click(
 							function() {
@@ -88,7 +92,7 @@ $(document)
 										xmlhr.send(data);
 										$('#warningcontainer').show();
 									});
-					
+
 					function check() {
 						var xmlhr = new XMLHttpRequest();
 						xmlhr.open('POST', $url + '/functions/checklogin.php',
@@ -117,6 +121,99 @@ $(document)
 						var data = new FormData();
 						xmlhr.send(data);
 					}
+
+					$('#addproduct').click(function() {
+						$('#detailsbox').modal({
+							backdrop : 'static',
+							keyboard : false
+						});
+						$('#detailsbox').modal('show');
+					});
+
+					$('#uploadFile')
+							.change(
+									function() {
+										$('#imagewarning').hide();
+										var file = this.files[0];
+										var ext = file.type;
+										var exts = [ 'image/jpeg', 'image/jpg'];
+										if (exts.indexOf(ext) >= 0) {
+											var reader = new FileReader();
+											reader.onload = function(e) {
+												$('#uploadedimg').attr('src',
+														e.target.result);
+											};
+											reader.readAsDataURL(this.files[0]);
+										} else {
+											$('#uploadedimg').removeAttr('src');
+											$('#imagewarning').show();
+											$('#imagewarning')
+													.html(
+															'<span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;Foto/gambar yang dimasukkan harus memiliki ekstensi JPEG/JPG');
+										}
+									});
+
+					$('#loginform').on('submit', function(e){
+						e.preventDefault();
+					});
+					
+					$('#formdetails')
+							.on(
+									'submit',
+									function(e) {
+										$namaproduk = $('#namaProdukTb').val();
+										$cat = $(
+												'#selectCategory option:selected')
+												.val();
+										$desc = $('#deskripsiTb').val();
+										$stock = $('#jumlahStokTb').val();
+										$price = $('#hargaSatuanTb').val();
+										var xmlhr = new XMLHttpRequest();
+										xmlhr.open('POST', $url
+												+ '/functions/addProduct.php',
+												true);
+										xmlhr.onload = function(e) {
+											if (xmlhr.readyState == 4) {
+												if (xmlhr.status == 200) {
+													$res = xmlhr.responseText;
+													if ($res == true) {
+														refreshProducts();
+														$('#detailsbox').modal(
+																'hide');
+														$('#detaildanger').hide();
+													} else {
+														$('#detaildanger')
+																.show();
+														$('#detailwarning')
+																.html(
+																		'Menyimpan data atau mengunggah foto tidak dapat dilakukan.');
+													}
+												} else {
+													$('#detaildanger').show();
+													$('#detailwarning')
+															.html(
+																	'Pengambilan data tidak dapat dilakukan. Hubungi administrator.');
+												}
+											}
+											$('#detailwait').hide();
+											
+										};
+										var data = new FormData(this);
+										data.append('title', $namaproduk);
+										data.append('desc', $desc);
+										data.append('stock', $stock);
+										data.append('categoryid', $cat);
+										data.append('price', $price);
+										$('#detailwait').show();
+										xmlhr.send(data);
+										e.preventDefault();
+									});
+
+					/*
+					 * $('#tambahBtn').click( function() {
+					 * 
+					 * });
+					 */
 				});
 
 function removeProduct(id, title) {
@@ -126,10 +223,9 @@ function removeProduct(id, title) {
 		xmlhr.onload = function(e) {
 			if (xmlhr.readyState == 4) {
 				if (xmlhr.status == 200) {
-					if(xmlhr.responseText == true){
+					if (xmlhr.responseText == true) {
 						refreshProducts();
-					}
-					else{
+					} else {
 						alert('Gagal menghapus produk!');
 					}
 				} else {
@@ -140,19 +236,20 @@ function removeProduct(id, title) {
 		var data = new FormData();
 		data.append('id', id);
 		xmlhr.send(data);
-		$('#warningcontainer').html('<strong>Menghapus produk... </strong><img src="../../assets/ajax-loader.gif" />');
+		$('#warningcontainer')
+				.html(
+						'<strong>Menghapus produk... </strong><img src="../../assets/ajax-loader.gif" />');
 		$('#warningcontainer').show();
 	}
 }
 
-
-function refreshProducts(){
+function refreshProducts() {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/getProducts.php', true);
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
-				$('#products').html(xmlhr.responseText);
+				$('#productstable').html(xmlhr.responseText);
 				$('#warningcontainer').hide();
 			} else {
 				alert(xmlhr.statusText);
@@ -161,5 +258,7 @@ function refreshProducts(){
 	};
 	var data = new FormData();
 	xmlhr.send(data);
-	$('#warningcontainer').html('<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
+	$('#warningcontainer')
+			.html(
+					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
 }

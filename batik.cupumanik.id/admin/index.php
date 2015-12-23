@@ -54,9 +54,9 @@ include ($path);
 			</div>
 		</div>
 	</div>
-	<div class="main-body" >
+	<div class="main-body">
 		<h2>Cupumanik Administrator</h2>
-		<br/>
+		<br />
 		<div id="warningcontainer" class="alert alert-info"></div>
 		<div id="admin-content">
 			<!-- Nav tabs -->
@@ -71,7 +71,14 @@ include ($path);
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="products">
+					<div style="padding-top: 2%; padding-bottom: 6%;">
+						<button id="addproduct" class="btn pull-right btn-info">
+							<span class="glyphicon glyphicon-plus"></span>&nbsp;Tambah Produk
+						</button>
+					</div>
+					<div id="productstable">
 						<?php echo printProducts(); ?>
+						</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="orders">Pemesanan</div>
 				<div role="tabpanel" class="tab-pane" id="others">Pengaturan</div>
@@ -84,7 +91,6 @@ include ($path);
 	<div id="loginbox" class="modal fade" tabindex="-1" role="dialog"
 		aria-labelledby="mySmallModalLabel">
 		<div class="modal-dialog">
-
 			<div class="modal-content">
 				<div class="modal-header">
 					<!-- <button type="button" class="close" data-dismiss="modal"
@@ -93,7 +99,7 @@ include ($path);
 					</button>
 					<h4 class="modal-title" id="myModalLabel">Masuk ke Administrator</h4>
 				</div>
-				<form>
+				<form id="loginform">
 					<div class="modal-body">
 						<div class="row" id="alertdanger">
 							<div class="alert alert-danger">
@@ -131,8 +137,95 @@ include ($path);
 					</div>
 				</form>
 			</div>
-
 		</div>
 	</div>
+	<!-- END LOGIN MODAL -->
+
+	<!-- DETAILS MODAL -->
+	<div id="detailsbox" class="modal fade" tabindex="-1" role="dialog"
+		aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="tambahProdukLabel">Tambah Produk</h4>
+				</div>
+					<form id="formdetails" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="row" id="detaildanger">
+							<div class="alert alert-danger">
+								<strong>Terjadi kesalahan: </strong>
+								<p id="detailwarning"></p>
+							</div>
+						</div>
+						<div class="row" id="detailwait">
+							<div class="alert alert-info">
+								<strong>Menunggu... </strong><img
+									src="../../assets/ajax-loader.gif" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Pilih Kategori</div>
+							<div class="col-md-8">
+								<select id="selectCategory" class="form-control">
+								<?php echo printCategoriesAsDropdown(); ?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Nama Produk</div>
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="namaProdukTb" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Deskripsi</div>
+							<div class="col-md-8">
+								<textarea id="deskripsiTb" class="form-control" rows="4" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Jumlah Stok</div>
+							<div class="col-md-8">
+								<input type="number" class="form-control" id="jumlahStokTb" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Harga Satuan</div>
+							<div class="col-md-8">
+								<div class="input-group">
+									<div class="input-group-addon">IDR</div>
+									<input type="number" class="form-control" id="hargaSatuanTb">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Unggah Foto</div>
+							<div class="col-md-8">
+								<input type="file" name="file" class="form-control" id="uploadFile" required />
+								<div class="alert alert-danger" id="imagewarning"></div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">&nbsp;</div>
+							<div class="col-md-8">
+								<img id="uploadedimg" style="max-width: 300px;" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
+						<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+						<input type="submit" value="Simpan" id="tambahBtn" class="btn btn-primary"></input>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- END DETAILS MODAL -->
 </body>
 </html>
