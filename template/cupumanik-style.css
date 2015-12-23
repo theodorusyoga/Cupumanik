@@ -97,9 +97,14 @@ body
 	background: #241811;
 }
 
+.main-body {
+	padding: 30px 5% !important;
+	max-width: 1100px !important;
+	margin: 0 auto;
+}
+
 #home-content {
-	padding: 0 5%;
-	max-width: 1100px;
+	padding: 0 5% !important;
 	margin: 0 auto;
 }
 
@@ -140,10 +145,25 @@ body
 }
 
 .product-price {
-	font-family: 'Alegreya Sans', Helvetica;
+	font-family: 'Noto Sans', Helvetica;
 	font-weight: 500;
-	font-size: 125%;
+	font-size: 120%;
 	color: #f55;
+}
+
+.product-description {
+	font-family: 'Noto Sans', Helvetica;
+	color: #2D3C40;
+	font-size: 110%;
+}
+
+.product-stock {
+	font-family: 'Raleway', Serif;
+	font-size: 130%;
+}
+
+.product-detail {
+	
 }
 
 .carousel-text {
@@ -162,12 +182,11 @@ body
 }*/
 
 .product-list-container {
-	padding: 10px 5%;
-	max-width: 1100px;
+	padding: 10px 0;
 	margin: 0 auto;
 }
 
-.list-title {
+.list-title, .main-title {
 	font-family: 'Raleway', serif;
 	margin-left: 0 !important;
 }
@@ -222,8 +241,92 @@ body
 	height: 250px;
 }
 
+.product-image {
+	padding-top: 120%;
+}
+
+.product-gallery {
+	padding: 10px !important;
+}
+
+.product-gallery-item {
+	height: 50px;
+	max-width: 50px;
+	margin: 0 5px !important;
+	cursor: pointer;
+}
+
+.selected {
+	border: 2px solid #08a !important;
+}
+
+.product-header h2 {
+	color: #08a;
+	margin: 0;
+}
+
+.product-header h3 {
+	margin: 10px 0;
+}
+
+#order-box {
+	width: 350px;
+}
+
+.order-qty {
+	width: 100px !important;
+	height: 36px !important;
+	border-radius: none !important;
+	border: 1px solid #A6AEC1 !important;
+	background: #EDEDF2;
+	font-weight: 700;
+	margin: 0 auto;
+}
+
+.order-list {
+	font-family: 'Noto Sans', Helvetica;
+	font-size: 110%;
+	margin: 20px 0 !important;
+}
+
+.order-list > thead > tr > th {
+	text-align: center;
+}
+
+.form-order .order-list > thead > tr > th,
+.form-order .order-list > tbody > tr > td,
+.form-order .order-list > tfoot > tr > th {
+	padding: 3px;
+}
+
+.order-info {
+	font-family: 'Noto Sans', Helvetica;
+}
+
+.important-mark {
+	color: red;
+	font-weight: 700;
+}
+
+.number-cell {
+	max-width: 30px;
+	text-align: center;
+}
+
+.price-cell {
+	max-width: 150px;
+}
+
+.price-cell .currency {
+	text-align: left;
+}
+
+.price-cell .amount {
+	float: right;
+}
+
 .footer {
-	font-family: 'Alegreya Sans', Helvetica;
+	font-family: 'Noto Sans', Helvetica;
 	color: #fff;
 	margin-top: 20px;
 }
@@ -276,11 +379,12 @@ body
 
 .shop-info p {
 	padding: 10px 0;
-	font-size: 115%;
+	font-size: 105%;
 }
 
 .shop-nav li a, .shop-map p {
-	font-size: 115%;
+	font-size: 105%;
+	font-weight: 300;
 }
 
 .copyright-info {
