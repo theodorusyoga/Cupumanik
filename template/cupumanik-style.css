@@ -325,6 +325,29 @@ body
 	float: right;
 }
 
+#order-modal form {
+	font-family: 'Noto Sans', Helvetica !important;
+	font-weight: 400 !important;
+}
+
+#order-confirmation p,label,small {
+	font-family: 'Noto Sans', Helvetica !important;
+}
+
+#order-confirmation h2 {
+	text-align: center !important;
+	font-weight: 500 !important;
+	width: 100%;
+}
+
+#order-modal .form-control {
+	min-width: 100px !important;
+}
+
+#order-modal .order-list {
+	font-size: 105%;
+}
+
 .footer {
 	font-family: 'Noto Sans', Helvetica;
 	color: #fff;

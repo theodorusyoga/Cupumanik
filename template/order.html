@@ -26,36 +26,56 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+
 		$('#main-order-list').find('.order-item').each(function() {
 			$(this).find('.order-single-price').each(function() {
 				var singlePrice = Number($(this).text());
-				$(this).text(accounting.formatNumber(singlePrice, 2, '.', ','));
+				$(this).text(accounting.formatNumber(singlePrice,2,'.',','));
 			});
 			calculateItemPrice(this);
 		});
-		
+
 		var mainTable = $('#main-order-list');
-		calculateTotalPrice(mainTable);		
+		calculateTotalPrice(mainTable);
 
 		$('.order-qty').change(function() {
 			var parenttr = $(this).closest('.order-item');
 			calculateItemPrice(parenttr);
 			var mainTable = $('#main-order-list');
-			calculateTotalPrice(mainTable);	
+			calculateTotalPrice(mainTable);
+		});
+
+		$('#btn-order').on('click', function() {
+			$('#order-modal').modal('show');
+			$('#form-order').show();
+			$('#order-confirmation').hide();
+			$('#btn-submit').show();
+			$('#btn-ok').hide();
+			$('#final-order-list').find('.amount').each(function() {
+				var amount = Number($(this).text());
+				$(this).text(accounting.formatNumber(amount,2,'.',','));
+			});
+
+		});
+		
+
+		$('#btn-submit').on('click', function() {
+			$('.modal-header h4').text('Pemesanan Berhasil');
+			$('#form-order').hide();
+			$('#order-confirmation').show();
+			$('#btn-submit').hide();
+			$('#btn-ok').show();
 		});
 	});
-	
-	
-	function calculateItemPrice(itemtr)
-	{
+
+	function calculateItemPrice(itemtr) {
 		var singlePrice = accounting.unformat($(itemtr).find('.order-single-price').first().text(), ',');
 		var orderQty = Number($(itemtr).find('.order-qty').val());
 		var itemPrice = singlePrice * orderQty;
-		$(itemtr).find('.order-item-price').first().text(accounting.formatNumber(itemPrice, 2, '.', ','))
+		$(itemtr).find('.order-item-price').first().text(accounting.formatNumber(itemPrice, 2, '.', ','));
 	}
-	
-	function calculateTotalPrice(parentTable)
-	{
+
+	function calculateTotalPrice(parentTable) {
 		var totalPrice = 0;
 		$(parentTable).find('.order-item-price').each(function() {
 			var itemPrice = accounting.unformat($(this).text(), ',');
@@ -63,15 +83,14 @@
 		});
 		$(parentTable).find('.order-total-price').text(accounting.formatNumber(totalPrice, 2, '.', ','));
 	}
-	
 </script>
 </head>
 <body>
 	<div class="navbar navbar-default navbar-small navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-brand pull-left">
-				<a href="#home"> 
-					<img class="logo" src="../assets/logo-black.png" style="height: 40px" />
+				<a href="#home"> <img class="logo"
+					src="../assets/logo-black.png" style="height: 40px" />
 				</a>
 			</div>
 			<button type="button" class="navbar-toggle pull-right"
@@ -115,8 +134,8 @@
 					<td>Dasi Batik</td>
 					<td class="price-cell"><span class="currency">Rp</span><span
 						class="amount order-single-price">103000</span></td>
-					<td><input type="number" min="1" max="20"
-						step="1" value="3" class="order-qty form-control" /></td>
+					<td><input type="number" min="1" max="20" step="1" value="3"
+						class="order-qty form-control" /></td>
 					<td class="price-cell"><span class="currency">Rp</span><span
 						class="amount order-item-price"></span></td>
 				</tr>
@@ -125,8 +144,8 @@
 					<td>Jas Batik</td>
 					<td class="price-cell"><span class="currency">Rp</span><span
 						class="amount order-single-price">1820000</span></td>
-					<td><input type="number" min="1" max="20"
-						step="1" value="1" class="order-qty form-control" /></td>
+					<td><input type="number" min="1" max="20" step="1" value="1"
+						class="order-qty form-control" /></td>
 					<td class="price-cell"><span class="currency">Rp</span><span
 						class="amount order-item-price"></span></td>
 				</tr>
@@ -135,8 +154,8 @@
 					<td>Mini Skirt Batik</td>
 					<td class="price-cell"><span class="currency">Rp</span><span
 						class="amount order-single-price">275000</span></td>
-					<td><input type="number" min="1" max="20"
-						step="1" value="2" class="order-qty form-control" /></td>
+					<td><input type="number" min="1" max="20" step="1" value="2"
+						class="order-qty form-control" /></td>
 					<td class="price-cell"><span class="currency">Rp</span><span
 						class="amount order-item-price"></span></td>
 				</tr>
@@ -151,7 +170,7 @@
 			</tfoot>
 		</table>
 		<br />
-		<button role="submit" id="btn-order" data-toggle="modal" data-target="#order-modal" class="btn btn-info">Pesan</button>
+		<button role="submit" id="btn-order" class="btn btn-info">Pesan</button>
 		<br />
 		<p class="order-info">* Sebelum memesan, pastikan pesanan anda
 			sudah benar. Anda tidak bisa lagi mengubah pesanan anda setelah
@@ -169,7 +188,7 @@
 				</div>
 				<div class="modal-body">
 					<div id="form-order">
-						<table class="order-list table table-condensed table-striped">
+						<table id="final-order-list" class="order-list table table-condensed table-striped">
 							<colgroup>
 								<col class="col-xs-1" />
 								<col class="col-xs-3" />
@@ -187,30 +206,30 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr class="order-item">
 									<td class="number-cell">1</td>
 									<td>Dasi Batik</td>
 									<td class="price-cell"><span class="currency">Rp</span><span
 										class="amount">103000</span></td>
-									<td>3</td>
+									<td class="order-qty-text">3</td>
 									<td class="price-cell"><span class="currency">Rp</span><span
 										class="amount">309000</span></td>
 								</tr>
-								<tr>
+								<tr class="order-item">
 									<td class="number-cell">2</td>
 									<td>Jas Batik</td>
 									<td class="price-cell"><span class="currency">Rp</span><span
 										class="amount">1820000</span></td>
-									<td>1</td>
+									<td class="order-qty-text">1</td>
 									<td class="price-cell"><span class="currency">Rp</span><span
 										class="amount">1820000</span></td>
 								</tr>
-								<tr>
+								<tr class="order-item">
 									<td class="number-cell">3</td>
 									<td>Mini Skirt Batik</td>
 									<td class="price-cell"><span class="currency">Rp</span><span
 										class="amount">275000</span></td>
-									<td>2</td>
+									<td class="order-qty-text">2</td>
 									<td class="price-cell"><span class="currency">Rp</span><span
 										class="amount">550000</span></td>
 								</tr>
@@ -224,38 +243,77 @@
 								</tr>
 							</tfoot>
 						</table>
-						<hr/>
-						<h5 class="main-title">Isikan data diri anda</h5>
-						<form>
-							<div class="row">
-								<label class="col-sm-3 col-xs-12">Nama Lengkap <span class="important-mark">*</span></label>
-								<input type="text" class="col-sm-9 col-xs-12" name="customer-name" required />
+						<hr />
+						<h4 class="main-title">Isikan data diri anda</h4>
+						<form role="form">
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Nama Lengkap <span class="important-mark">*</span></label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-name" required>
+								</div>
 							</div>
-							<div class="row">
-								<label class="col-sm-3 col-xs-12">Alamat Pengiriman <span class="important-mark">*</span></label>
-								<input type="text" class="col-sm-9 col-xs-12" name="customer-address" required />
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Alamat Pengiriman <span class="important-mark">*</span> </label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-address" required>
+								</div>
 							</div>
-							<div class="row">
-								<label class="col-sm-3 col-xs-12">Nomor Telepon/HP</label>
-								<input type="text" class="col-sm-9 col-xs-12" name="customer-phone" />
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Nomor Telepon/HP</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-phone">
+								</div>
 							</div>
-							<div class="row">
-								<label class="col-sm-3 col-xs-12">Email <span class="important-mark">*</span></label>
-								<input type="text" class="col-sm-9 col-xs-12" name="customer-email" required />
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Email <span class="important-mark">*</span> </label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-email" required>
+								</div>
 							</div>
-							<div class="row">
-								<label class="col-sm-3 col-xs-12">Keterangan/Informasi Tambahan</label>
-								<textarea rows="4" class="col-sm-9 col-xs-12" id="customer-note"></textarea>
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Keterangan/Informasi Tambahan </label>
+								<div class="col-xs-9">
+									<textarea rows="4" class="form-control input-sm" id="customer-note"></textarea>
+								</div>
 							</div>
 						</form>
 					</div>
 					<div id="order-confirmation">
-						<h5 class="main-title"></h5>
+						<div class="order-summary">
+							<div class="row">
+								<label class="col-xs-5">Kode Pemesanan</label>
+								<label class="col-xs-1">:</label>
+								<label class="col-xs-6">82VCM7K91</label>
+							</div>
+							<div class="row">
+								<label class="col-xs-5">Nama Pemesan</label>
+								<label class="col-xs-1">:</label>
+								<label class="col-xs-6">Orang Ketiga</label>
+							</div>
+							<div class="row">
+								<label class="col-xs-5">Total Harga</label>
+								<label class="col-xs-1">:</label>
+								<label class="col-xs-6">Rp 2.679.000,00</label>
+							</div>
+							<div class="row">
+								<label class="col-xs-5">Alamat Pengiriman</label>
+								<label class="col-xs-1">:</label>
+								<label class="col-xs-6">Orang Ketiga</label>
+							</div>
+						</div>
+						<p>Detail pemesanan sudah dikirim ke email <strong>orangketiga@blablabla.com</strong></p>
+						<hr/>
+						<p>Harap segera melakukan transfer sejumlah:</p>
+						<h2 class="main-title">Rp 2.679.091,00 *</h2>
+						<p>Ke rekening <strong>111111111111111 (Cupumanik Batik)</strong> paling lambat 24 jam setelah pemesanan ini dilakukan. 
+						Jika dalam 24 jam pengiriman tidak dilakukan, pemensanan dianggap batal.</p>
+						<br/>
+						<small>* tambahan 2 angka sebagai kode pemesanan</small>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" id="btn-submit" class="btn btn-info" data-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+					<button id="btn-submit" class="btn btn-info">Proses Pemesanan</button>
+					<button id="btn-ok" class="btn btn-success">OK</button>
 				</div>
 			</div>
 
