@@ -1,2 +1,2 @@
 # Cupumanik
-E-commerce website for Cupumanik
+E-Commerce Framework made by Theo & Sonny.
