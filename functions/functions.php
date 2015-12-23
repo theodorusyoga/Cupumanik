@@ -104,7 +104,7 @@ function printProducts() {
 			$result .= '<td>' . $product->category . '</td>';
 			$result .= '<td>' . str_replace('+', '', money_format ( '%i', $product->price ))  . '</td>';
 			$result .= '<td>' . $product->stock . '</td>';
-			$result .= '<td><button type="button" class="btn">Detail</btn></td>';
+			$result .= "<td><button onclick=\"detailProduct(" . $product->id .")\" class=\"btn\">Ubah/Detail</btn></td>";
 			$result .= "<td><button onclick=\"removeProduct(" . $product->id . ",'" . $product->title . "')\" class=\"btn btn-danger removeprod\">X</btn></td>";
 			$result .= '</tr>';
 			$itemindex ++;

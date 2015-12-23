@@ -123,6 +123,14 @@ $(document)
 					}
 
 					$('#addproduct').click(function() {
+						$('#formdetails').trigger('reset');
+						$('#namaProdukTb').val('');
+						$('#deskripsiTb').val('');
+						$('#jumlahStokTb').val('');
+						$('#hargaSatuanTb').val('');
+						$('#uploadedimg').removeAttr('src');
+						$('#tempid').val(null);
+						$('#tambahProdukLabel').html('Tambah Produk');
 						$('#detailsbox').modal({
 							backdrop : 'static',
 							keyboard : false
@@ -136,7 +144,7 @@ $(document)
 										$('#imagewarning').hide();
 										var file = this.files[0];
 										var ext = file.type;
-										var exts = [ 'image/jpeg', 'image/jpg'];
+										var exts = [ 'image/jpeg', 'image/jpg' ];
 										if (exts.indexOf(ext) >= 0) {
 											var reader = new FileReader();
 											reader.onload = function(e) {
@@ -153,10 +161,10 @@ $(document)
 										}
 									});
 
-					$('#loginform').on('submit', function(e){
+					$('#loginform').on('submit', function(e) {
 						e.preventDefault();
 					});
-					
+
 					$('#formdetails')
 							.on(
 									'submit',
@@ -169,8 +177,23 @@ $(document)
 										$stock = $('#jumlahStokTb').val();
 										$price = $('#hargaSatuanTb').val();
 										var xmlhr = new XMLHttpRequest();
-										xmlhr.open('POST', $url
-												+ '/functions/addProduct.php',
+										
+										var data = new FormData(this);
+										$func = '';
+										if($('#tempid').val() == ''){
+											$func = $url + '/functions/addProduct.php';
+										}
+										else{
+											$func = $url + '/functions/updateProduct.php';
+											data.append('id', $('#tempid').val());
+										}
+										data.append('title', $namaproduk);
+										data.append('desc', $desc);
+										data.append('stock', $stock);
+										data.append('categoryid', $cat);
+										data.append('price', $price);
+										
+										xmlhr.open('POST', $func,
 												true);
 										xmlhr.onload = function(e) {
 											if (xmlhr.readyState == 4) {
@@ -180,8 +203,10 @@ $(document)
 														refreshProducts();
 														$('#detailsbox').modal(
 																'hide');
-														$('#detaildanger').hide();
+														$('#detaildanger')
+																.hide();
 													} else {
+														alert(xmlhr.responseText);
 														$('#detaildanger')
 																.show();
 														$('#detailwarning')
@@ -196,25 +221,63 @@ $(document)
 												}
 											}
 											$('#detailwait').hide();
-											
+
 										};
-										var data = new FormData(this);
-										data.append('title', $namaproduk);
-										data.append('desc', $desc);
-										data.append('stock', $stock);
-										data.append('categoryid', $cat);
-										data.append('price', $price);
+										
 										$('#detailwait').show();
 										xmlhr.send(data);
 										e.preventDefault();
 									});
-
-					/*
-					 * $('#tambahBtn').click( function() {
-					 * 
-					 * });
-					 */
+					
+					$('#productlink').click(function(){
+						refreshProducts();
+					});
+				
 				});
+
+function detailProduct(id) {
+	/* LOAD DETAILS */
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getProductById.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				var obj = JSON.parse(xmlhr.responseText);
+				$('select#selectCategory option')
+				   .each(function() { this.selected = (this.value == obj.catid); });
+				$('#formdetails').trigger('reset');
+				$('#namaProdukTb').val(obj.title);
+				$('#deskripsiTb').val(obj.description);
+				$('#jumlahStokTb').val(obj.stock);
+				$('#hargaSatuanTb').val(obj.price);
+				$('#uploadedimg').attr('src', '../../' + obj.imageurl);
+				$('#tempid').val(obj.id);
+				
+				/* LOAD MODAL */
+				$('#tambahProdukLabel').html('Ubah Produk: ' + obj.title);
+				$('#detailsbox').modal({
+					backdrop : 'static',
+					keyboard : false
+				});
+				$('#detailsbox').modal('show');
+				$('#warningcontainer').hide();
+
+			} else {
+				$('#warningcontainer')
+						.html(
+								'<strong>Terjadi kesalahan: </strong>Gagal membuka halaman detail!');
+				$('#warningcontainer').show();
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('id', id);
+	$('#warningcontainer')
+	.html(
+			'<strong>Membuka dialog detail... </strong><img src="../../assets/ajax-loader.gif" />');
+	$('#warningcontainer').show();
+	xmlhr.send(data);
+}
 
 function removeProduct(id, title) {
 	if (confirm('Yakin akan menghapus produk ' + title + ' ?')) {

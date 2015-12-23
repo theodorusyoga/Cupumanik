@@ -55,14 +55,15 @@ include ($path);
 		</div>
 	</div>
 	<div class="main-body">
-		<h2>Cupumanik Administrator</h2>
-		<br />
 		<div id="warningcontainer" class="alert alert-info"></div>
 		<div id="admin-content">
+			<h2>Cupumanik Administrator</h2>
+			<br />
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#products"
-					aria-controls="products" role="tab" data-toggle="tab">Daftar Produk</a></li>
+					aria-controls="products" role="tab" data-toggle="tab"
+					id="productlink">Daftar Produk</a></li>
 				<li role="presentation"><a href="#orders" aria-controls="orders"
 					role="tab" data-toggle="tab">Pemesanan</a></li>
 				<li role="presentation"><a href="#others" aria-controls="others"
@@ -153,7 +154,8 @@ include ($path);
 					</button>
 					<h4 class="modal-title" id="tambahProdukLabel">Tambah Produk</h4>
 				</div>
-					<form id="formdetails" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+				<form id="formdetails" class="form-horizontal" action=""
+					method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="row" id="detaildanger">
 							<div class="alert alert-danger">
@@ -167,6 +169,7 @@ include ($path);
 									src="../../assets/ajax-loader.gif" />
 							</div>
 						</div>
+						<input type="hidden" id="tempid" />
 						<div class="form-group">
 							<div class="col-md-4">Pilih Kategori</div>
 							<div class="col-md-8">
@@ -178,19 +181,21 @@ include ($path);
 						<div class="form-group">
 							<div class="col-md-4">Nama Produk</div>
 							<div class="col-md-8">
-								<input type="text" class="form-control" id="namaProdukTb" required />
+								<input type="text" class="form-control" id="namaProdukTb"
+									required />
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-4">Deskripsi</div>
 							<div class="col-md-8">
-								<textarea id="deskripsiTb" class="form-control" rows="4" ></textarea>
+								<textarea id="deskripsiTb" class="form-control" rows="4"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-4">Jumlah Stok</div>
 							<div class="col-md-8">
-								<input type="number" class="form-control" id="jumlahStokTb" required />
+								<input type="number" class="form-control" id="jumlahStokTb"
+									required />
 							</div>
 						</div>
 						<div class="form-group">
@@ -205,7 +210,8 @@ include ($path);
 						<div class="form-group">
 							<div class="col-md-4">Unggah Foto</div>
 							<div class="col-md-8">
-								<input type="file" name="file" class="form-control" id="uploadFile" required />
+								<input type="file" name="file" class="form-control"
+									id="uploadFile" />
 								<div class="alert alert-danger" id="imagewarning"></div>
 							</div>
 						</div>
@@ -219,7 +225,8 @@ include ($path);
 					<div class="modal-footer">
 						<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
 						<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-						<input type="submit" value="Simpan" id="tambahBtn" class="btn btn-primary"></input>
+						<input type="submit" value="Simpan" id="tambahBtn"
+							class="btn btn-primary"></input>
 					</div>
 				</form>
 			</div>
