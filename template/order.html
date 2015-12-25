@@ -34,6 +34,10 @@
 			});
 			calculateItemPrice(this);
 		});
+		$('#order-modal').modal({
+			backdrop : 'static',
+			keyboard : false
+		});
 
 		var mainTable = $('#main-order-list');
 		calculateTotalPrice(mainTable);

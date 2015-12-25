@@ -37,6 +37,10 @@ function getProducts() {
 	 */
 	return $res;
 }
+function printProductNotFound()
+{
+	return "<p class=\"alert-warning\">Produk tidak ditemukan</p>";
+}
 function getCategories() {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );

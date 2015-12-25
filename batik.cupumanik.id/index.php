@@ -5,13 +5,11 @@
 <title>Cupumanik</title>
 <link href='https://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
-<link
-	href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,300,500'
-	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Alegreya'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="cupumanik-style.css">
+<link rel="stylesheet" href="cupumanik-batik.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -37,39 +35,40 @@
 			$(this).find('.product-info').hide();
 			$(this).find('.product-info-small').show();
 		});
+		$('#banner-1').show();
+		$('#banner-2').hide();
+		$('#banner-3').hide();
+		sessionStorage.banner = 1;
+		var interval = window.setInterval(function() {
+			var index = Number(sessionStorage.banner);
+			var nextIndex = index < 3 ? (index + 1) : 1;
+			//alert(index);
+			$('#banner-' + index).fadeOut(500, function() {
+				$('#banner-' + nextIndex).fadeIn(500);
+			});
+			sessionStorage.banner = nextIndex;
+		}, 5000);
 	});
 </script>
 <?php
 $path = $_SERVER ['DOCUMENT_ROOT'] . '/Cupumanik';
-$path .= '/functions/functions.php';
-include ($path);
+$function = $path . '/functions/functions.php';
+$header = $path . '/batik.cupumanik.id/header.php';
+$footer = $path . '/batik.cupumanik.id/footer.php';
+include ($function);
+include ($header);
+include ($footer);
 ?>
 <script src="../javascript/index.js" type="text/javascript"></script>
 </head>
 <body>
-	<div class="navbar navbar-default navbar-small navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-brand pull-left">
-				<a href="#home"> <img class="logo" src="../assets/logo-black.png"
-					style="height: 40px" />
-				</a>
-			</div>
-			<button type="button" class="navbar-toggle pull-right"
-				data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<div class="navbar-collapse collapse pull-right">
-				<ul class="nav navbar-nav nav-menu">
-					<?php echo printCategories();?>
-					<li><a href="#shoppinglist">DAFTAR BELANJA <strong>(0)</strong></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<?php echo getBatikHeader(); ?>
 
 	<div id="home-banner">
-		<div id="home-content" class="row">
+		<div id="banner-1" class="banner-bg"></div>
+		<div id="banner-2" class="banner-bg"></div>
+		<div id="banner-3" class="banner-bg"></div>
+		<div id="home-content" class="main-body row">
 			<div id="banner-content" class="col-sm-5 col-xs-12">
 				<h3>BATIK EKSKLUSIF TERBAIK DI YOGYAKARTA</h3>
 				<br />
@@ -89,10 +88,13 @@ include ($path);
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-7 col-xs-0">&nbsp;</div>
+			<div id="banner-empty" class="col-sm-7 col-xs-0">
+				&nbsp;
+			</div>
 		</div>
 	</div>
-
+	
+	<div class="main-body">
 	<div id="new-product-list" class="product-list-container">
 		<h3 class="list-title">Produk Terbaru</h3>
 		<div class="product-list row">
@@ -208,90 +210,8 @@ include ($path);
 			</div>
 		</div>
 	</div>
-
-	<div class="footer">
-		<div class="container">
-			<div class="inner-container">
-				<div class="footer-info row">
-					<div class="shop-footer shop-info col-md-4 col-xs-12">
-						<img class="logo" src="../assets/logo-white.png"
-							style="height: 60px" />
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-							varius tellus orci, nec pharetra sapien aliquet sit amet. Nam
-							suscipit velit non condimentum sollicitudin. Nunc posuere ac est
-							nec accumsan. Class aptent taciti sociosqu ad litora torquent per
-							conubia nostra, per inceptos himenaeos.</p>
-						<ul>
-							<li>
-								<div class="row">
-									<div class="col-xs-2">
-										<i class="fa fa-phone fa-2x"></i>
-									</div>
-									<div class="col-xs-10">0888888888888888</div>
-								</div>
-							</li>
-							<li>
-								<div class="row">
-									<div class="col-xs-2">
-										<i class="fa fa-envelope fa-2x"></i>
-									</div>
-									<div class="col-xs-10">
-										<a href="mailto:info@cupumanik.co.id">info@cupumanik.co.id</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="row">
-									<div class="col-xs-2">
-										<i class="fa fa-facebook fa-2x"></i>
-									</div>
-									<div class="col-xs-10">
-										<a href="http://www.facebook.com/cupumanik">Cupumanik Batik</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="row">
-									<div class="col-xs-2">
-										<i class="fa fa-twitter fa-2x"></i>
-									</div>
-									<div class="col-xs-10">
-										<a href="http://www.twitter.com/cupumanikbatik">@cupumanikbatik</a>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="shop-footer shop-nav col-md-3 col-xs-12">
-						<h3>Kategori</h3>
-						<ul>
-							<li><a href="#BatikPria">Batik Pria</a></li>
-							<li><a href="#BatikWanita">Batik Wanita</a></li>
-						</ul>
-						<h3>Lihat Pula</h3>
-						<ul>
-							<li><a href="#CupumanikGuesthouse">Cupumanik Guest House</a></li>
-							<li><a href="#CupumanikFurniture">Cupumanik Furniture</a></li>
-						</ul>
-					</div>
-					<div class="shop-footer shop-map col-md-5 col-xs-12">
-						<iframe
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.285349342276!2d110.38723571437622!3d-7.7595316791016025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59af47e65003%3A0xdf8e8c7fb3dcee6e!2sCupumanik+Batik!5e0!3m2!1sen!2sid!4v1449979825410"
-							width="100%" height="350" frameborder="0" style="border: 0"
-							allowfullscreen></iframe>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="copyright-info">
-			<p>
-				Copyright &copy; 2015 <a
-					href="https://www.facebook.com/theodorus.yoga" target="_blank">T&S
-					Design and Program Team</a>
-			</p>
-			<p>This site uses Font Awesome by Dave Gandy - http://fontawesome.io
-			</p>
-		</div>
 	</div>
+
+	<?php echo getBatikFooter(); ?>
 </body>
 </html>

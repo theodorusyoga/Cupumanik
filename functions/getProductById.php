@@ -5,8 +5,8 @@ $dbname = 'cupumanik';
 $dbuser = 'theodorus';
 $dbpass = 'pass@word1';
 
-if (isset ( $_POST ['id'] )) {
-	$id = $_POST ['id'];
+function getProductById($id)
+{
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
 	if ($conn->connect_error) {
 		die ( "Connection failed " . $conn->connect_error );
@@ -16,7 +16,8 @@ if (isset ( $_POST ['id'] )) {
 			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname
 			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.id = ' . $id;
 	$result = $conn->query ( $query );
-	$strresult = '';
+	//$strresult = '';
+	$res = array();
 	if ($result->num_rows > 0) {
 		while ( $item = $result->fetch_assoc () ) {
 			$single = new stdClass ();
@@ -28,10 +29,13 @@ if (isset ( $_POST ['id'] )) {
 			$single->catid = $item ['categoryid'];
 			$single->price = $item ['price'];
 			$single->category = $item ['categoryname'];
-			echo json_encode ( $single );
-			return;
+			array_push($res, $single);
 		}
 	}
-	else echo '';
+	
+	if (count($res) > 0)
+		return $res[0];
+	else 
+		return null;
 }
 ?>
