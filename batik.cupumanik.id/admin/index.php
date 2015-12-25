@@ -3,6 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Cupumanik</title>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
 <link
@@ -72,10 +73,52 @@ include ($path);
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="products">
-					<div style="padding-top: 2%; padding-bottom: 6%;">
-						<button id="addproduct" class="btn pull-right btn-info">
-							<span class="glyphicon glyphicon-plus"></span>&nbsp;Tambah Produk
-						</button>
+					<div style="padding-top: 2%; padding-bottom: 0%;">
+						<div class="row" style="padding-bottom: 2% !IMPORTANT;">
+							<button id="addproduct" class="btn pull-right btn-success">
+								<span class="glyphicon glyphicon-plus"></span>&nbsp;Tambah
+								Produk
+							</button>
+						</div>
+						<div class="row" style="padding-bottom: 0% !IMPORTANT;">
+							<form id="filter">
+								<div class="form-group col-sm-5"
+									style="padding-right: 0px !IMPORTANT;">
+									<div class="input-group">
+										<div class="input-group-addon">Urutkan:</div>
+										<select id="sortParam" class="form-control">
+											<optgroup label="Abjad">
+												<option value="A-Z">A hingga Z</option> 
+												<option value="Z-A">Z hingga A</option> 
+											</optgroup>
+											<optgroup label="Harga">
+												<option value="tinggi-rendah">Tertinggi hingga terendah</option> 
+												<option value="rendah-tinggi">Terendah hingga tertinggi</option> 
+											</optgroup>
+											<optgroup label="Kategori Tersedia">
+												<?php echo printCategoriesAsDropdown(); ?>
+											</optgroup>
+											<optgroup label="Jumlah Stok">
+												<option value="banyak-sedikit">Terbanyak hingga tersedikit</option> 
+												<option value="sedikit-banyak">Tersedikit hingga terbanyak</option> 
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-sm-6"
+									style="padding-right: 0px !IMPORTANT;">
+									<div class="input-group">
+										<div class="input-group-addon">Cari Produk:</div>
+										<input type="text" class="form-control" id="cariTb"
+											placeholder="Masukkan kata kunci...">
+									</div>
+								</div>
+
+								<button type="submit" class="btn btn-info pull-right col-sm-1">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</form>
+						</div>
 					</div>
 					<div id="productstable">
 						<?php echo printProducts(); ?>

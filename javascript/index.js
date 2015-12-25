@@ -200,7 +200,7 @@ $(document)
 												if (xmlhr.status == 200) {
 													$res = xmlhr.responseText;
 													if ($res == true) {
-														refreshProducts();
+														refreshFilteredProducts();
 														$('#detailsbox').modal(
 																'hide');
 														$('#detaildanger')
@@ -231,6 +231,16 @@ $(document)
 					
 					$('#productlink').click(function(){
 						refreshProducts();
+					});
+					
+					$('#filter').on('submit', function(e){
+						e.preventDefault();
+						refreshFilteredProducts();
+						
+					});
+					
+					$('#sortParam').on('change', function(){
+						refreshFilteredProducts();
 					});
 				
 				});
@@ -320,6 +330,28 @@ function refreshProducts() {
 		}
 	};
 	var data = new FormData();
+	xmlhr.send(data);
+	$('#warningcontainer')
+			.html(
+					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
+}
+
+function refreshFilteredProducts() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getFilteredProducts.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$('#productstable').html(xmlhr.responseText);
+				$('#warningcontainer').hide();
+			} else {
+				alert(xmlhr.statusText);
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('title', $('#cariTb').val());
+	data.append('sort', $('#sortParam option:selected').val());
 	xmlhr.send(data);
 	$('#warningcontainer')
 			.html(

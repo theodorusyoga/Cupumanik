@@ -85,7 +85,7 @@ body
 }
 
 .main-body h1,h2,h3,p,a,table,button,strong,div,input,textarea{
-	font-family: 'Raleway', Serif !IMPORTANT;
+	font-family: 'Noto Sans', Helvetica !IMPORTANT;
 }
 
 #banner-content {

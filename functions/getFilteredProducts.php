@@ -3,16 +3,43 @@ $servername = 'localhost';
 $dbname = 'cupumanik';
 $dbuser = 'theodorus';
 $dbpass = 'pass@word1';
-function getProducts() {
+function getProductsFiltered($title, $sort) {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
 	if ($conn->connect_error) {
 		die ( "Connection failed " . $conn->connect_error );
 	}
-	$query = 'SELECT A.id as prodid, A.title as title,
+	$query = "SELECT A.id as prodid, A.title as title,
 			A.image as image, A.description as description, 
 			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname
-			FROM products A JOIN categories B ON B.id = A.categoryid';
+			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.title LIKE '%" . $title . "%'";
+	$orderby = '';
+	switch ($sort) {
+		case ('A-Z') :
+			$orderby = 'ORDER BY A.title';
+			break;
+		case ('Z-A') :
+			$orderby = 'ORDER BY A.title DESC';
+			break;
+		case ('tinggi-rendah') :
+			$orderby = 'ORDER BY A.price DESC';
+			break;
+		case ('rendah-tinggi') :
+			$orderby = 'ORDER BY A.price';
+			break;
+		case ('banyak-sedikit') :
+			$orderby = 'ORDER BY A.stock DESC';
+			break;
+		case ('sedikit-banyak') :
+			$orderby = 'ORDER BY A.stock';
+			break;
+		default:
+			$orderby = 'AND A.categoryid = ' . $sort;
+			break;
+	}
+	
+	$query .= ' ' . $orderby;
+	
 	$result = $conn->query ( $query );
 	$strresult = '';
 	if ($result->num_rows > 0) {
@@ -38,8 +65,11 @@ function getProducts() {
 	return $res;
 }
 
-$products = getProducts ();
-$result = '<table class="table table-hover">
+if(isset($_POST['title']) && isset($_POST['sort'])){
+	$title =  $_POST['title'];
+	$sort = $_POST['sort'];
+	$products = getProductsFiltered ($title, $sort);
+	$result = '<table class="table table-hover">
 							<tr>
 								<th>No.</th>
 								<th>&nbsp;</th>
@@ -49,27 +79,29 @@ $result = '<table class="table table-hover">
 								<th>Stok Tersedia</th>
 								<th colspan="2">&nbsp;</th>
 							</tr>';
-$itemindex = 1;
-if (count ( $products ) > 0) {
-	foreach ( $products as $product ) {
-		$result .= '<tr>';
-		$result .= '<td>' . $itemindex . '</td>';
-		$result .= '<td><img src="../../' . $product->imageurl . '" style="max-width: 100px;"/></td>';
-		$result .= '<td>' . $product->title . '</td>';
-		$result .= '<td>' . $product->category . '</td>';
-		$result .= '<td>' . str_replace ( '+', '', money_format ( '%i', $product->price ) ) . '</td>';
-		$result .= '<td>' . $product->stock . '</td>';
-		$result .= "<td><button onclick=\"detailProduct(" . $product->id .")\" class=\"btn\">Ubah/Detail</btn></td>";
-		$result .= "<td><button onclick=\"removeProduct(" . $product->id . ",'" . $product->title . "')\" class=\"btn btn-danger removeprod\">X</btn></td>";
-		$result .= '</tr>';
-		$itemindex ++;
+	$itemindex = 1;
+	if (count ( $products ) > 0) {
+		foreach ( $products as $product ) {
+			$result .= '<tr>';
+			$result .= '<td>' . $itemindex . '</td>';
+			$result .= '<td><img src="../../' . $product->imageurl . '" style="max-width: 100px;"/></td>';
+			$result .= '<td>' . $product->title . '</td>';
+			$result .= '<td>' . $product->category . '</td>';
+			$result .= '<td>' . str_replace ( '+', '', money_format ( '%i', $product->price ) ) . '</td>';
+			$result .= '<td>' . $product->stock . '</td>';
+			$result .= "<td><button onclick=\"detailProduct(" . $product->id . ")\" class=\"btn\">Ubah/Detail</btn></td>";
+			$result .= "<td><button onclick=\"removeProduct(" . $product->id . ",'" . $product->title . "')\" class=\"btn btn-danger removeprod\">X</btn></td>";
+			$result .= '</tr>';
+			$itemindex ++;
+		}
+	} else {
+		$result .= '<tr><td colspan="6"><p class="alert alert-warning">Tidak ada data produk</p></td></tr>';
 	}
-} else {
-	$result .= '<tr><td colspan="6"><p class="alert alert-warning">Tidak ada data produk</p></td></tr>';
+	$result .= '</table>';
+	echo $result;
+	return;
 }
-$result .= '</table>';
-echo $result;
-return;
+
 
 function money_format($format, $number) {
 	$regex = '/%((?:[\^!\-]|\+|\(|\=.)*)([0-9]+)?' . '(?:#([0-9]+))?(?:\.([0-9]+))?([in%])/';
@@ -85,22 +117,22 @@ function money_format($format, $number) {
 				'nogroup' => preg_match ( '/\^/', $fmatch [1] ) > 0,
 				'usesignal' => preg_match ( '/\+|\(/', $fmatch [1], $match ) ? $match [0] : '+',
 				'nosimbol' => preg_match ( '/\!/', $fmatch [1] ) > 0,
-				'isleft' => preg_match ( '/\-/', $fmatch [1] ) > 0
+				'isleft' => preg_match ( '/\-/', $fmatch [1] ) > 0 
 		);
 		$width = trim ( $fmatch [2] ) ? ( int ) $fmatch [2] : 0;
 		$left = trim ( $fmatch [3] ) ? ( int ) $fmatch [3] : 0;
 		$right = trim ( $fmatch [4] ) ? ( int ) $fmatch [4] : $locale ['int_frac_digits'];
 		$conversion = $fmatch [5];
-
+		
 		$positive = true;
 		if ($value < 0) {
 			$positive = false;
 			$value *= - 1;
 		}
 		$letter = $positive ? 'p' : 'n';
-
+		
 		$prefix = $suffix = $cprefix = $csuffix = $signal = '';
-
+		
 		$signal = $positive ? $locale ['positive_sign'] : $locale ['negative_sign'];
 		switch (true) {
 			case $locale ["{$letter}_sign_posn"] == 1 && $flags ['usesignal'] == '+' :
@@ -127,10 +159,10 @@ function money_format($format, $number) {
 			$currency = '';
 		}
 		$space = $locale ["{$letter}_sep_by_space"] ? ' ' : '';
-
+		
 		$value = number_format ( $value, $right, $locale ['mon_decimal_point'], $flags ['nogroup'] ? '' : $locale ['mon_thousands_sep'] );
 		$value = @explode ( $locale ['mon_decimal_point'], $value );
-
+		
 		$n = strlen ( $prefix ) + strlen ( $currency ) + strlen ( $value [0] );
 		if ($left > 0 && $left > $n) {
 			$value [0] = str_repeat ( $flags ['fillchar'], $left - $n ) . $value [0];
@@ -144,7 +176,7 @@ function money_format($format, $number) {
 		if ($width > 0) {
 			$value = str_pad ( $value, $width, $flags ['fillchar'], $flags ['isleft'] ? STR_PAD_RIGHT : STR_PAD_LEFT );
 		}
-
+		
 		$format = str_replace ( $fmatch [0], $value, $format );
 	}
 	return $format;
