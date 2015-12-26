@@ -37,8 +37,7 @@ function getProducts() {
 	 */
 	return $res;
 }
-function printProductNotFound()
-{
+function printProductNotFound() {
 	return "<p class=\"alert-warning\">Produk tidak ditemukan</p>";
 }
 function getCategories() {
@@ -106,15 +105,37 @@ function printProducts() {
 			$result .= '<td><img src="../../' . $product->imageurl . '" style="max-width: 100px;"/></td>';
 			$result .= '<td>' . $product->title . '</td>';
 			$result .= '<td>' . $product->category . '</td>';
-			$result .= '<td>' . str_replace('+', '', money_format ( '%i', $product->price ))  . '</td>';
+			$result .= '<td>' . str_replace ( '+', '', money_format ( '%i', $product->price ) ) . '</td>';
 			$result .= '<td>' . $product->stock . '</td>';
-			$result .= "<td><button onclick=\"detailProduct(" . $product->id .")\" class=\"btn\">Ubah/Detail</btn></td>";
+			$result .= "<td><button onclick=\"detailProduct(" . $product->id . ")\" class=\"btn\">Ubah/Detail</btn></td>";
 			$result .= "<td><button onclick=\"removeProduct(" . $product->id . ",'" . $product->title . "')\" class=\"btn btn-danger removeprod\">X</btn></td>";
 			$result .= '</tr>';
 			$itemindex ++;
 		}
 	} else {
 		$result .= '<tr><td colspan="5"><p class="alert alert-warning">Tidak ada data produk</p></td></tr>';
+	}
+	$result .= '</table>';
+	return $result;
+}
+function printCategoriesTable() {
+	$categories = getCategories ();
+	$result = '<table class="table table-hover">
+							<tr>
+								<th>No.</th>
+								<th>Nama Kategori</th>
+								<th colspan="2">&nbsp;</th>
+							</tr>';
+	$index = 1;
+	foreach ( $categories as $category ) {
+		$result .= '<tr>';
+		$result .= '<td>' . (string)$index .'</td>';
+		$result .= '<td id="catname_' . (string)$category->id .'">' . $category->categoryname .'</td>';
+		$result .= "<td><button onclick=\"changeCategory(" . (string)$category->id .")\" class=\"btn\">Ubah</button></td>";
+		$result .= "<td><button onclick=\"removeCategory(" . (string)$category->id .")\" 
+				class=\"btn btn-danger\">X</button></td>";
+		$result .= '</tr>';
+		$index ++;
 	}
 	$result .= '</table>';
 	return $result;

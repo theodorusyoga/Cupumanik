@@ -7,7 +7,6 @@ $(document)
 						backdrop : 'static',
 						keyboard : false
 					});
-
 					$('#alertdanger').hide();
 					$('#alertwarning').hide();
 					$('#detaildanger').hide();
@@ -19,6 +18,7 @@ $(document)
 					$('#warningcontainer').hide();
 					$('#admin-content').hide();
 					$('#imagewarning').hide();
+					$('#newcategorydiv').hide();
 					check();
 					$('#loginbtn').click(
 							function() {
@@ -177,24 +177,25 @@ $(document)
 										$stock = $('#jumlahStokTb').val();
 										$price = $('#hargaSatuanTb').val();
 										var xmlhr = new XMLHttpRequest();
-										
+
 										var data = new FormData(this);
 										$func = '';
-										if($('#tempid').val() == ''){
-											$func = $url + '/functions/addProduct.php';
-										}
-										else{
-											$func = $url + '/functions/updateProduct.php';
-											data.append('id', $('#tempid').val());
+										if ($('#tempid').val() == '') {
+											$func = $url
+													+ '/functions/addProduct.php';
+										} else {
+											$func = $url
+													+ '/functions/updateProduct.php';
+											data.append('id', $('#tempid')
+													.val());
 										}
 										data.append('title', $namaproduk);
 										data.append('desc', $desc);
 										data.append('stock', $stock);
 										data.append('categoryid', $cat);
 										data.append('price', $price);
-										
-										xmlhr.open('POST', $func,
-												true);
+
+										xmlhr.open('POST', $func, true);
 										xmlhr.onload = function(e) {
 											if (xmlhr.readyState == 4) {
 												if (xmlhr.status == 200) {
@@ -223,38 +224,85 @@ $(document)
 											$('#detailwait').hide();
 
 										};
-										
+
 										$('#detailwait').show();
 										xmlhr.send(data);
 										e.preventDefault();
 									});
-					
-					$('#productlink').click(function(){
+
+					$('#productlink').click(function() {
 						refreshProducts();
 					});
-					
-					$('#filter').on('submit', function(e){
+
+					$('#filter').on('submit', function(e) {
 						e.preventDefault();
 						refreshFilteredProducts();
-						
+
 					});
-					
-					$('#sortParam').on('change', function(){
+
+					$('#sortParam').on('change', function() {
 						refreshFilteredProducts();
 					});
-				
+
+					$('#addcategory').click(function() {
+						$('#newcategorydiv').fadeIn('fast');
+					});
+
+					$('#closeaddcat').click(function() {
+						$('#newcategorydiv').fadeOut('fast');
+					});
+
+					$('#addcatform').on('submit', function(e) {
+						addCategory();
+						e.preventDefault();
+					});
+
 				});
+
+function addCategory() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/addCategory.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				if (xmlhr.responseText == true) {
+					refreshCategories();
+					$('#newcategorydiv').fadeOut('fast');
+					$('#addcatform').trigger('reset');
+				} else {
+					$('#warningcontainer')
+							.html(
+									'<strong>Terjadi kesalahan: </strong>Gagal menyimpan kategori!');
+					$('#warningcontainer').show();
+				}
+			} else {
+				$('#warningcontainer')
+						.html(
+								'<strong>Terjadi kesalahan: </strong>Gagal menyimpan kategori!');
+				$('#warningcontainer').show();
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('catname', $('#newcategoryTb').val());
+	$('#warningcontainer')
+			.html(
+					'<strong>Menyimpan kategori... </strong><img src="../../assets/ajax-loader.gif" />');
+	$('#warningcontainer').show();
+	xmlhr.send(data);
+}
 
 function detailProduct(id) {
 	/* LOAD DETAILS */
 	var xmlhr = new XMLHttpRequest();
-	xmlhr.open('POST', $url + '/functions/getProductById.php', true);
+	xmlhr.open('POST', $url + '/functions/getProductByIdJson.php', true);
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
 				var obj = JSON.parse(xmlhr.responseText);
-				$('select#selectCategory option')
-				   .each(function() { this.selected = (this.value == obj.catid); });
+				$('select#selectCategory option').each(function() {
+					this.selected = (this.value == obj.catid);
+				});
 				$('#formdetails').trigger('reset');
 				$('#namaProdukTb').val(obj.title);
 				$('#deskripsiTb').val(obj.description);
@@ -262,7 +310,7 @@ function detailProduct(id) {
 				$('#hargaSatuanTb').val(obj.price);
 				$('#uploadedimg').attr('src', '../../' + obj.imageurl);
 				$('#tempid').val(obj.id);
-				
+
 				/* LOAD MODAL */
 				$('#tambahProdukLabel').html('Ubah Produk: ' + obj.title);
 				$('#detailsbox').modal({
@@ -283,8 +331,8 @@ function detailProduct(id) {
 	var data = new FormData();
 	data.append('id', id);
 	$('#warningcontainer')
-	.html(
-			'<strong>Membuka dialog detail... </strong><img src="../../assets/ajax-loader.gif" />');
+			.html(
+					'<strong>Membuka dialog detail... </strong><img src="../../assets/ajax-loader.gif" />');
 	$('#warningcontainer').show();
 	xmlhr.send(data);
 }
@@ -334,6 +382,26 @@ function refreshProducts() {
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
+}
+
+function refreshCategories() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getCategories.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$('#tablecat').html(xmlhr.responseText);
+				$('#warningcontainer').hide();
+			} else {
+				alert(xmlhr.statusText);
+			}
+		}
+	};
+	var data = new FormData();
+	xmlhr.send(data);
+	$('#warningcontainer')
+			.html(
+					'<strong>Memperbarui daftar kategori... </strong><img src="../../assets/ajax-loader.gif" />');
 }
 
 function refreshFilteredProducts() {

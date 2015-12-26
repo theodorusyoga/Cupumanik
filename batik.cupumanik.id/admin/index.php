@@ -3,7 +3,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Cupumanik</title>
-<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans'
+	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
 <link
@@ -13,6 +14,7 @@
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../../css/style.css">
 <link rel="stylesheet" href="../cupumanik-batik.css">
+<link rel="stylesheet" href="../cupumanik-style.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -88,19 +90,19 @@ include ($path);
 										<div class="input-group-addon">Urutkan:</div>
 										<select id="sortParam" class="form-control">
 											<optgroup label="Abjad">
-												<option value="A-Z">A hingga Z</option> 
-												<option value="Z-A">Z hingga A</option> 
+												<option value="A-Z">A hingga Z</option>
+												<option value="Z-A">Z hingga A</option>
 											</optgroup>
 											<optgroup label="Harga">
-												<option value="tinggi-rendah">Tertinggi hingga terendah</option> 
-												<option value="rendah-tinggi">Terendah hingga tertinggi</option> 
+												<option value="tinggi-rendah">Tertinggi hingga terendah</option>
+												<option value="rendah-tinggi">Terendah hingga tertinggi</option>
 											</optgroup>
 											<optgroup label="Kategori Tersedia">
 												<?php echo printCategoriesAsDropdown(); ?>
 											</optgroup>
 											<optgroup label="Jumlah Stok">
-												<option value="banyak-sedikit">Terbanyak hingga tersedikit</option> 
-												<option value="sedikit-banyak">Tersedikit hingga terbanyak</option> 
+												<option value="banyak-sedikit">Terbanyak hingga tersedikit</option>
+												<option value="sedikit-banyak">Tersedikit hingga terbanyak</option>
 											</optgroup>
 										</select>
 									</div>
@@ -125,7 +127,67 @@ include ($path);
 						</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="orders">Pemesanan</div>
-				<div role="tabpanel" class="tab-pane" id="others">Pengaturan</div>
+				<div role="tabpanel" class="tab-pane" id="others">
+					<div style="padding-top: 2%; padding-bottom: 0%;" class="col-sm-6">
+						<h3>Pengaturan Kategori</h3>
+						<div style="padding-bottom: 2%;">
+							<div class="row">
+								<div class="col-sm-12" style="padding-bottom: 2% !IMPORTANT;">
+									<button id="addcategory" class="btn btn-success">
+										<span class="glyphicon glyphicon-plus"></span>&nbsp;Tambah
+										Kategori
+									</button>
+								</div>
+							</div>
+							<div class="row" id="newcategorydiv"
+								style="padding-right: 1% !IMPORTANT">
+								<form id="addcatform" action="" method="post">
+									<div class="col-sm-6">
+										<input id="newcategoryTb" type="text"
+											placeholder="Masukkan kategori baru..." class="form-control" />
+									</div>
+									<div class="col-sm-3">
+										<button type="submit" class="btn btn-primary pull-left">
+											<span class="glyphicon glyphicon-floppy-save">&nbsp;</span>Simpan
+										</button>
+									</div>
+									<div class="col-sm-3">
+										<button type="button" class="btn btn-danger pull-left"
+											id="closeaddcat">
+											<span class="glyphicon glyphicon-remove"> &nbsp;</span>Tutup
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div id="tablecat">
+						<?php echo printCategoriesTable(); ?>
+						</div>
+					</div>
+					<div style="padding-top: 2%; padding-bottom: 0%;" class="col-sm-6">
+						<h3>Pengaturan Administrator</h3>
+						<div style="padding-bottom: 2%">
+							<button id="addproduct" class="btn btn-success">
+								<span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Simpan
+								Password Baru
+							</button>
+						</div>
+						<div>
+							<div class="row">
+								<div class="col-md-4">Password Lama:</div>
+								<div class="col-md-8">
+									<input type="password" class="form-control" id="passwordLamaTb" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Password Baru:</div>
+								<div class="col-md-8">
+									<input type="password" class="form-control" id="passwordBaruTb" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</div>
