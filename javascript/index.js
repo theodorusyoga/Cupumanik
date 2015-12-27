@@ -23,10 +23,10 @@ $(document)
 					
 					$('#mulaiTb').datepicker();
 					$('#mulaiTb').datepicker("option", "showAnim", "slideDown");
-					$('#mulaiTb').datepicker("option", "dateFormat", "d/m/yy");
+					$('#mulaiTb').datepicker("option", "dateFormat", "yy/m/d");
 					$('#akhirTb').datepicker();
 					$('#akhirTb').datepicker("option", "showAnim", "slideDown");
-					$('#akhirTb').datepicker("option", "dateFormat", "d/m/yy");
+					$('#akhirTb').datepicker("option", "dateFormat", "yy/m/d");
 					
 					/*EVENTS*/
 					
@@ -253,6 +253,18 @@ $(document)
 					$('#sortParam').on('change', function() {
 						refreshFilteredProducts();
 					});
+					
+					$('#sortOrderParam').on('change', function(){
+						refreshFilteredOrders();
+					});
+					
+					$('#mulaiTb').on('change', function(){
+						refreshFilteredOrders();
+					})
+					
+					$('#akhirTb').on('change', function(){
+						refreshFilteredOrders();
+					})
 
 					$('#addcategory').click(function() {
 						$('#newcategorydiv').fadeIn('fast');
@@ -507,4 +519,27 @@ function refreshFilteredProducts() {
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
+}
+
+function refreshFilteredOrders(){
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getOrders.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$('#orderstable').html(xmlhr.responseText);
+				$('#warningcontainer').hide();
+			} else {
+				alert(xmlhr.statusText);
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('sort', $('#sortOrderParam option:selected').val());
+	data.append('mulai', $('#mulaiTb').val());
+	data.append('akhir', $('#akhirTb').val());
+	xmlhr.send(data);
+	$('#warningcontainer')
+			.html(
+					'<strong>Memperbarui daftar pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
 }

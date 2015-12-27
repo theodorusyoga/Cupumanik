@@ -149,6 +149,10 @@ include ($path);
 												<option value="mahal-murah">Termahal hingga termurah</option>
 												<option value="murah-mahal">Termurah hingga Termahal</option>
 											</optgroup>
+												<optgroup label="Status Pemesanan">
+												<option value="sudah">Sudah diproses</option>
+												<option value="belum">Belum diproses</option>
+											</optgroup>
 										</select>
 									</div>
 								</div>
@@ -175,17 +179,7 @@ include ($path);
 						</div>
 					</div>
 					<div id="orderstable">
-						<table class="table table-hover">
-							<tr>
-								<th>No.</th>
-								<th>Nama Pemesan</th>
-								<th>Alamat</th>
-								<th>Email</th>
-								<th>Telepon</th>
-								<th>Tanggal Pemesanan</th>
-								<th colspan="2">&nbsp;</th>
-							</tr>
-						</table>
+						<?php echo printOrders(); ?>
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="others">

@@ -57,6 +57,68 @@ function getCategories() {
 	}
 	return $res;
 }
+function getOrders() {
+	$res = array ();
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT * FROM orders';
+	$result = $conn->query ( $query );
+	$strresult = '';
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['id'];
+			$single->custname = $item ['name'];
+			$single->address = $item ['address'];
+			$single->phone = $item ['phone'];
+			$single->email = $item ['email'];
+			$single->information = $item ['information'];
+			$single->date = ( string ) $item ['date'];
+			$single->isprocessed = ( boolean ) $item ['isprocessed'];
+			$details = getOrderDetails ( $single->id );
+			$amount = 0;
+			$totalprice = 0;
+			foreach ( $details as $detail ) {
+				$totalprice += (int)$detail->price * (int)$detail->amount;
+				$amount += (int) $detail->amount;
+			}
+			$single->orderedproducts = $amount;
+			$single->totalprice = $totalprice;
+			array_push ( $res, $single );
+		}
+	}
+	return $res;
+}
+
+function getOrderDetails($id) {
+	$res = array ();
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT a.id as id, a.productid as productid, a.amount as amount, a.associatedorder as associatedorder, 
+			b.title as productname, b.stock as stock, b.image as image, b.price as price 
+			FROM orderdetails a JOIN products b ON A.productid = b.id WHERE a.associatedorder = ' . $id;
+	$result = $conn->query ( $query );
+	$strresult = '';
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['id'];
+			$single->productid = $item ['productid'];
+			$single->amount = $item ['amount'];
+			$single->associatedorder = $item ['associatedorder'];
+			$single->productname = $item ['productname'];
+			$single->stock = $item ['stock'];
+			$single->image = $item ['image'];
+			$single->price = $item ['price'];
+			array_push ( $res, $single );
+		}
+	}
+	return $res;
+}
 function printCategories() {
 	$categories = getCategories ();
 	$result = '';
@@ -131,6 +193,46 @@ function printCategoriesTable() {
 		$result .= "<td id=\"buttoncat_" . ( string ) $category->id . "\"><button onclick=\"changeCategory(" . ( string ) $category->id . ")\" class=\"btn\">Ubah</button></td>";
 		$result .= "<td><button onclick=\"removeCategory(" . ( string ) $category->id . ")\"
 				class=\"btn btn-danger\">X</button></td>";
+		$result .= '</tr>';
+		$index ++;
+	}
+	$result .= '</table>';
+	return $result;
+}
+function printOrders() {
+	$orders = getOrders ();
+	$result = '<table class="table table-hover">
+							<tr>
+								<th>No.</th>
+								<th>Nama Pemesan</th>
+								<th>Alamat</th>
+								<th>Email</th>
+								<th>Telepon</th>
+								<th>Tanggal Pemesanan</th>
+								<th>Jumlah Barang</th>
+								<th>Total Harga</th>
+								<th colspan="3">&nbsp;</th>
+							</tr>';
+	$index = 1;
+	foreach ( $orders as $order ) {
+		$datearray = strtotime ( $order->date );
+		$date = date ( 'd F Y', $datearray );
+		$result .= '<tr>';
+		$result .= '<td>' . ( string ) $index . '</td>';
+		$result .= '<td>' . $order->custname . '</td>';
+		$result .= '<td>' . $order->address . '</td>';
+		$result .= '<td>' . $order->email . '</td>';
+		$result .= '<td>' . $order->phone . '</td>';
+		$result .= '<td>' . $date . '</td>';
+		$result .= '<td>' . $order->orderedproducts . '</td>';
+		$result .= '<td>' . money_format('%i', $order->totalprice)  . '</td>';
+		$result .= "<td><button type=\"button\" class=\"btn btn-primary\">Daftar Barang</button></td>";
+		if ($order->isprocessed === true) {
+			$result .= "<td><button type=\"button\" class=\"btn btn-primary\" disabled><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Sudah Selesai</button></td>";
+		} else {
+			$result .= "<td><button type=\"button\" onclick=\"detailOrder(" . ( string ) $order->id . ")\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Tandai Selesai</button></td>";
+		}
+		$result .= "<td><button onclick=\"removeOrder(" . ( string ) $order->id . ",'" . $order->custname . "')\" type=\"button\" class=\"btn btn-danger\">X</button></td>";
 		$result .= '</tr>';
 		$index ++;
 	}
