@@ -51,9 +51,9 @@
 		});
 	});
 
-	function placeorder(id, name, price) {
+	function placeorder(id, name, price, stock) {
 		var qty = Number($('input[id=selected-product-qty]').val());
-		var orderitem = addOrder(id, name, price, qty);
+		var orderitem = addOrder(id, name, price, stock, qty);
 		$('#order-item-count').text(orderitem);
 		canOrder(id);
 	}
@@ -128,7 +128,7 @@ include ($footer);
 					<div class="input-group">
 						<?php echo "<input type=\"number\" min=\"1\" max=\"".$singleproduct->stock."\" step=\"1\" value=\"1\" id=\"selected-product-qty\" class=\"order-qty form-control\" />" ?>
        					<div class="input-group-btn">
-           					<?php echo "<button id=\"button-order\" onclick=\"placeorder(".$singleproduct->id.",'".$singleproduct->title."',".$singleproduct->price.")\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-plus\"></span>Tambahkan ke daftar belanja</button>"; ?>
+           					<?php echo "<button id=\"button-order\" onclick=\"placeorder(".$singleproduct->id.",'".$singleproduct->title."',".$singleproduct->price.",".$singleproduct->stock.")\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-plus\"></span>Tambahkan ke daftar belanja</button>"; ?>
        					</div>
        				</div>
 				</div>
@@ -190,7 +190,6 @@ include ($footer);
 				</div>
 			</div>	
 		</div>
-	</div>
 	</div>
 			
 			<?php

@@ -1,8 +1,9 @@
-function addOrder(id, name, singleprice, qty) {
+function addOrder(id, name, singleprice, stock, qty) {
 	var order = {
 			id : id,
 			name : name,
 			singleprice : singleprice,
+			stock : stock,
 			qty : qty
 	}
 	
@@ -66,3 +67,13 @@ function getAllOrder() {
 	else
 		return null;
 };
+
+function getOrderCount() {
+	if (sessionStorage.orderList)
+	{
+		var orderArray = JSON.parse(sessionStorage.orderList);
+		return orderArray.length;
+	}
+	else
+		return 0;
+}

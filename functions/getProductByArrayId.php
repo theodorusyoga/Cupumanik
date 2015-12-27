@@ -1,19 +1,22 @@
 <?php
 include('/dbConnection.php');
 
-function getProductById($id)
+if (isset ( $_POST ['ids'] )) {
+$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+if ($conn->connect_error) {
+	die ( "Connection failed " . $conn->connect_error );
+}
+
+$ids = json_decode($_POST ['ids']);
+//$strresult = '';
+$res = array();
+foreach ($ids as $id)
 {
-	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
-	if ($conn->connect_error) {
-		die ( "Connection failed " . $conn->connect_error );
-	}
 	$query = 'SELECT A.id as prodid, A.title as title,
 			A.image as image, A.description as description,
 			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname
 			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.id = ' . $id;
 	$result = $conn->query ( $query );
-	//$strresult = '';
-	$res = array();
 	if ($result->num_rows > 0) {
 		while ( $item = $result->fetch_assoc () ) {
 			$single = new stdClass ();
@@ -28,15 +31,8 @@ function getProductById($id)
 			array_push($res, $single);
 		}
 	}
-	
-	if (count($res) > 0)
-		return $res[0];
-	else 
-		return null;
 }
-
-function getProductByArrayId($ids)
-{
-	
+echo json_encode($res);
+return;
 }
 ?>

@@ -1,6 +1,12 @@
 <?php
 function getBatikHeader() {
 	$header = "";
+	$header .= "<script type=\"text/javascript\">";
+	$header .= "$(document).ready(function() {";
+	$header .= "var orderitem = getOrderCount();";
+	$header .= "$('#order-item-count').text(orderitem);";
+	$header .= "});";
+	$header .= "</script>";
 	$header .= "<div class=\"navbar navbar-default navbar-small navbar-fixed-top\">";
 	$header .= "<div class=\"container\">";
 	$header .= "<div class=\"navbar-brand pull-left\">";
