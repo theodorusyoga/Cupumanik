@@ -1,9 +1,6 @@
 <?php
-$root = $_SERVER ['DOCUMENT_ROOT'] . "/Cupumanik";
-$servername = 'localhost';
-$dbname = 'cupumanik';
-$dbuser = 'theodorus';
-$dbpass = 'pass@word1';
+include('/dbConnection.php');
+
 function resize($images, $filename) {
 	$width = 500;
 	$size = getimagesize ( $images );

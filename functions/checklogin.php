@@ -1,9 +1,6 @@
 <?php
 session_start();
-$servername = 'localhost';
-$dbname = 'cupumanik';
-$dbuser = 'theodorus';
-$dbpass = 'pass@word1';
+include('/dbConnection.php');
 
 if (isset ( $_SESSION['user'] ) && isset ( $_SESSION ['pass'] )) {
 	$user = $_SESSION ['user'];

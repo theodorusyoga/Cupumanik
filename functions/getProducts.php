@@ -1,8 +1,5 @@
 <?php
-$servername = 'localhost';
-$dbname = 'cupumanik';
-$dbuser = 'theodorus';
-$dbpass = 'pass@word1';
+include('/dbConnection.php');
 function getProducts() {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );

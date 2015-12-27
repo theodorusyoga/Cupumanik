@@ -1,8 +1,5 @@
 <?php
-$servername = 'localhost';
-$dbname = 'cupumanik';
-$dbuser = 'theodorus';
-$dbpass = 'pass@word1';
+include ('/dbConnection.php');
 
 $categories = getCategories ();
 $result = '<table class="table table-hover">
@@ -14,10 +11,10 @@ $result = '<table class="table table-hover">
 $index = 1;
 foreach ( $categories as $category ) {
 	$result .= '<tr>';
-	$result .= '<td>' . (string)$index .'</td>';
-	$result .= '<td id="catname_' . (string)$category->id .'">' . $category->categoryname .'</td>';
-	$result .= "<td><button onclick=\"changeCategory(" . (string)$category->id .")\" class=\"btn\">Ubah</button></td>";
-	$result .= "<td><button onclick=\"removeCategory(" . (string)$category->id .")\"
+	$result .= '<td>' . ( string ) $index . '</td>';
+	$result .= '<td id="catname_' . ( string ) $category->id . '">' . $category->categoryname . '</td>';
+	$result .= "<td id=\"buttoncat_" . ( string ) $category->id . "\"><button onclick=\"changeCategory(" . ( string ) $category->id . ")\" class=\"btn\">Ubah</button></td>";
+	$result .= "<td><button onclick=\"removeCategory(" . ( string ) $category->id . ")\"
 				class=\"btn btn-danger\">X</button></td>";
 	$result .= '</tr>';
 	$index ++;
@@ -25,7 +22,6 @@ foreach ( $categories as $category ) {
 $result .= '</table>';
 echo $result;
 return;
-
 function getCategories() {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );

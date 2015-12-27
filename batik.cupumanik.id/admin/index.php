@@ -27,6 +27,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <?php
 $path = $_SERVER ['DOCUMENT_ROOT'] . '/Cupumanik';
 $path .= '/functions/functions.php';
@@ -126,7 +128,66 @@ include ($path);
 						<?php echo printProducts(); ?>
 						</div>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="orders">Pemesanan</div>
+				<div role="tabpanel" class="tab-pane" id="orders">
+					<div style="padding-top: 2%; padding-bottom: 0%;">
+						<div class="row" style="padding-bottom: 0% !IMPORTANT;">
+							<form id="filteroder">
+								<div class="form-group col-sm-3"
+									style="padding-right: 0px !IMPORTANT;">
+									<div class="input-group">
+										<div class="input-group-addon">Urutkan:</div>
+										<select id="sortOrderParam" class="form-control">
+											<optgroup label="Nama Pemesan">
+												<option value="A-Z">A hingga Z</option>
+												<option value="Z-A">Z hingga A</option>
+											</optgroup>
+											<optgroup label="Jumlah Barang Dipesan">
+												<option value="banyak-sedikit">Terbanyak hingga tersedikit</option>
+												<option value="sedikit-banyak">Tersedikit hingga terbanyak</option>
+											</optgroup>
+											<optgroup label="Total Harga Pemesanan">
+												<option value="mahal-murah">Termahal hingga termurah</option>
+												<option value="murah-mahal">Termurah hingga Termahal</option>
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-sm-4"
+									style="padding-right: 0px !IMPORTANT;">
+									<div class="input-group">
+										<div class="input-group-addon">Tanggal Mulai</div>
+										<input type="text" class="form-control" id="mulaiTb"
+											placeholder="Masukkan tanggal mulai...">
+									</div>
+								</div>
+								<div class="form-group col-sm-4"
+									style="padding-right: 0px !IMPORTANT;">
+									<div class="input-group">
+										<div class="input-group-addon">Tanggal Akhir</div>
+										<input type="text" class="form-control" id="akhirTb"
+											placeholder="Masukkan tanggal akhir...">
+									</div>
+								</div>
+								<button type="submit" class="btn btn-info pull-right col-sm-1">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</form>
+						</div>
+					</div>
+					<div id="orderstable">
+						<table class="table table-hover">
+							<tr>
+								<th>No.</th>
+								<th>Nama Pemesan</th>
+								<th>Alamat</th>
+								<th>Email</th>
+								<th>Telepon</th>
+								<th>Tanggal Pemesanan</th>
+								<th colspan="2">&nbsp;</th>
+							</tr>
+						</table>
+					</div>
+				</div>
 				<div role="tabpanel" class="tab-pane" id="others">
 					<div style="padding-top: 2%; padding-bottom: 0%;" class="col-sm-6">
 						<h3>Pengaturan Kategori</h3>

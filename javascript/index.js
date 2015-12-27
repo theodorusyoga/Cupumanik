@@ -20,6 +20,16 @@ $(document)
 					$('#imagewarning').hide();
 					$('#newcategorydiv').hide();
 					check();
+					
+					$('#mulaiTb').datepicker();
+					$('#mulaiTb').datepicker("option", "showAnim", "slideDown");
+					$('#mulaiTb').datepicker("option", "dateFormat", "d/m/yy");
+					$('#akhirTb').datepicker();
+					$('#akhirTb').datepicker("option", "showAnim", "slideDown");
+					$('#akhirTb').datepicker("option", "dateFormat", "d/m/yy");
+					
+					/*EVENTS*/
+					
 					$('#loginbtn').click(
 							function() {
 								$('#alertwait').show();
@@ -382,6 +392,79 @@ function refreshProducts() {
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
+}
+
+function changeCategory(id) {
+	$catname = $('#catname_' + id).html();
+	$textbox = '<input type="textbox" id="changecatTb" class="form-control" value="'
+			+ $catname + '"></input>';
+	$button = '<button onclick=\"updateCategory(' + id
+			+ ')\" class=\"btn\">Simpan</button>';
+	$('#catname_' + id).html('');
+	$('#buttoncat_' + id).html('');
+	$('#catname_' + id).html($textbox);
+	$('#buttoncat_' + id).html($button);
+}
+
+function updateCategory(id) {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/updateCategory.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				if (xmlhr.responseText == true) {
+					refreshCategories();
+					$('#warningcontainer').hide();
+				} else {
+					$('#warningcontainer')
+							.html(
+									'<strong>Terjadi kesalahan dalam memperbarui data kategori.</strong>');
+					$('#warningcontainer').show();
+				}
+
+			} else {
+				alert(xmlhr.statusText);
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('catid', id);
+	data.append('categoryname', $('#changecatTb').val());
+	xmlhr.send(data);
+	$('#warningcontainer')
+			.html(
+					'<strong>Mengubah data kategori... </strong><img src="../../assets/ajax-loader.gif" />');
+}
+
+function removeCategory(id) {
+	if (confirm('Apakah Anda yakin akan menghapus data kategori ini?')) {
+		var xmlhr = new XMLHttpRequest();
+		xmlhr.open('POST', $url + '/functions/removeCategory.php', true);
+		xmlhr.onload = function(e) {
+			if (xmlhr.readyState == 4) {
+				if (xmlhr.status == 200) {
+					if (xmlhr.responseText == true) {
+						refreshCategories();
+						$('#warningcontainer').hide();
+					} else {
+						$('#warningcontainer')
+								.html(
+										'<strong>Terjadi kesalahan dalam menghapus data kategori.</strong>Kategori tidak dapat dihapus jika masih ada produk di dalam kategori tersebut.');
+						$('#warningcontainer').show();
+					}
+
+				} else {
+					alert(xmlhr.statusText);
+				}
+			}
+		};
+		var data = new FormData();
+		data.append('catid', id);
+		xmlhr.send(data);
+		$('#warningcontainer')
+				.html(
+						'<strong>Menghapus data kategori... </strong><img src="../../assets/ajax-loader.gif" />');
+	}
 }
 
 function refreshCategories() {

@@ -1,8 +1,5 @@
 <?php
-$servername = 'localhost';
-$dbname = 'cupumanik';
-$dbuser = 'theodorus';
-$dbpass = 'pass@word1';
+include('/dbConnection.php');
 
 if (isset ( $_POST ['id'] )) {
 	$idint = ( int ) $_POST ['id'];

@@ -1,9 +1,5 @@
 <?php
-$root = $_SERVER ['DOCUMENT_ROOT'] . "/Cupumanik";
-$servername = 'localhost';
-$dbname = 'cupumanik';
-$dbuser = 'theodorus';
-$dbpass = 'pass@word1';
+include('/dbConnection.php');
 
 if (isset ( $_POST ['catname'] )) {
 	$categoryname = $_POST ['catname'];

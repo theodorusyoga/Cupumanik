@@ -1,9 +1,6 @@
 <?php
 session_start();
-$servername = 'localhost';
-$dbname = 'cupumanik';
-$dbuser = 'theodorus';
-$dbpass = 'pass@word1';
+include('/dbConnection.php');
 
 if (isset ( $_POST ['user'] ) && isset ( $_POST ['pass'] )) {
 	$user = $_POST ['user'];
