@@ -27,6 +27,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
+<script src="../../javascript/accounting.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <?php
@@ -149,7 +150,7 @@ include ($path);
 												<option value="mahal-murah">Termahal hingga termurah</option>
 												<option value="murah-mahal">Termurah hingga Termahal</option>
 											</optgroup>
-												<optgroup label="Status Pemesanan">
+											<optgroup label="Status Pemesanan">
 												<option value="sudah">Sudah diproses</option>
 												<option value="belum">Belum diproses</option>
 											</optgroup>
@@ -394,5 +395,121 @@ include ($path);
 	</div>
 
 	<!-- END DETAILS MODAL -->
+
+	<!-- ORDERS MODAL -->
+	<div id="orderdetailsbox" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="orderdetailstitle">Detail Pemesanan:</h4>
+				</div>
+				<form id="formdetails" class="form-horizontal" action=""
+					method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="row" id="orderdanger">
+							<div class="alert alert-danger">
+								<strong>Terjadi kesalahan: </strong>
+								<p id="orderwarning"></p>
+							</div>
+						</div>
+						<div class="row" id="orderwait">
+							<div class="alert alert-info">
+								<strong>Menunggu... </strong><img
+									src="../../assets/ajax-loader.gif" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Nama Pemesan</div>
+							<div class="col-md-8">
+								<label id="namaPemesanLabel">Nama</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Alamat</div>
+							<div class="col-md-8">
+								<label id="alamatLabel">Alamat</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Nomor Telepon</div>
+							<div class="col-md-8">
+								<label id="phoneLabel">Telepon</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Email</div>
+							<div class="col-md-8">
+								<label id="emailLabel">Email</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Informasi Lainnya</div>
+							<div class="col-md-8">
+								<label id="informasiLabel">Informasi</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Tanggal Pemesanan</div>
+							<div class="col-md-8">
+								<label id="tanggalLabel">Tanggal Pemesanan</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Status Pemesanan</div>
+							<div class="col-md-8">
+								<label id="statusLabel"><span class="glyphicon glyphicon-ok">&nbsp;</span>Sudah
+									Diproses</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4">Daftar Barang</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-12">
+								<table class="table table-hover">
+									<tr>
+										<th>No.</th>
+										<th>&nbsp;</th>
+										<th>Nama Produk</th>
+										<th>Harga Satuan</th>
+										<th>Jumlah</th>
+										<th>Harga Total</th>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>&nbsp;</td>
+										<td>Tes Produk</td>
+										<td>IDR 300.000</td>
+										<td>2</td>
+										<td>IDR 600.000</td>
+									</tr>
+									<tr>
+										<td colspan="5"><label class="pull-right">Total Pemesanan:</label>
+										</td>
+										<td>IDR 600.000</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
+						<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+						<button type="submit" id="tambahBtn" class="btn btn-primary">
+							<span class="glyphicon glyphicon-ok">&nbsp;</span>Tandai Sudah
+							Diproses
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- END ORDERS MODAL -->
 </body>
 </html>

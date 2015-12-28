@@ -62,13 +62,11 @@ function getOrdersSort($sort, $mulai, $akhir) {
 			$single->date = ( string ) $item ['date'];
 			$single->isprocessed = ( boolean ) $item ['isprocessed'];
 			$details = getOrderDetails ( $single->id );
-			$amount = 0;
 			$totalprice = 0;
 			foreach ( $details as $detail ) {
-				$totalprice += (int)$detail->price * (int)$detail->amount;
-				$amount += (int) $detail->amount;
+				$totalprice += ( int ) $detail->price * ( int ) $detail->amount;
 			}
-			$single->orderedproducts = $amount;
+			$single->orderedproducts = count ( $details );
 			$single->totalprice = $totalprice;
 			array_push ( $res, $single );
 		}
@@ -95,7 +93,7 @@ function sortByAmount($a, $b) {
 	return $a->orderedproducts - $b->orderedproducts;
 }
 function sortByAmountDesc($a, $b) {
-    return $b->orderedproducts - $a->orderedproducts;
+	return $b->orderedproducts - $a->orderedproducts;
 }
 function sortByPrice($a, $b) {
 	return $a->totalprice - $b->totalprice;
@@ -113,9 +111,8 @@ if (isset ( $_POST ['sort'] ) && isset ( $_POST ['mulai'] ) && isset ( $_POST ['
 							<tr>
 								<th>No.</th>
 								<th>Nama Pemesan</th>
-								<th>Alamat</th>
+								
 								<th>Email</th>
-								<th>Telepon</th>
 								<th>Tanggal Pemesanan</th>
 								<th>Jumlah Barang</th>
 								<th>Total Harga</th>
@@ -128,13 +125,12 @@ if (isset ( $_POST ['sort'] ) && isset ( $_POST ['mulai'] ) && isset ( $_POST ['
 		$result .= '<tr>';
 		$result .= '<td>' . ( string ) $index . '</td>';
 		$result .= '<td>' . $order->custname . '</td>';
-		$result .= '<td>' . $order->address . '</td>';
+		
 		$result .= '<td>' . $order->email . '</td>';
-		$result .= '<td>' . $order->phone . '</td>';
 		$result .= '<td>' . $date . '</td>';
 		$result .= '<td>' . $order->orderedproducts . '</td>';
 		$result .= '<td>' . money_format ( '%i', $order->totalprice ) . '</td>';
-		$result .= "<td><button type=\"button\" class=\"btn btn-primary\">Daftar Barang</button></td>";
+		$result .= "<td><button type=\"button\" class=\"btn btn-primary\" onclick=\"detailOrder(" . (string)$order->id . ")\">Detail</button></td>";
 		if ($order->isprocessed === true) {
 			$result .= "<td><button type=\"button\" class=\"btn btn-primary\" disabled><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Sudah Selesai</button></td>";
 		} else {

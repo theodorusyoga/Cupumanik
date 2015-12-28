@@ -7,10 +7,17 @@ $(document)
 						backdrop : 'static',
 						keyboard : false
 					});
+					$('#orderdetailsbox').modal({
+						backdrop : 'static',
+						keyboard : false
+					});
+					$('#orderdetailsbox').modal('hide');
 					$('#alertdanger').hide();
 					$('#alertwarning').hide();
 					$('#detaildanger').hide();
 					$('#detailwait').hide();
+					$('#orderdanger').hide();
+					$('#orderwait').hide();
 					$('#alertsuccess').hide();
 					$('#alertwait').hide();
 					$('#login').hide();
@@ -20,16 +27,16 @@ $(document)
 					$('#imagewarning').hide();
 					$('#newcategorydiv').hide();
 					check();
-					
+
 					$('#mulaiTb').datepicker();
 					$('#mulaiTb').datepicker("option", "showAnim", "slideDown");
 					$('#mulaiTb').datepicker("option", "dateFormat", "yy/m/d");
 					$('#akhirTb').datepicker();
 					$('#akhirTb').datepicker("option", "showAnim", "slideDown");
 					$('#akhirTb').datepicker("option", "dateFormat", "yy/m/d");
-					
-					/*EVENTS*/
-					
+
+					/* EVENTS */
+
 					$('#loginbtn').click(
 							function() {
 								$('#alertwait').show();
@@ -253,16 +260,16 @@ $(document)
 					$('#sortParam').on('change', function() {
 						refreshFilteredProducts();
 					});
-					
-					$('#sortOrderParam').on('change', function(){
+
+					$('#sortOrderParam').on('change', function() {
 						refreshFilteredOrders();
 					});
-					
-					$('#mulaiTb').on('change', function(){
+
+					$('#mulaiTb').on('change', function() {
 						refreshFilteredOrders();
 					})
-					
-					$('#akhirTb').on('change', function(){
+
+					$('#akhirTb').on('change', function() {
 						refreshFilteredOrders();
 					})
 
@@ -312,6 +319,10 @@ function addCategory() {
 					'<strong>Menyimpan kategori... </strong><img src="../../assets/ajax-loader.gif" />');
 	$('#warningcontainer').show();
 	xmlhr.send(data);
+}
+
+function detailOrder(id) {
+	$('#orderdetailsbox').modal('show');
 }
 
 function detailProduct(id) {
@@ -521,7 +532,7 @@ function refreshFilteredProducts() {
 					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
 }
 
-function refreshFilteredOrders(){
+function refreshFilteredOrders() {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/getOrders.php', true);
 	xmlhr.onload = function(e) {
