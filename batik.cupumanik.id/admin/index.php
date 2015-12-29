@@ -470,37 +470,14 @@ include ($path);
 							<div class="col-md-4">Daftar Barang</div>
 						</div>
 						<div class="form-group">
-							<div class="col-md-12">
-								<table class="table table-hover">
-									<tr>
-										<th>No.</th>
-										<th>&nbsp;</th>
-										<th>Nama Produk</th>
-										<th>Harga Satuan</th>
-										<th>Jumlah</th>
-										<th>Harga Total</th>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>&nbsp;</td>
-										<td>Tes Produk</td>
-										<td>IDR 300.000</td>
-										<td>2</td>
-										<td>IDR 600.000</td>
-									</tr>
-									<tr>
-										<td colspan="5"><label class="pull-right">Total Pemesanan:</label>
-										</td>
-										<td>IDR 600.000</td>
-									</tr>
-								</table>
+							<div class="col-md-12" id="productdetails">
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
 						<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-						<button type="submit" id="tambahBtn" class="btn btn-primary">
+						<button type="submit" id="tandaiBtn" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok">&nbsp;</span>Tandai Sudah
 							Diproses
 						</button>

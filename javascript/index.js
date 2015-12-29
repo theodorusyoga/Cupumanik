@@ -322,7 +322,93 @@ function addCategory() {
 }
 
 function detailOrder(id) {
-	$('#orderdetailsbox').modal('show');
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getOrderDetailById.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				var obj = JSON.parse(xmlhr.responseText);
+				/* LOAD DATA */
+				$('#namaPemesanLabel').text(obj.custname);
+				$('#alamatLabel').text(obj.address);
+				$('#phoneLabel').text(obj.phone);
+				$('#emailLabel').text(obj.email);
+				$('#informasiLabel').text(obj.information);
+				$('#tanggalLabel').text(obj.date);
+				if(obj.isprocessed === true){
+					$('#statusLabel').html('<span class="glyphicon glyphicon-ok">&nbsp;</span>Sudah Diproses');
+					$('#tandaiBtn').attr('disabled', 'true');
+					$('#tandaiBtn').html('Sudah Diproses');
+					$('#tandaiBtn').attr('class', 'btn btn-success');
+				}
+				else{
+					$('#statusLabel').html('Belum Diproses');
+					$('#tandaiBtn').removeAttr('disabled');
+					$('#tandaiBtn').html('<span class="glyphicon glyphicon-ok">&nbsp;</span>Tandai Sudah Diproses');
+					$('#tandaiBtn').attr('class', 'btn btn-primary');
+				}
+				
+				$productcols = '';
+				$productcols += '<table class="table table-hover">'
+									+ '<tr>'
+										+ '<th>No.</th>'
+										+ '<th>&nbsp;</th>'
+										+ '<th>Nama Produk</th>'
+										+ '<th>Harga Satuan</th>'
+										+ '<th>Jumlah</th>'
+										+ '<th>Harga Total</th>'
+									 + '</tr>';
+				
+				if(obj.products.length > 0){
+					$('#productdetails').html('');
+					$subtotal = 0;
+					for (var i = 0; i < obj.products.length; i++) {
+						$totalprice = 0;
+						$productcols += '<tr>';
+						$productcols += '<td>' + (i+1) + '</td>';
+						$productcols += '<td><img src="../../' + obj.products[i].imageurl + '" style="max-width: 100px;"></td>';
+						$productcols += '<td>' + obj.products[i].productname + '</td>';
+						$productcols += '<td>' + accounting.formatMoney(obj.products[i].price, 'IDR', '.', ',') + '</td>';
+						$productcols += '<td>' + obj.products[i].amount + '</td>';
+						$totalprice += obj.products[i].price * obj.products[i].amount;
+						$subtotal += $totalprice;
+						$productcols += '<td>' + accounting.formatMoney($totalprice, 'IDR', '.', ',') + '</td>';
+						$productcols += '</tr>';
+					}
+					$productcols += '<tr>';
+					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan:</label></td>';
+					$productcols += '<td>' + accounting.formatMoney($subtotal, 'IDR', '.', ',') +'</td>';
+					$productcols += '</tr>';
+				}
+				
+				$productcols += '</table>';
+				$('#productdetails').html($productcols);
+				
+				/* LOAD MODAL */
+				$('#orderdetailstitle').html(
+						'Detail Pemesanan oleh: ' + obj.custname);
+				$('#orderdetailsbox').modal({
+					backdrop : 'static',
+					keyboard : false
+				});
+				$('#orderdetailsbox').modal('show');
+				$('#warningcontainer').hide();
+
+			} else {
+				$('#warningcontainer')
+						.html(
+								'<strong>Terjadi kesalahan: </strong>Gagal membuka halaman detail!');
+				$('#warningcontainer').show();
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('id', id);
+	$('#warningcontainer')
+			.html(
+					'<strong>Membuka detail pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
+	$('#warningcontainer').show();
+	xmlhr.send(data);
 }
 
 function detailProduct(id) {
