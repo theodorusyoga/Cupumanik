@@ -335,55 +335,66 @@ function detailOrder(id) {
 				$('#emailLabel').text(obj.email);
 				$('#informasiLabel').text(obj.information);
 				$('#tanggalLabel').text(obj.date);
-				if(obj.isprocessed === true){
-					$('#statusLabel').html('<span class="glyphicon glyphicon-ok">&nbsp;</span>Sudah Diproses');
+				if (obj.isprocessed === true) {
+					$('#statusLabel')
+							.html(
+									'<span class="glyphicon glyphicon-ok">&nbsp;</span>Sudah Diproses');
 					$('#tandaiBtn').attr('disabled', 'true');
 					$('#tandaiBtn').html('Sudah Diproses');
 					$('#tandaiBtn').attr('class', 'btn btn-success');
-				}
-				else{
+				} else {
 					$('#statusLabel').html('Belum Diproses');
 					$('#tandaiBtn').removeAttr('disabled');
-					$('#tandaiBtn').html('<span class="glyphicon glyphicon-ok">&nbsp;</span>Tandai Sudah Diproses');
+					$('#tandaiBtn')
+							.html(
+									'<span class="glyphicon glyphicon-ok">&nbsp;</span>Tandai Sudah Diproses');
 					$('#tandaiBtn').attr('class', 'btn btn-primary');
+					$('#tandaiBtn').attr('onclick', 'markFinished(' + obj.id + ')');
 				}
-				
+
 				$productcols = '';
-				$productcols += '<table class="table table-hover">'
-									+ '<tr>'
-										+ '<th>No.</th>'
-										+ '<th>&nbsp;</th>'
-										+ '<th>Nama Produk</th>'
-										+ '<th>Harga Satuan</th>'
-										+ '<th>Jumlah</th>'
-										+ '<th>Harga Total</th>'
-									 + '</tr>';
-				
-				if(obj.products.length > 0){
+				$productcols += '<table class="table table-hover">' + '<tr>'
+						+ '<th>No.</th>' + '<th>&nbsp;</th>'
+						+ '<th>Nama Produk</th>' + '<th>Harga Satuan</th>'
+						+ '<th>Jumlah</th>' + '<th>Harga Total</th>' + '</tr>';
+
+				if (obj.products.length > 0) {
 					$('#productdetails').html('');
 					$subtotal = 0;
 					for (var i = 0; i < obj.products.length; i++) {
 						$totalprice = 0;
 						$productcols += '<tr>';
-						$productcols += '<td>' + (i+1) + '</td>';
-						$productcols += '<td><img src="../../' + obj.products[i].imageurl + '" style="max-width: 100px;"></td>';
-						$productcols += '<td>' + obj.products[i].productname + '</td>';
-						$productcols += '<td>' + accounting.formatMoney(obj.products[i].price, 'IDR', '.', ',') + '</td>';
-						$productcols += '<td>' + obj.products[i].amount + '</td>';
-						$totalprice += obj.products[i].price * obj.products[i].amount;
+						$productcols += '<td>' + (i + 1) + '</td>';
+						$productcols += '<td><img src="../../'
+								+ obj.products[i].imageurl
+								+ '" style="max-width: 100px;"></td>';
+						$productcols += '<td>' + obj.products[i].productname
+								+ '</td>';
+						$productcols += '<td>'
+								+ accounting.formatMoney(obj.products[i].price,
+										'IDR', '.', ',') + '</td>';
+						$productcols += '<td>' + obj.products[i].amount
+								+ '</td>';
+						$totalprice += obj.products[i].price
+								* obj.products[i].amount;
 						$subtotal += $totalprice;
-						$productcols += '<td>' + accounting.formatMoney($totalprice, 'IDR', '.', ',') + '</td>';
+						$productcols += '<td>'
+								+ accounting.formatMoney($totalprice, 'IDR',
+										'.', ',') + '</td>';
 						$productcols += '</tr>';
 					}
 					$productcols += '<tr>';
 					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan:</label></td>';
-					$productcols += '<td>' + accounting.formatMoney($subtotal, 'IDR', '.', ',') +'</td>';
+					$productcols += '<td>'
+							+ accounting
+									.formatMoney($subtotal, 'IDR', '.', ',')
+							+ '</td>';
 					$productcols += '</tr>';
 				}
-				
+
 				$productcols += '</table>';
 				$('#productdetails').html($productcols);
-				
+
 				/* LOAD MODAL */
 				$('#orderdetailstitle').html(
 						'Detail Pemesanan oleh: ' + obj.custname);
@@ -498,9 +509,44 @@ function refreshProducts() {
 	};
 	var data = new FormData();
 	xmlhr.send(data);
+	$('#warningcontainer').show();
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
+}
+
+function markFinished(id) {
+	if (confirm('Anda yakin pemesanan ini sudah diproses dan dilakukan?')) {
+		var xmlhr = new XMLHttpRequest();
+		xmlhr.open('POST', $url + '/functions/updateOrder.php', true);
+		xmlhr.onload = function(e) {
+			if (xmlhr.readyState == 4) {
+				if (xmlhr.status == 200) {
+					if (xmlhr.responseText == true) {
+						refreshFilteredOrders();
+						$('#warningcontainer').hide();
+						$('#orderdetailsbox').modal('hide');
+					} else {
+						$('#warningcontainer')
+								.html(
+										'<strong>Terjadi kesalahan dalam menandai pemesanan.</strong>');
+						$('#warningcontainer').show();
+					}
+
+				} else {
+					alert(xmlhr.statusText);
+				}
+			}
+		};
+		var data = new FormData();
+		data.append('orderid', id);
+		data.append('isprocessed', 1);
+		xmlhr.send(data);
+		$('#warningcontainer').show();
+		$('#warningcontainer')
+				.html(
+						'<strong>Menandai pemesanan sudah dilakukan... </strong><img src="../../assets/ajax-loader.gif" />');
+	}
 }
 
 function changeCategory(id) {
@@ -540,6 +586,7 @@ function updateCategory(id) {
 	data.append('catid', id);
 	data.append('categoryname', $('#changecatTb').val());
 	xmlhr.send(data);
+	$('#warningcontainer').show();
 	$('#warningcontainer')
 			.html(
 					'<strong>Mengubah data kategori... </strong><img src="../../assets/ajax-loader.gif" />');
@@ -570,9 +617,42 @@ function removeCategory(id) {
 		var data = new FormData();
 		data.append('catid', id);
 		xmlhr.send(data);
+		$('#warningcontainer').show();
 		$('#warningcontainer')
 				.html(
 						'<strong>Menghapus data kategori... </strong><img src="../../assets/ajax-loader.gif" />');
+	}
+}
+
+function removeOrder(id, custname){
+	if (confirm('Apakah Anda yakin akan menghapus pemesanan dari ' + custname +'? Seluruh daftar produk beserta jumlah pemesanan akan terhapus. Data yang terhapus TIDAK DAPAT dilihat kembali.')) {
+		var xmlhr = new XMLHttpRequest();
+		xmlhr.open('POST', $url + '/functions/removeOrder.php', true);
+		xmlhr.onload = function(e) {
+			if (xmlhr.readyState == 4) {
+				if (xmlhr.status == 200) {
+					if (xmlhr.responseText == true) {
+						refreshFilteredOrders();
+						$('#warningcontainer').hide();
+					} else {
+						$('#warningcontainer')
+								.html(
+										'<strong>Terjadi kesalahan dalam menghapus data kategori.</strong>Kategori tidak dapat dihapus jika masih ada produk di dalam kategori tersebut.');
+						$('#warningcontainer').show();
+					}
+
+				} else {
+					alert(xmlhr.statusText);
+				}
+			}
+		};
+		var data = new FormData();
+		data.append('id', id);
+		xmlhr.send(data);
+		$('#warningcontainer').show();
+		$('#warningcontainer')
+				.html(
+						'<strong>Menghapus data pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
 	}
 }
 
@@ -591,6 +671,7 @@ function refreshCategories() {
 	};
 	var data = new FormData();
 	xmlhr.send(data);
+	$('#warningcontainer').show();
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar kategori... </strong><img src="../../assets/ajax-loader.gif" />');
@@ -613,6 +694,7 @@ function refreshFilteredProducts() {
 	data.append('title', $('#cariTb').val());
 	data.append('sort', $('#sortParam option:selected').val());
 	xmlhr.send(data);
+	$('#warningcontainer').show();
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar produk... </strong><img src="../../assets/ajax-loader.gif" />');
@@ -636,6 +718,7 @@ function refreshFilteredOrders() {
 	data.append('mulai', $('#mulaiTb').val());
 	data.append('akhir', $('#akhirTb').val());
 	xmlhr.send(data);
+	$('#warningcontainer').show();
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');

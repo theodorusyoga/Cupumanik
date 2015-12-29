@@ -63,7 +63,7 @@ function getOrders() {
 	if ($conn->connect_error) {
 		die ( "Connection failed " . $conn->connect_error );
 	}
-	$query = 'SELECT * FROM orders';
+	$query = 'SELECT * FROM orders ORDER BY name';
 	$result = $conn->query ( $query );
 	$strresult = '';
 	if ($result->num_rows > 0) {
@@ -228,7 +228,7 @@ function printOrders() {
 		if ($order->isprocessed === true) {
 			$result .= "<td><button type=\"button\" class=\"btn btn-primary\" disabled><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Sudah Selesai</button></td>";
 		} else {
-			$result .= "<td><button type=\"button\" onclick=\"detailOrder(" . ( string ) $order->id . ")\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Tandai Selesai</button></td>";
+			$result .= "<td><button type=\"button\" onclick=\"markFinished(" . ( string ) $order->id . ")\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Tandai Selesai</button></td>";
 		}
 		$result .= "<td><button onclick=\"removeOrder(" . ( string ) $order->id . ",'" . $order->custname . "')\" type=\"button\" class=\"btn btn-danger\">X</button></td>";
 		$result .= '</tr>';

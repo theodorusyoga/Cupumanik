@@ -477,7 +477,7 @@ include ($path);
 					<div class="modal-footer">
 						<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
 						<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-						<button type="submit" id="tandaiBtn" class="btn btn-primary">
+						<button type="button" id="tandaiBtn" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok">&nbsp;</span>Tandai Sudah
 							Diproses
 						</button>

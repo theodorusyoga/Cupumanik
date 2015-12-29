@@ -132,9 +132,9 @@ if (isset ( $_POST ['sort'] ) && isset ( $_POST ['mulai'] ) && isset ( $_POST ['
 		$result .= '<td>' . money_format ( '%i', $order->totalprice ) . '</td>';
 		$result .= "<td><button type=\"button\" class=\"btn btn-primary\" onclick=\"detailOrder(" . (string)$order->id . ")\">Detail</button></td>";
 		if ($order->isprocessed === true) {
-			$result .= "<td><button type=\"button\" class=\"btn btn-primary\" disabled><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Sudah Selesai</button></td>";
+			$result .= "<td><button type=\"button\" class=\"btn btn-primary\" disabled><span class=\"glyphicon glyphicon-ok\" disabled>&nbsp;</span>Sudah Selesai</button></td>";
 		} else {
-			$result .= "<td><button type=\"button\" onclick=\"detailOrder(" . ( string ) $order->id . ")\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Tandai Selesai</button></td>";
+			$result .= "<td><button type=\"button\" onclick=\"markFinished(" . ( string ) $order->id . ")\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Tandai Selesai</button></td>";
 		}
 		$result .= "<td><button onclick=\"removeOrder(" . ( string ) $order->id . ",'" . $order->custname . "')\" type=\"button\" class=\"btn btn-danger\">X</button></td>";
 		$result .= '</tr>';
