@@ -274,6 +274,11 @@ body
 }
 
 .order-qty {
+	text-align: center;
+	margin: auto;
+}
+
+.order-qty-edit {
 	width: 100px !important;
 	height: 36px !important;
 	border-radius: none !important;
@@ -315,6 +320,7 @@ body
 
 .price-cell {
 	max-width: 150px;
+	width: auto;
 }
 
 .price-cell .currency {

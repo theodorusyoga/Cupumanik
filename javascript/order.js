@@ -31,34 +31,30 @@ function checkOrderExist(id) {
 	else return false;
 };
 
-function deleteOrder(id){
+function deleteOrder(index){
 	if (sessionStorage.orderList)
 	{
 		list = JSON.parse(sessionStorage.orderList);
-		var index = -1;
-		for (i = 0; i < list.length; i++)
-		{
-			if (list[i].id == id)
-				index = i;
-		}
-		if (index != -1)
-			list.splice(index,1);
+		list.splice(index,1);
 		sessionStorage.orderList = JSON.stringify(list);
-		return list.length;
+		return list;
 	}
-	else return 0;
+	else return null;
 };
 
-function updateOrderQty(id, qty) {
+function deleteAllOrder() {
+	if (sessionStorage.orderList)
+		sessionStorage.orderList = [];
+	return;
+}
+
+function updateOrderQty(index, qty) {
 	if (sessionStorage.orderList) {
 		var list = JSON.parse(sessionStorage.orderList);
-		for (i = 0; i < list.length; i++)
-		{
-			if (list[i].id == id)
-				list[i].qty = qty;
-		}
+		list[index].qty = qty;
 		sessionStorage.orderList = JSON.stringify(list);
 	}
+	return;
 };
 
 function getAllOrder() {

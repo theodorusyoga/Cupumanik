@@ -10,7 +10,7 @@
 <link href='https://fonts.googleapis.com/css?family=Alegreya'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="cupumanik-style.css">
+<link rel="stylesheet" href="cupumanik-batik.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -32,23 +32,7 @@
 		if (orderList) {
 			if (orderList.length > 0) {
 				printOrderTable('#order-body', orderList, true);
-				$('#main-order-list').find('.order-item').each(function() {
-					$(this).find('.order-single-price').each(function() {
-						var singlePrice = Number($(this).text());
-						$(this).text(accounting.formatNumber(singlePrice,2,'.',','));
-					});
-					calculateItemPrice(this);
-				});
-
-				var mainTable = $('#main-order-list');
-				calculateTotalPrice(mainTable);
-
-				$('.order-qty').change(function() {
-					var parenttr = $(this).closest('.order-item');
-					calculateItemPrice(parenttr);
-					var mainTable = $('#main-order-list');
-					calculateTotalPrice(mainTable);
-				});
+				events();
 			}
 			else {
 				printNoOrder();
@@ -57,44 +41,120 @@
 		else {
 			printNoOrder();
 		}
+	});
 
+	function events()
+	{
+
+		$('.order-qty-edit').change(function() {
+			var parenttr = $(this).closest('.order-item');
+			var index = Number(parenttr.find('.number-cell').first().text());
+			var qty = Number($(this).val());
+			updateOrderQty((index-1), qty);
+			calculateItemPrice(parenttr);
+			calculateTotalPrice('#order-body');
+		});
+		$('.btn-delete-order').click(function() {
+			var parenttr = $(this).closest('.order-item');
+			var index = Number(parenttr.find('.number-cell').first().text());
+			var name = parenttr.find('.order-name').first().text();
+			var c = confirm("Anda yakin ingin menghapus pesanan " + name.toString() + "?");
+			if (c) {
+				var newOrder = deleteOrder((index-1));
+				if (newOrder) {
+					if (newOrder.length > 0) {
+						printOrderTable('#order-body', newOrder, true);
+						events();
+					}
+					else {
+						printNoOrder();
+					}
+					$('#order-item-count').text(newOrder.length);
+				}
+				else {
+					printNoOrder();
+					$('#order-item-count').text(0);
+				}
+			}
+		});
 		$('#btn-order').on('click', function() {
-
 			$('#order-modal').modal({
 				backdrop : 'static',
 				keyboard : false
 			});
-			$('#form-order').show();
 			$('#order-confirmation').hide();
-			$('#btn-submit').show();
 			$('#btn-ok').hide();
-			$('#final-order-list').find('.amount').each(function() {
-				var amount = Number($(this).text());
-				$(this).text(accounting.formatNumber(amount,2,'.',','));
-			});
+			var orderList = getAllOrder();
+			if (orderList) {
+				if (orderList.length > 0) {
+					printOrderTable('#order-final', orderList, false);
+					$('#form-order').show();
+					$('#btn-submit').show();
+					$('input[name=customer-name]').val(null);
+					$('input[name=customer-address]').val(null);
+					$('input[name=customer-phone]').val(null);
+					$('input[name=customer-email]').val(null);
+					$('#customer-note').val(null);
+					$('#alert-name-empty').addClass('hide');
+					$('#alert-address-empty').addClass('hide');
+					$('#alert-email-empty').addClass('hide');
+				}
+			}
 		});
-		
-
 		$('#btn-submit').on('click', function() {
-			$('.modal-header h4').text('Pemesanan Berhasil');
-			$('#form-order').hide();
-			$('#order-confirmation').show();
-			$('#btn-submit').hide();
-			$('#btn-ok').show();
+			var allFilled = true;
+			var customerName = $('input[name=customer-name]').val();
+			if (!customerName) {
+			      $('#alert-name-empty').removeClass('hide');
+			      allFilled = false;
+			}
+			else $('#alert-name-empty').addClass('hide');
+			var customerAddress = $('input[name=customer-address]').val();
+			if (!customerAddress) {
+			      $('#alert-address-empty').removeClass('hide');
+			      allFilled = false;
+			}
+			else $('#alert-address-empty').addClass('hide');
+			var customerPhone = $('input[name=customer-phone]').val();
+			var customerEmail = $('input[name=customer-email]').val();
+			if (!customerEmail) {
+			      $('#alert-email-empty').removeClass('hide');
+			      allFilled = false;
+			}
+			else $('#alert-email-empty').addClass('hide');
+			var customerNote = $('#customer-note').val()
+			var customerPrice = $('#order-final').find('.order-total-price').first().text();
+			if (allFilled) {
+				var price = accounting.unformat(customerPrice, ',');
+				var d = new Date();
+				var code = d.getSeconds();
+				$('.modal-header h4').text('Pemesanan Berhasil');
+				$('#form-order').hide();
+				$('#order-confirmation').show();
+				$('#customer-name-success').text(customerName);
+				$('#customer-address-success').text(customerAddress);
+				$('#customer-price-success').text(accounting.formatMoney(price, "Rp ", 2, '.', ','));
+				$('#customer-email-success').text(customerEmail);
+				$('#price-with-code').text(accounting.formatMoney(price + code, "Rp ", 2, '.', ',') + ' *');
+				$('#btn-submit').hide();
+				$('#btn-ok').show();
+				deleteAllOrder();
+			}
 		});
-
-		
-		
-	});
+		$('.btn-ok').click(function() {
+			window.location.href = '/batik.cupumanik.id/order.php';
+		});
+	}
 
 	function printNoOrder() {
 		$('#order-body').html('');
-		$('#order-body').html('<p class="alert-warning">Tidak ada pesanan</p>');
+		$('#order-body').html('<p class="alert alert-warning">Tidak ada pesanan</p>');
 	}
 
 	function calculateItemPrice(itemtr) {
 		var singlePrice = accounting.unformat($(itemtr).find('.order-single-price').first().text(), ',');
-		var orderQty = Number($(itemtr).find('.order-qty').val());
+		var orderQtyElement = $(itemtr).find('.order-qty').first();
+		var orderQty = Number( orderQtyElement.hasClass('order-qty-edit') ? orderQtyElement.val() : orderQtyElement.text() ) ;
 		var itemPrice = singlePrice * orderQty;
 		$(itemtr).find('.order-item-price').first().text(accounting.formatNumber(itemPrice, 2, '.', ','));
 	}
@@ -113,14 +173,18 @@
 		var table = '';
 		table += '<table id="' + (canEditQty ? 'main-order-list' : 'final-order-list') + '" class="order-list table table-condensed table-striped">';
 		table += '<colgroup>';
+		if (canEditQty)
+			table += '<col class="col-xs-1" />';
 		table += '<col class="col-xs-1" />';
-		table += '<col class="col-xs-' + (canEditQty ? 5 : 3) + '" />';
+		table += '<col class="col-xs-' + (canEditQty ? 4 : 3) + '" />';
 		table += '<col class="col-xs-' + (canEditQty ? 2 : 3) + '" />';
 		table += '<col class="col-xs-2" />';
 		table += '<col class="col-xs-' + (canEditQty ? 2 : 3) + '" />';
 		table += '</colgroup>';
 		table += '<thead>';
 		table += '<tr>';
+		if (canEditQty)
+			table += '<th style="width: 50px !important;"></th>';
 		table += '<th>No.</th>';
 		table += '<th>Nama Barang</th>';
 		table += '<th>Satuan</th>';
@@ -133,12 +197,14 @@
 		for (i=0; i< orderList.length; i++) {
 			
 			table += '<tr class="order-item">';
+			if (canEditQty)
+				table += '<td style="width: 50px !important;"><button class="btn btn-danger btn-sm btn-delete-order"><span class="glyphicon glyphicon-remove"></span></button></td>';
 			table += '<td class="number-cell">' + (i + 1).toString() + '</td>';
-			table += '<td>' + orderList[i].name + '</td>';
+			table += '<td><span class="order-id" style="display: none;">' + orderList[i].id + '</span><span class="order-name">' + orderList[i].name + '</span></td>';
 			table += '<td class="price-cell">';
-			table += '<span class="currency">Rp</span><span class="amount order-single-price">' + orderList[i].singleprice + '</span>';
+			table += '<span class="currency">Rp</span><span class="amount order-single-price">' + accounting.formatNumber(orderList[i].singleprice,2,'.',',') + '</span>';
 			table += '</td>';
-			table += '<td>' + (canEditQty ? '<input type="number" min="1" max="' + orderList[i].stock + '" step="1" value="' + orderList[i].qty + '" class="order-qty form-control" />' : '<td class="order-qty-text">' + orderList[i].qty + '</td>') + '</td>';
+			table += '<td>' + (canEditQty ? '<input type="number" min="1" max="' + orderList[i].stock + '" step="1" value="' + orderList[i].qty + '" class="order-qty order-qty-edit form-control" />' : '<span class="order-qty">' + orderList[i].qty + '</span>') + '</td>';
 			table += '<td class="price-cell">';
 			table += '<span class="currency">Rp</span><span class="amount order-item-price"></span>';
 			table += '</td>';
@@ -149,7 +215,7 @@
 		table += '<tfoot>';
 		table += '<tr>';
 		table += '<th>&nbsp;</th>';
-		table += '<th colspan="3">Total</th>';
+		table += '<th colspan="' + (canEditQty ? 4 : 3) + '">Total</th>';
 		table += '<th class="price-cell"><span class="currency">Rp</span>';
 		table += '<span class="amount order-total-price">2679000</span></th>';
 		table += '</tr>';
@@ -166,7 +232,10 @@
 
 		$(parent).html('');
 		$(parent).html(table);
-		
+		$(parent).find('.order-item').each(function() {
+			calculateItemPrice(this);
+		});
+		calculateTotalPrice(parent);
 	}
 </script>
 <?php
@@ -204,61 +273,8 @@ include ($footer);
 				</div>
 				<div class="modal-body">
 					<div id="form-order">
-						<table id="final-order-list" class="order-list table table-condensed table-striped">
-							<colgroup>
-								<col class="col-xs-1" />
-								<col class="col-xs-3" />
-								<col class="col-xs-3" />
-								<col class="col-xs-2" />
-								<col class="col-xs-3" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th>No.</th>
-									<th>Nama Barang</th>
-									<th>Satuan</th>
-									<th>Jumlah</th>
-									<th>Harga</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="order-item">
-									<td class="number-cell">1</td>
-									<td>Dasi Batik</td>
-									<td class="price-cell"><span class="currency">Rp</span><span
-										class="amount">103000</span></td>
-									<td class="order-qty-text">3</td>
-									<td class="price-cell"><span class="currency">Rp</span><span
-										class="amount">309000</span></td>
-								</tr>
-								<tr class="order-item">
-									<td class="number-cell">2</td>
-									<td>Jas Batik</td>
-									<td class="price-cell"><span class="currency">Rp</span><span
-										class="amount">1820000</span></td>
-									<td class="order-qty-text">1</td>
-									<td class="price-cell"><span class="currency">Rp</span><span
-										class="amount">1820000</span></td>
-								</tr>
-								<tr class="order-item">
-									<td class="number-cell">3</td>
-									<td>Mini Skirt Batik</td>
-									<td class="price-cell"><span class="currency">Rp</span><span
-										class="amount">275000</span></td>
-									<td class="order-qty-text">2</td>
-									<td class="price-cell"><span class="currency">Rp</span><span
-										class="amount">550000</span></td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<th>&nbsp;</th>
-									<th colspan="3">Total</th>
-									<th class="price-cell"><span class="currency">Rp</span><span
-										class="amount">2679000</span></th>
-								</tr>
-							</tfoot>
-						</table>
+						<div id="order-final">
+						</div>
 						<hr />
 						<h4 class="main-title">Isikan data diri anda</h4>
 						<form role="form">
@@ -266,12 +282,14 @@ include ($footer);
 								<label class="control-label col-xs-3">Nama Lengkap <span class="important-mark">*</span></label>
 								<div class="col-xs-9">
 									<input type="text" class="form-control input-sm" name="customer-name" required>
+									<p id="alert-name-empty" class="text-danger bg-danger hide">Nama wajib diisi!</p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="control-label col-xs-3">Alamat Pengiriman <span class="important-mark">*</span> </label>
 								<div class="col-xs-9">
 									<input type="text" class="form-control input-sm" name="customer-address" required>
+									<p id="alert-address-empty" class="text-danger bg-danger hide">Alamat wajib diisi!</p>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -284,6 +302,7 @@ include ($footer);
 								<label class="control-label col-xs-3">Email <span class="important-mark">*</span> </label>
 								<div class="col-xs-9">
 									<input type="text" class="form-control input-sm" name="customer-email" required>
+									<p id="alert-email-empty" class="text-danger bg-danger hide">Email wajib diisi!</p>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -304,23 +323,23 @@ include ($footer);
 							<div class="row">
 								<label class="col-xs-5">Nama Pemesan</label>
 								<label class="col-xs-1">:</label>
-								<label class="col-xs-6">Orang Ketiga</label>
+								<label id="customer-name-success" class="col-xs-6">Orang Ketiga</label>
 							</div>
 							<div class="row">
 								<label class="col-xs-5">Total Harga</label>
 								<label class="col-xs-1">:</label>
-								<label class="col-xs-6">Rp 2.679.000,00</label>
+								<label id="customer-price-success" class="col-xs-6">Rp 2.679.000,00</label>
 							</div>
 							<div class="row">
 								<label class="col-xs-5">Alamat Pengiriman</label>
 								<label class="col-xs-1">:</label>
-								<label class="col-xs-6">Orang Ketiga</label>
+								<label id="customer-address-success" class="col-xs-6">Orang Ketiga</label>
 							</div>
 						</div>
-						<p>Detail pemesanan sudah dikirim ke email <strong>orangketiga@blablabla.com</strong></p>
+						<p>Detail pemesanan sudah dikirim ke email <strong id="customer-email-success">orangketiga@blablabla.com</strong></p>
 						<hr/>
 						<p>Harap segera melakukan transfer sejumlah:</p>
-						<h2 class="main-title">Rp 2.679.091,00 *</h2>
+						<h2 id="price-with-code" class="main-title">Rp 2.679.091,00 *</h2>
 						<p>Ke rekening <strong>111111111111111 (Cupumanik Batik)</strong> paling lambat 24 jam setelah pemesanan ini dilakukan. 
 						Jika dalam 24 jam pengiriman tidak dilakukan, pemensanan dianggap batal.</p>
 						<br/>

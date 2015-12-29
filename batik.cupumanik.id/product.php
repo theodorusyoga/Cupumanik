@@ -62,6 +62,8 @@
 	{
 		var orderexist = checkOrderExist(id);
 		$('#button-order').attr('disabled', orderexist);
+		if (orderexist)
+			$('.alert-info').removeClass('hide');
 	}
 	
 </script>
@@ -126,12 +128,14 @@ include ($footer);
 				<h3 class="list-title">Pesan:</h3>
 				<div id="order-box">
 					<div class="input-group">
-						<?php echo "<input type=\"number\" min=\"1\" max=\"".$singleproduct->stock."\" step=\"1\" value=\"1\" id=\"selected-product-qty\" class=\"order-qty form-control\" />" ?>
+						<?php echo "<input type=\"number\" min=\"1\" max=\"".$singleproduct->stock."\" step=\"1\" value=\"1\" id=\"selected-product-qty\" class=\"order-qty-edit form-control\" />" ?>
        					<div class="input-group-btn">
            					<?php echo "<button id=\"button-order\" onclick=\"placeorder(".$singleproduct->id.",'".$singleproduct->title."',".$singleproduct->price.",".$singleproduct->stock.")\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-plus\"></span>Tambahkan ke daftar belanja</button>"; ?>
        					</div>
        				</div>
 				</div>
+				<br/>
+				<p class="alert alert-info hide">Anda sudah memesan barang ini. Untuk mengubah atau membatalkan, silakan buka Daftar Belanja</p>
 		</div>
 		</div>
 		<hr/>
