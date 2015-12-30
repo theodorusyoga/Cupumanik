@@ -81,7 +81,7 @@ include ($footer);
 						<input type="Search" id="search-input"
 							placeholder="Cari busana atau kain batik" class="form-control" />
 						<div class="input-group-btn">
-							<button class="btn btn-info">
+							<button id="search-btn" class="btn btn-info">
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 						</div>

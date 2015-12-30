@@ -141,8 +141,8 @@
 				deleteAllOrder();
 			}
 		});
-		$('.btn-ok').click(function() {
-			window.location.href = '/batik.cupumanik.id/order.php';
+		$('#btn-ok').click(function() {
+			window.location.reload(true);
 		});
 	}
 

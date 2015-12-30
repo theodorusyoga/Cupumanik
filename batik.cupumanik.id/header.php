@@ -10,7 +10,7 @@ function getBatikHeader() {
 	$header .= "<div class=\"navbar navbar-default navbar-small navbar-fixed-top\">";
 	$header .= "<div class=\"container\">";
 	$header .= "<div class=\"navbar-brand pull-left\">";
-	$header .= "<a href=\"#home\"><img class=\"logo\" src=\"../assets/logo-black.png\" style=\"height: 40px\" /></a>";
+	$header .= "<a href=\""."/Cupumanik/batik.cupumanik.id/"."\"><img class=\"logo\" src=\"../assets/logo-black.png\" style=\"height: 40px\" /></a>";
 	$header .= "</div>";
 	$header .= "<button type=\"button\" class=\"navbar-toggle pull-right\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">";
     $header .= "<span class=\"icon-bar\"></span>";

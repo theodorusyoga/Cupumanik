@@ -70,11 +70,9 @@
 <?php
 $path = $_SERVER ['DOCUMENT_ROOT'] . '/Cupumanik';
 $function = $path . '/functions/functions.php';
-$product = $path . '/functions/getProductById.php';
 $header = $path . '/batik.cupumanik.id/header.php';
 $footer = $path . '/batik.cupumanik.id/footer.php';
 include ($function);
-include ($product);
 include ($header);
 include ($footer);
 ?>
@@ -90,7 +88,7 @@ include ($footer);
 	if (isset($_GET['id']))
 	{
 		$singleproduct = getProductById($_GET['id']);
-		if ($singleproduct)
+		if (isset($singleproduct))
 		{?>
 		<script type="text/javascript">
 		$(document).ready(function() {
@@ -202,7 +200,7 @@ include ($footer);
 			echo printProductNotFound();
 	}
 	else 
-		printProductNotFound();
+		echo printProductNotFound();
 	?>
 	</div>
 	<?php 

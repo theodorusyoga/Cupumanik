@@ -170,11 +170,19 @@ body
 	bottom: 100px !important;
 }
 
-.btn-info {
+.btn {
 	border: none !important;
 	border-radius: 0 !important;
-	background-color: #08a !important;
 	font-family: 'Raleway', Serif;
+}
+
+.btn-info {
+	background-color: #08a !important;	
+}
+
+.btn:disabled {
+	background-color: #2D3C40 !important;
+	cursor: default !important;
 }
 
 /*.carousel-inner img {

@@ -34,9 +34,105 @@ function getProducts() {
 	 */
 	return $res;
 }
-function printProductNotFound() {
-	return "<p class=\"alert-warning\">Produk tidak ditemukan</p>";
+
+function getProductById($id)
+{
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT A.id as prodid, A.title as title,
+			A.image as image, A.description as description,
+			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname
+			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.id = ' . $id;
+	$result = $conn->query ( $query );
+	//$strresult = '';
+	$res = array();
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['prodid'];
+			$single->title = $item ['title'];
+			$single->imageurl = $item ['image'];
+			$single->description = $item ['description'];
+			$single->stock = $item ['stock'];
+			$single->catid = $item ['categoryid'];
+			$single->price = $item ['price'];
+			$single->category = $item ['categoryname'];
+			array_push($res, $single);
+		}
+	}
+
+	if (count($res) > 0)
+		return $res[0];
+	else
+		return null;
 }
+
+function getProductByCategory($id)
+{
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT A.id as prodid, A.title as title,
+			A.image as image, A.description as description,
+			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname
+			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.categoryid = ' . $id;
+	$result = $conn->query ( $query );
+	//$strresult = '';
+	$res = array();
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['prodid'];
+			$single->title = $item ['title'];
+			$single->imageurl = $item ['image'];
+			$single->description = $item ['description'];
+			$single->stock = $item ['stock'];
+			$single->catid = $item ['categoryid'];
+			$single->price = $item ['price'];
+			$single->category = $item ['categoryname'];
+			array_push($res, $single);
+		}
+	}
+	return $res;
+}
+
+function searchProduct($query)
+{
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT A.id as prodid, A.title as title,
+			A.image as image, A.description as description,
+			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname
+			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.title LIKE %' . $query . '%';
+	$result = $conn->query ( $query );
+	//$strresult = '';
+	$res = array();
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['prodid'];
+			$single->title = $item ['title'];
+			$single->imageurl = $item ['image'];
+			$single->description = $item ['description'];
+			$single->stock = $item ['stock'];
+			$single->catid = $item ['categoryid'];
+			$single->price = $item ['price'];
+			$single->category = $item ['categoryname'];
+			array_push($res, $single);
+		}
+	}
+	return $res;
+}
+
+function printProductNotFound() {
+	return "<p class=\"alert alert-warning\">Tidak ada produk untuk ditampilkan</p>";
+}
+
 function getCategories() {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
@@ -57,6 +153,31 @@ function getCategories() {
 	}
 	return $res;
 }
+
+function getCategoryById($id) {
+	$res = array ();
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT * FROM categories WHERE id = '.$id;
+	$result = $conn->query ( $query );
+	$strresult = '';
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['id'];
+			$single->categoryname = $item ['categoryname'];
+			$single->link = $item ['uniquelink'];
+			array_push ( $res, $single );
+		}
+	}
+	if (count($res) > 0)
+		return $res[0];
+	else
+		return null;
+}
+
 function getOrders() {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
@@ -121,7 +242,7 @@ function printCategories() {
 	$categories = getCategories ();
 	$result = '';
 	foreach ( $categories as $category ) {
-		$result .= '<li><a class="cat" href="' . $category->link . '">' . $category->categoryname . '</a></li>';
+		$result .= '<li><a class="cat" href="'."/Cupumanik/batik.cupumanik.id/category.php?id=".$category->id.'">' . $category->categoryname . '</a></li>';
 	}
 	return $result;
 }
