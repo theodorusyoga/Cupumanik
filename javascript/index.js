@@ -123,7 +123,7 @@ $(document)
 							keyboard : false
 						});
 						$('#detailsbox').modal('show');
-					    getCategoriesDropDown();
+						getCategoriesDropDown();
 					});
 
 					$('#uploadFile')
@@ -342,7 +342,7 @@ function addCategory() {
 	xmlhr.send(data);
 }
 
-function getCategoriesDropDown(){
+function getCategoriesDropDown() {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/printCategoriesDd.php', true);
 	xmlhr.onload = function(e) {
@@ -432,10 +432,12 @@ function detailOrder(id) {
 						$productcols += '</tr>';
 					}
 					$productcols += '<tr>';
-					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan:</label></td>';
+					if(!obj.randomnum)
+						obj.randomnum = 0;
+					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan + angka unik <span style="color:red;">' + obj.randomnum +'</span>:</label></td>';
 					$productcols += '<td>'
 							+ accounting
-									.formatMoney($subtotal, 'IDR', '.', ',')
+									.formatMoney(($subtotal + obj.randomnum), 'IDR', '.', ',')
 							+ '</td>';
 					$productcols += '</tr>';
 				}
@@ -498,7 +500,7 @@ function detailProduct(id) {
 				getCategoriesDropDown();
 				$('#detailsbox').modal('show');
 				$('#warningcontainer').hide();
-					
+
 			} else {
 				$('#warningcontainer')
 						.html(
@@ -808,8 +810,4 @@ function refreshFilteredOrders() {
 	$('#warningcontainer')
 			.html(
 					'<strong>Memperbarui daftar pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
-}
-
-function insertOrder(){
-	
 }

@@ -138,7 +138,8 @@
 				$('#price-with-code').text(accounting.formatMoney(price + code, "Rp ", 2, '.', ',') + ' *');
 				$('#btn-submit').hide();
 				$('#btn-ok').show();
-				deleteAllOrder();
+				insertOrder();
+				/* deleteAllOrder(); */
 			}
 		});
 		$('.btn-ok').click(function() {

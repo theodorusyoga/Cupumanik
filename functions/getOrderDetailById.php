@@ -38,6 +38,13 @@ if(isset($_POST['id'])){
 					array_push($single->products, $product);
 				}
 			}
+			$randomquery = 'SELECT * FROM `randomnumbers` WHERE `associatedorder` = ' . $single->id;
+			$randomres = $conn->query($randomquery);
+			if($randomres->num_rows > 0){
+				while($rand = $randomres->fetch_assoc()){
+					$single->randomnum = (int)$rand['randomnumber'];
+				}
+			}
 			$jsonstr = json_encode($single);
 			echo $jsonstr;
 			return;

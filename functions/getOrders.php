@@ -67,6 +67,14 @@ function getOrdersSort($sort, $mulai, $akhir) {
 				$totalprice += ( int ) $detail->price * ( int ) $detail->amount;
 			}
 			$single->orderedproducts = count ( $details );
+			$randomquery = 'SELECT * FROM `randomnumbers` WHERE `associatedorder` = ' . $single->id;
+			$randomres = $conn->query($randomquery);
+			if($randomres->num_rows > 0){
+				while($rand = $randomres->fetch_assoc()){
+					$totalprice += (int)$rand['randomnumber'];
+					$single->randomnum = (int)$rand['randomnumber'];
+				}
+			}
 			$single->totalprice = $totalprice;
 			array_push ( $res, $single );
 		}
