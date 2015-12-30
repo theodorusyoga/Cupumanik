@@ -809,3 +809,7 @@ function refreshFilteredOrders() {
 			.html(
 					'<strong>Memperbarui daftar pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
 }
+
+function insertOrder(){
+	
+}
