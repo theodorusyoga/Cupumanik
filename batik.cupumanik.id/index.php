@@ -35,6 +35,10 @@
 			$(this).find('.product-info').hide();
 			$(this).find('.product-info-small').show();
 		});
+		$('#search-btn').click(function() {
+			var query = $('#search-input').val();
+			window.location.href = ("/Cupumanik/batik.cupumanik.id/search.php?query=" + query);
+		});
 		$('#banner-1').show();
 		$('#banner-2').hide();
 		$('#banner-3').hide();

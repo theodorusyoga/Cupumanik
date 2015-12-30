@@ -108,7 +108,7 @@ function searchProduct($query)
 	$query = 'SELECT A.id as prodid, A.title as title,
 			A.image as image, A.description as description,
 			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname
-			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.title LIKE %' . $query . '%';
+			FROM products A JOIN categories B ON B.id = A.categoryid WHERE A.title LIKE \'%' . $query . '%\'';
 	$result = $conn->query ( $query );
 	//$strresult = '';
 	$res = array();

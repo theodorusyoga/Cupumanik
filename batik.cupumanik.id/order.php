@@ -98,6 +98,7 @@
 					$('#alert-name-empty').addClass('hide');
 					$('#alert-address-empty').addClass('hide');
 					$('#alert-email-empty').addClass('hide');
+					$('#fail-alert').addClass('hide');
 				}
 			}
 		});
@@ -125,21 +126,25 @@
 			var customerNote = $('#customer-note').val()
 			var customerPrice = $('#order-final').find('.order-total-price').first().text();
 			if (allFilled) {
-				var price = accounting.unformat(customerPrice, ',');
-				var d = new Date();
-				var code = d.getSeconds();
-				$('.modal-header h4').text('Pemesanan Berhasil');
-				$('#form-order').hide();
-				$('#order-confirmation').show();
-				$('#customer-name-success').text(customerName);
-				$('#customer-address-success').text(customerAddress);
-				$('#customer-price-success').text(accounting.formatMoney(price, "Rp ", 2, '.', ','));
-				$('#customer-email-success').text(customerEmail);
-				$('#price-with-code').text(accounting.formatMoney(price + code, "Rp ", 2, '.', ',') + ' *');
-				$('#btn-submit').hide();
-				$('#btn-ok').show();
-				insertOrder();
-				/* deleteAllOrder(); */
+				insertOrder(customerName, customerEmail, customerAddress, customerPhone, customerNote,
+					function(priceWithCode) {
+						var price = accounting.unformat(customerPrice, ',');
+						$('#fail-alert').addClass('hide');
+						$('.modal-header h4').text('Pemesanan Berhasil');
+						$('#form-order').hide();
+						$('#order-confirmation').show();
+						$('#customer-name-success').text(customerName);
+						$('#customer-address-success').text(customerAddress);
+						$('#customer-price-success').text(accounting.formatMoney(price, "Rp ", 2, '.', ','));
+						$('#customer-email-success').text(customerEmail);
+						$('#price-with-code').text(accounting.formatMoney(Number(priceWithCode), "Rp ", 2, '.', ',') + ' *');
+						$('#btn-submit').hide();
+						$('#btn-ok').show();
+						deleteAllOrder();
+					}, function(error) {
+						$('#fail-alert').text("Terjadi kesalahan, silakan coba ulangi pemesanan\n" + error);
+						$('#fail-alert').removeClass('hide');
+					});
 			}
 		});
 		$('#btn-ok').click(function() {
@@ -242,11 +247,9 @@
 <?php
 $path = $_SERVER ['DOCUMENT_ROOT'] . '/Cupumanik';
 $function = $path . '/functions/functions.php';
-$product = $path . '/functions/getProductById.php';
 $header = $path . '/batik.cupumanik.id/header.php';
 $footer = $path . '/batik.cupumanik.id/footer.php';
 include ($function);
-include ($product);
 include ($header);
 include ($footer);
 ?>
@@ -277,6 +280,7 @@ include ($footer);
 						<div id="order-final">
 						</div>
 						<hr />
+						<p id="fail-alert" class="alert alert-danger hide"></p>
 						<h4 class="main-title">Isikan data diri anda</h4>
 						<form role="form">
 							<div class="form-group row">

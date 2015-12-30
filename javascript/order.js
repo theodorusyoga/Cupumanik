@@ -69,26 +69,43 @@ function getOrderCount() {
 		return 0;
 }
 
-function insertOrder() {
+function insertOrder(name, email, address, phone, note, success, fail) {
 	$url = 'http://localhost/Cupumanik';
+	
+	var products = [];
+	var orderitem = getAllOrder();
+	if (orderitem)
+	{
+		for (i = 0; i < orderitem.length; i++) {
+			var single = {
+					id: orderitem[i].id,
+					amount: orderitem[i].qty
+			}
+			products.push(single);
+		}
+	}
+	var order = { 
+			name : name,
+			email: email,
+			address : address,
+			phone : phone,
+			info : note,
+			products : products
+	};
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/insertOrder.php', true);
 	xmlhr.onload = function(e) {
-		alert(xmlhr.responseText);
 		if (xmlhr.readyState == 4) {
-			
 			if (xmlhr.status == 200) {
 				/*$('#warningcontainer').hide();*/
+				success(xmlhr.responseText);
 			} else {
-				alert(xmlhr.statusText);
+				fail(xmlhr.statusText);
 			}
 		}
 	};
 	var data = new FormData();
-	data
-			.append(
-					'jsondata',
-					'{ "name" : "Raisa", "email" : "raisa@mail.com", "address" : "Jalanku tak seindah jalanmu", "phone" : "08111111111", "info" : "jangan lupa bonusnya kakak :3", "products" : [{"id" : 23, "amount" : 5}, {"id" : 1, "amount" : 7}]}');
+	data.append('jsondata', JSON.stringify(order));
 	xmlhr.send(data);
 	/*$('#warningcontainer').show();
 	$('#warningcontainer')
