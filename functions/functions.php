@@ -201,16 +201,23 @@ function getOrders() {
 			$details = getOrderDetails ( $single->id );
 			$totalprice = 0;
 			foreach ( $details as $detail ) {
-				$totalprice += (int)$detail->price * (int)$detail->amount;
+				$totalprice += ( int ) $detail->price * ( int ) $detail->amount;
 			}
-			$single->orderedproducts = count($details);
+			$single->orderedproducts = count ( $details );
+			$randomquery = 'SELECT * FROM `randomnumbers` WHERE `associatedorder` = ' . $single->id;
+			$randomres = $conn->query ( $randomquery );
+			if ($randomres->num_rows > 0) {
+				while ( $rand = $randomres->fetch_assoc () ) {
+					$totalprice += ( int ) $rand ['randomnumber'];
+					$single->randomnum = ( int ) $rand ['randomnumber'];
+				}
+			}
 			$single->totalprice = $totalprice;
 			array_push ( $res, $single );
 		}
 	}
 	return $res;
 }
-
 function getOrderDetails($id) {
 	$res = array ();
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
@@ -344,8 +351,8 @@ function printOrders() {
 		
 		$result .= '<td>' . $date . '</td>';
 		$result .= '<td>' . $order->orderedproducts . '</td>';
-		$result .= '<td>' . money_format('%i', $order->totalprice)  . '</td>';
-		$result .= "<td><button type=\"button\" class=\"btn btn-primary\" onclick=\"detailOrder(" . (string)$order->id . ")\">Detail</button></td>";
+		$result .= '<td>' . money_format ( '%i', $order->totalprice ) . '</td>';
+		$result .= "<td><button type=\"button\" class=\"btn btn-primary\" onclick=\"detailOrder(" . ( string ) $order->id . ")\">Detail</button></td>";
 		if ($order->isprocessed === true) {
 			$result .= "<td><button type=\"button\" class=\"btn btn-primary\" disabled><span class=\"glyphicon glyphicon-ok\">&nbsp;</span>Sudah Selesai</button></td>";
 		} else {

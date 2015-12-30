@@ -71,9 +71,9 @@ include ($path);
 					aria-controls="products" role="tab" data-toggle="tab"
 					id="productlink">Daftar Produk</a></li>
 				<li role="presentation"><a href="#orders" aria-controls="orders"
-					role="tab" data-toggle="tab">Pemesanan</a></li>
+					role="tab" id="orderlink" data-toggle="tab">Pemesanan</a></li>
 				<li role="presentation"><a href="#others" aria-controls="others"
-					role="tab" data-toggle="tab">Pengaturan Lainnya</a></li>
+					role="tab" id="categorylink" data-toggle="tab">Pengaturan Lainnya</a></li>
 			</ul>
 			<!-- Tab panes -->
 			<div class="tab-content">
@@ -100,8 +100,7 @@ include ($path);
 												<option value="tinggi-rendah">Tertinggi hingga terendah</option>
 												<option value="rendah-tinggi">Terendah hingga tertinggi</option>
 											</optgroup>
-											<optgroup label="Kategori Tersedia">
-												<?php echo printCategoriesAsDropdown(); ?>
+											<optgroup label="Kategori Tersedia" id="catparam">
 											</optgroup>
 											<optgroup label="Jumlah Stok">
 												<option value="banyak-sedikit">Terbanyak hingga tersedikit</option>
@@ -220,29 +219,40 @@ include ($path);
 						<?php echo printCategoriesTable(); ?>
 						</div>
 					</div>
-					<div style="padding-top: 2%; padding-bottom: 0%;" class="col-sm-6">
-						<h3>Pengaturan Administrator</h3>
-						<div style="padding-bottom: 2%">
-							<button id="addproduct" class="btn btn-success">
-								<span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Simpan
-								Password Baru
-							</button>
-						</div>
-						<div>
-							<div class="row">
-								<div class="col-md-4">Password Lama:</div>
-								<div class="col-md-8">
-									<input type="password" class="form-control" id="passwordLamaTb" />
+					<form id="changepassform">
+						<div style="padding-top: 2%; padding-bottom: 0%;" class="col-sm-6">
+							<h3>Pengaturan Administrator</h3>
+							<div style="padding-bottom: 2%">
+								<button type="submit" class="btn btn-success">
+									<span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Simpan
+									Password Baru
+								</button>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col-md-4">Password Lama:</div>
+									<div class="col-md-8">
+										<input type="password" class="form-control"
+											id="passwordLamaTb" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">Password Baru:</div>
+									<div class="col-md-8">
+										<input type="password" class="form-control"
+											id="passwordBaruTb" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">Ulangi Password Baru:</div>
+									<div class="col-md-8">
+										<input type="password" class="form-control"
+											id="ulangPasswordBaruTb" />
+									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-4">Password Baru:</div>
-								<div class="col-md-8">
-									<input type="password" class="form-control" id="passwordBaruTb" />
-								</div>
-							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -335,7 +345,7 @@ include ($path);
 							<div class="col-md-4">Pilih Kategori</div>
 							<div class="col-md-8">
 								<select id="selectCategory" class="form-control">
-								<?php echo printCategoriesAsDropdown(); ?>
+								
 								</select>
 							</div>
 						</div>
@@ -470,8 +480,7 @@ include ($path);
 							<div class="col-md-4">Daftar Barang</div>
 						</div>
 						<div class="form-group">
-							<div class="col-md-12" id="productdetails">
-							</div>
+							<div class="col-md-12" id="productdetails"></div>
 						</div>
 					</div>
 					<div class="modal-footer">

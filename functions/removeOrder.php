@@ -11,12 +11,20 @@ if (isset ( $_POST ['id'] )) {
 	$querydetails = 'DELETE FROM `orderdetails` WHERE `associatedorder` = ' . ( string ) $id;
 	$detailsres = $conn->query($querydetails);
 	if($detailsres === true){
-		$query = "DELETE FROM `orders` WHERE `id`=" . ( string ) $id;
-		$result = $conn->query ( $query );
-		if ($result === true) {
-			echo true;
-			return;
-		} else {
+		$queryrandom = 'DELETE FROM `randomnumbers` WHERE `associatedorder` = ' . ( string ) $id;
+		$randomres = $conn->query($queryrandom);
+		if($randomres === true){
+			$query = "DELETE FROM `orders` WHERE `id`=" . ( string ) $id;
+			$result = $conn->query ( $query );
+			if ($result === true) {
+				echo true;
+				return;
+			} else {
+				echo false;
+				return;
+			}
+		}
+		else{
 			echo false;
 			return;
 		}

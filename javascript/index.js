@@ -76,39 +76,9 @@ $(document)
 						$('#loginbox').modal('toggle');
 					});
 
-					$('#logout')
-							.click(
-									function() {
-										$('#warningcontainer')
-												.html(
-														'<strong>Mengeluarkan Anda dari administrator... </strong><img src="../../assets/ajax-loader.gif" />');
-										var xmlhr = new XMLHttpRequest();
-										xmlhr
-												.open(
-														'POST',
-														$url
-																+ '/functions/logout.php',
-														true);
-										xmlhr.onload = function(e) {
-											if (xmlhr.readyState == 4) {
-												if (xmlhr.status == 200) {
-													if (xmlhr.responseText == '1') {
-														$('#loginbox').modal(
-																'show');
-														$('#login').show();
-														$('#logout').hide();
-														$('#warningcontainer')
-																.hide();
-														$('#admin-content')
-																.hide();
-													}
-												}
-											}
-										};
-										var data = new FormData();
-										xmlhr.send(data);
-										$('#warningcontainer').show();
-									});
+					$('#logout').click(function() {
+						logout();
+					});
 
 					function check() {
 						var xmlhr = new XMLHttpRequest();
@@ -153,6 +123,7 @@ $(document)
 							keyboard : false
 						});
 						$('#detailsbox').modal('show');
+						getCategoriesDropDown();
 					});
 
 					$('#uploadFile')
@@ -181,6 +152,23 @@ $(document)
 					$('#loginform').on('submit', function(e) {
 						e.preventDefault();
 					});
+
+					$('#changepassform')
+							.on(
+									'submit',
+									function(e) {
+										if ($('#passwordBaruTb').val() === $(
+												'#ulangPasswordBaruTb').val()) {
+											changePassword();
+										} else {
+											$('#warningcontainer').show();
+											$('#warningcontainer')
+													.html(
+															'<strong>Password baru yang Anda berikan tidak sama!</strong>');
+										}
+
+										e.preventDefault();
+									});
 
 					$('#formdetails')
 							.on(
@@ -249,6 +237,15 @@ $(document)
 
 					$('#productlink').click(function() {
 						refreshProducts();
+						getCategoriesDropDown();
+					});
+
+					$('#orderlink').click(function() {
+						refreshFilteredOrders();
+					});
+
+					$('#categorylink').click(function() {
+						refreshCategories();
 					});
 
 					$('#filter').on('submit', function(e) {
@@ -288,6 +285,30 @@ $(document)
 
 				});
 
+function logout() {
+	$('#warningcontainer')
+			.html(
+					'<strong>Mengeluarkan Anda dari administrator... </strong><img src="../../assets/ajax-loader.gif" />');
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/logout.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				if (xmlhr.responseText == '1') {
+					$('#loginbox').modal('show');
+					$('#login').show();
+					$('#logout').hide();
+					$('#warningcontainer').hide();
+					$('#admin-content').hide();
+				}
+			}
+		}
+	};
+	var data = new FormData();
+	xmlhr.send(data);
+	$('#warningcontainer').show();
+}
+
 function addCategory() {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/addCategory.php', true);
@@ -321,6 +342,32 @@ function addCategory() {
 	xmlhr.send(data);
 }
 
+function getCategoriesDropDown() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/printCategoriesDd.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$options = xmlhr.responseText;
+				$('#selectCategory').html($options);
+				$('#catparam').html($options);
+				$('#warningcontainer').hide();
+			} else {
+				$('#warningcontainer')
+						.html(
+								'<strong>Terjadi kesalahan: </strong>Gagal memuat kategori!');
+				$('#warningcontainer').show();
+			}
+		}
+	};
+	var data = new FormData();
+	$('#warningcontainer')
+			.html(
+					'<strong>Memuat kategori... </strong><img src="../../assets/ajax-loader.gif" />');
+	$('#warningcontainer').show();
+	xmlhr.send(data);
+}
+
 function detailOrder(id) {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/getOrderDetailById.php', true);
@@ -349,7 +396,8 @@ function detailOrder(id) {
 							.html(
 									'<span class="glyphicon glyphicon-ok">&nbsp;</span>Tandai Sudah Diproses');
 					$('#tandaiBtn').attr('class', 'btn btn-primary');
-					$('#tandaiBtn').attr('onclick', 'markFinished(' + obj.id + ')');
+					$('#tandaiBtn').attr('onclick',
+							'markFinished(' + obj.id + ')');
 				}
 
 				$productcols = '';
@@ -384,10 +432,12 @@ function detailOrder(id) {
 						$productcols += '</tr>';
 					}
 					$productcols += '<tr>';
-					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan:</label></td>';
+					if(!obj.randomnum)
+						obj.randomnum = 0;
+					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan + angka unik <span style="color:red;">' + obj.randomnum +'</span>:</label></td>';
 					$productcols += '<td>'
 							+ accounting
-									.formatMoney($subtotal, 'IDR', '.', ',')
+									.formatMoney(($subtotal + obj.randomnum), 'IDR', '.', ',')
 							+ '</td>';
 					$productcols += '</tr>';
 				}
@@ -447,6 +497,7 @@ function detailProduct(id) {
 					backdrop : 'static',
 					keyboard : false
 				});
+				getCategoriesDropDown();
 				$('#detailsbox').modal('show');
 				$('#warningcontainer').hide();
 
@@ -592,6 +643,41 @@ function updateCategory(id) {
 					'<strong>Mengubah data kategori... </strong><img src="../../assets/ajax-loader.gif" />');
 }
 
+function changePassword() {
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/changePassword.php', true);
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				if (xmlhr.responseText == true) {
+					/* LOGOUT */
+					$('#passwordLamaTb').val('');
+					$('#passwordBaruTb').val('');
+					$('#ulangPasswordBaruTb').val('');
+					logout();
+					$('#warningcontainer').hide();
+				} else {
+					$('#warningcontainer')
+							.html(
+									'<strong>Password lama Anda mungkin tidak sama dengan password saat ini.</strong>');
+					$('#warningcontainer').show();
+				}
+
+			} else {
+				alert(xmlhr.statusText);
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('old', $('#passwordLamaTb').val());
+	data.append('new', $('#passwordBaruTb').val());
+	xmlhr.send(data);
+	$('#warningcontainer').show();
+	$('#warningcontainer')
+			.html(
+					'<strong>Mengganti password administrator... </strong><img src="../../assets/ajax-loader.gif" />');
+}
+
 function removeCategory(id) {
 	if (confirm('Apakah Anda yakin akan menghapus data kategori ini?')) {
 		var xmlhr = new XMLHttpRequest();
@@ -624,8 +710,10 @@ function removeCategory(id) {
 	}
 }
 
-function removeOrder(id, custname){
-	if (confirm('Apakah Anda yakin akan menghapus pemesanan dari ' + custname +'? Seluruh daftar produk beserta jumlah pemesanan akan terhapus. Data yang terhapus TIDAK DAPAT dilihat kembali.')) {
+function removeOrder(id, custname) {
+	if (confirm('Apakah Anda yakin akan menghapus pemesanan dari '
+			+ custname
+			+ '? Seluruh daftar produk beserta jumlah pemesanan akan terhapus. Data yang terhapus TIDAK DAPAT dilihat kembali.')) {
 		var xmlhr = new XMLHttpRequest();
 		xmlhr.open('POST', $url + '/functions/removeOrder.php', true);
 		xmlhr.onload = function(e) {
