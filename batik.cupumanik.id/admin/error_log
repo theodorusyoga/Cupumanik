@@ -1,0 +1,43 @@
+[30-Dec-2015 15:10:29 Asia/Jakarta] PHP Warning:  include(/home/cupa8479/public_html/batik.cupumanik.id/Cupumanik/functions/functions.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:10:29 Asia/Jakarta] PHP Warning:  include(): Failed opening '/home/cupa8479/public_html/batik.cupumanik.id/Cupumanik/functions/functions.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:10:29 Asia/Jakarta] PHP Fatal error:  Call to undefined function printproducts() in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 128
+[30-Dec-2015 15:52:01 Asia/Jakarta] PHP Warning:  include(/home/cupa8479/public_html/batik.cupumanik.id/Cupumanik/functions/functions.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:52:01 Asia/Jakarta] PHP Warning:  include(): Failed opening '/home/cupa8479/public_html/batik.cupumanik.id/Cupumanik/functions/functions.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:52:01 Asia/Jakarta] PHP Fatal error:  Call to undefined function printproducts() in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 128
+[30-Dec-2015 15:52:36 Asia/Jakarta] PHP Warning:  include(/home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:52:36 Asia/Jakarta] PHP Warning:  include(): Failed opening '/home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:52:36 Asia/Jakarta] PHP Fatal error:  Call to undefined function printproducts() in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 128
+[30-Dec-2015 15:53:07 Asia/Jakarta] PHP Warning:  mysqli::mysqli(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home/cupa8479/public_html/functions/functions.php on line 4
+[30-Dec-2015 15:54:08 Asia/Jakarta] PHP Warning:  mysqli::mysqli(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home/cupa8479/public_html/functions/functions.php on line 4
+[30-Dec-2015 15:54:52 Asia/Jakarta] PHP Warning:  include(/home/cupa8479/public_html/batik.cupumanik.id/functions/include.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:54:52 Asia/Jakarta] PHP Warning:  include(): Failed opening '/home/cupa8479/public_html/batik.cupumanik.id/functions/include.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:54:52 Asia/Jakarta] PHP Fatal error:  Call to undefined function includefiles() in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 37
+[30-Dec-2015 15:55:01 Asia/Jakarta] PHP Warning:  include(/home/cupa8479/public_html/batik.cupumanik.id/functions/include.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:55:01 Asia/Jakarta] PHP Warning:  include(): Failed opening '/home/cupa8479/public_html/batik.cupumanik.id/functions/include.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 36
+[30-Dec-2015 15:55:01 Asia/Jakarta] PHP Fatal error:  Call to undefined function printproducts() in /home/cupa8479/public_html/batik.cupumanik.id/admin/index.php on line 128
+[30-Dec-2015 17:28:42 Asia/Jakarta] PHP Warning:  include(/home/cupa8479/public_html/batik.cupumanik.id): failed to open stream: No such device in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 2
+[30-Dec-2015 17:28:42 Asia/Jakarta] PHP Warning:  include(): Failed opening '/home/cupa8479/public_html/batik.cupumanik.id' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 2
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:02:22 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432
+[30-Dec-2015 18:04:05 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/cupa8479/public_html/batik.cupumanik.id/functions/functions.php on line 432

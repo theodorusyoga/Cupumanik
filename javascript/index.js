@@ -1,4 +1,4 @@
-$url = 'http://localhost/Cupumanik';
+$url = 'https://localhost';
 
 $(document)
 		.ready(
@@ -478,6 +478,7 @@ function detailProduct(id) {
 	xmlhr.open('POST', $url + '/functions/getProductByIdJson.php', true);
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
+			
 			if (xmlhr.status == 200) {
 				var obj = JSON.parse(xmlhr.responseText);
 				$('select#selectCategory option').each(function() {

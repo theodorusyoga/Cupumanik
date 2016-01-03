@@ -41,7 +41,7 @@
 		<div class="content">
 			<div class="submain">
 				<ul class="list">
-					<li><a id="batiklink" class="link" href="/batik">Batik</a></li>
+					<li><a id="batiklink" class="link" href="http://batik.cupumanik.id">Batik</a></li>
 					<li><a id="furnilink" class="link" href="#">Furniture</a></li>
 					<li><a id="guesthouselink" class="link" href="#">Guesthouse</a></li>
 				</ul>

@@ -9,14 +9,14 @@
 <link href='https://fonts.googleapis.com/css?family=Alegreya'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="cupumanik-batik.css">
+<link rel="stylesheet" href="cupumanik-batik.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
@@ -43,17 +43,9 @@
 	});
 </script>
 <?php
-$path = $_SERVER ['DOCUMENT_ROOT'] . '/Cupumanik';
-$function = $path . '/functions/functions.php';
-$header = $path . '/batik.cupumanik.id/header.php';
-$footer = $path . '/batik.cupumanik.id/footer.php';
-$list = $path . '/batik.cupumanik.id/product-list.php';
-include ($function);
-include ($header);
-include ($footer);
-include ($list);
+	include_once( $_SERVER ['DOCUMENT_ROOT'].'/include.php');
 ?>
-<script src="../javascript/index.js" type="text/javascript"></script>
+<script src="../javascript/index.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<?php echo getBatikHeader(); ?>

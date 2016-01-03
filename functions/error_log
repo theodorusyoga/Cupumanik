@@ -1,0 +1,13 @@
+[30-Dec-2015 15:56:39 Asia/Jakarta] PHP Warning:  include(/dbConnection.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/functions/checklogin.php on line 3
+[30-Dec-2015 15:56:39 Asia/Jakarta] PHP Warning:  include(): Failed opening '/dbConnection.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/functions/checklogin.php on line 3
+[30-Dec-2015 15:56:43 Asia/Jakarta] PHP Warning:  include(/dbConnection.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/functions/login.php on line 3
+[30-Dec-2015 15:56:43 Asia/Jakarta] PHP Warning:  include(): Failed opening '/dbConnection.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/functions/login.php on line 3
+[30-Dec-2015 15:56:43 Asia/Jakarta] PHP Warning:  mysqli::mysqli(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home/cupa8479/public_html/functions/login.php on line 8
+[30-Dec-2015 15:57:30 Asia/Jakarta] PHP Warning:  include(/dbConnection.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/functions/login.php on line 3
+[30-Dec-2015 15:57:30 Asia/Jakarta] PHP Warning:  include(): Failed opening '/dbConnection.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/functions/login.php on line 3
+[30-Dec-2015 15:57:30 Asia/Jakarta] PHP Warning:  mysqli::mysqli(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home/cupa8479/public_html/functions/login.php on line 8
+[30-Dec-2015 15:57:34 Asia/Jakarta] PHP Warning:  include(/dbConnection.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/functions/checklogin.php on line 3
+[30-Dec-2015 15:57:34 Asia/Jakarta] PHP Warning:  include(): Failed opening '/dbConnection.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/functions/checklogin.php on line 3
+[30-Dec-2015 15:57:38 Asia/Jakarta] PHP Warning:  include(/dbConnection.php): failed to open stream: No such file or directory in /home/cupa8479/public_html/functions/login.php on line 3
+[30-Dec-2015 15:57:38 Asia/Jakarta] PHP Warning:  include(): Failed opening '/dbConnection.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/cupa8479/public_html/functions/login.php on line 3
+[30-Dec-2015 15:57:38 Asia/Jakarta] PHP Warning:  mysqli::mysqli(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home/cupa8479/public_html/functions/login.php on line 8

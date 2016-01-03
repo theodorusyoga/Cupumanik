@@ -8,20 +8,20 @@
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Alegreya' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="cupumanik-batik.css">
+<link rel="stylesheet" href="cupumanik-batik.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 <script src="../javascript/accounting.js"></script>
-<script src="../javascript/order.js" type="text/javascript"></script>
+<script src="../javascript/order.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.product-info').hide();
@@ -68,13 +68,7 @@
 	
 </script>
 <?php
-$path = $_SERVER ['DOCUMENT_ROOT'] . '/Cupumanik';
-$function = $path . '/functions/functions.php';
-$header = $path . '/batik.cupumanik.id/header.php';
-$footer = $path . '/batik.cupumanik.id/footer.php';
-include ($function);
-include ($header);
-include ($footer);
+	include_once( $_SERVER ['DOCUMENT_ROOT'].'/include.php');
 ?>
 </head>
 <body>

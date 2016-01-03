@@ -12,9 +12,9 @@
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Alegreya'
 	rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="../../css/style.css">
-<link rel="stylesheet" href="../cupumanik-batik.css">
-<link rel="stylesheet" href="../cupumanik-style.css">
+<link rel="stylesheet" href="http://cupumanik.id/css/style.css">
+<link rel="stylesheet" href="http://batik.cupumanik.id/cupumanik-batik.css">
+<link rel="stylesheet" href="http://batik.cupumanik.id/cupumanik-style.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -27,21 +27,21 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
-<script src="../../javascript/accounting.js"></script>
+<script src="http://cupumanik.id/javascript/accounting.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <?php
-$path = $_SERVER ['DOCUMENT_ROOT'] . '/Cupumanik';
-$path .= '/functions/functions.php';
+$path = $_SERVER ['DOCUMENT_ROOT'];
+$path .= '/include.php';
 include ($path);
 ?>
-<script src="../../javascript/index.js" type="text/javascript"></script>
+<script src="../javascript/index.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="navbar navbar-default navbar-small navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-brand pull-left">
-				<a href="#home"> <img class="logo" src="../../assets/logo-black.png"
+				<a href="/admin"> <img class="logo" src="../../assets/logo-black.png"
 					style="height: 40px" />
 				</a>
 			</div>
@@ -54,7 +54,7 @@ include ($path);
 				<ul class="nav navbar-nav nav-menu">
 					<li><a href="#" id="login">Masuk ke Cupumanik Administrator</a></li>
 					<li><a href="" id="logout">Keluar</a></li>
-					<li><a href="">Kembali ke Halaman Utama&nbsp;<span
+					<li><a href="/admin">Kembali ke Halaman Utama&nbsp;<span
 							class="glyphicon glyphicon-home"></span></a></li>
 				</ul>
 			</div>

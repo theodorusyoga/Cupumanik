@@ -17,7 +17,7 @@ function print_product_list($list, $title, $id)
 				$html .= "<div id=\"product-".$item->id."-info-small\" class=\"product-info-small\">";
 				$html .= "<span><h3 class=\"product-title\">".$item->title."</h3></span>";
 				$html .= "</div>";
-				$html .= "<a href=\""."/Cupumanik/batik.cupumanik.id/product.php?id=".$item->id."\" id=\"product-4-info\" class=\"product-info\"><span>";
+				$html .= "<a href=\""."/product.php?id=".$item->id."\" id=\"product-4-info\" class=\"product-info\"><span>";
 				$html .= "<h3 class=\"product-title\">".$item->title."</h3>";
 				$html .= "<h5 class=\"product-price\">".$item->price."</h5>";
 				$html .= "</span>";
@@ -37,3 +37,4 @@ function print_product_list($list, $title, $id)
 	$html .= "</div>";
 	return $html;
 }
+?>
