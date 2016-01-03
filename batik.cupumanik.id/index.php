@@ -2,16 +2,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Cupumanik</title>
+<title>Cupumanik Batik</title>
 <link href='https://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans'
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Alegreya'
 	rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="http://cupumanik.id/css/style.css">
-<link rel="stylesheet"
-	href="http://batik.cupumanik.id/cupumanik-batik.min.css">
+<link rel="stylesheet" href="/../css/style.css">
+'<link rel="stylesheet" href="/cupumanik-batik.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -24,6 +23,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
+<script src="../javascript/accounting.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.product-info').hide();
@@ -36,6 +36,10 @@
 			//$(this).find('.product-info').hide();
 			$(this).find('.product-info').hide();
 			$(this).find('.product-info-small').show();
+		});
+		$('.product-price').each(function() {
+			var price = Number($(this).text());
+			$(this).text(accounting.formatMoney(price, "Rp ", 2, '.', ','));
 		});
 		$('#search-input').keydown(function(e) {
 			if (e.keyCode == 13 || e.which == 13)
@@ -64,7 +68,10 @@
 	function search()
 	{
 		var query = $('#search-input').val();
-		window.location.href = ("http://batik.cupumanik.id/search.php?query=" + query);
+		<?php 
+			echo 'window.location.href = ("http://'.$_SERVER['HTTP_HOST'].'/search.php?query=" + query);';		
+		?>
+		
 	}
 </script>
 </head>
@@ -102,121 +109,12 @@
 	</div>
 
 	<div class="main-body">
-		<div id="new-product-list" class="product-list-container">
-			<h3 class="list-title">Produk Terbaru</h3>
-			<div class="product-list row">
-				<div id="product-1" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-1-inner" class="product-item-inner"
-						style="background: url('../assets/produk-baru-1.jpg') no-repeat center; background-size: cover">
-						<div id="product-1-info-small" class="product-info-small">
-							<span><h3 class="product-title">Jas Batik</h3></span>
-						</div>
-						<a href="#product-1" id="product-1-info" class="product-info"> <span>
-								<h3 class="product-title">Jas Batik</h3>
-								<h5 class="product-price">Rp 1.820.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-				<div id="product-2" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-2-inner" class="product-item-inner"
-						style="background: url('../assets/produk-baru-2.jpg') no-repeat center; background-size: cover">
-						<div id="product-2-info-small" class="product-info-small">
-							<span><h3 class="product-title">Dasi Batik</h3></span>
-						</div>
-						<a href="#product-2" id="product-2-info" class="product-info"> <span>
-								<h3 class="product-title">Dasi Batik</h3>
-								<h5 class="product-price">Rp 103.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-				<div id="product-3" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-3-inner" class="product-item-inner"
-						style="background: url('../assets/produk-baru-3.jpg') no-repeat center; background-size: cover">
-						<div id="product-3-info-small" class="product-info-small">
-							<span><h3 class="product-title">Hijab Batik</h3></span>
-						</div>
-						<a href="#product-3" id="product-3-info" class="product-info"> <span>
-								<h3 class="product-title">Hijab Batik</h3>
-								<h5 class="product-price">Rp 152.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-				<div id="product-4" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-4-inner" class="product-item-inner"
-						style="background: url('../assets/produk-baru-4.jpg') no-repeat center; background-size: cover">
-						<div id="product-4-info-small" class="product-info-small">
-							<span><h3 class="product-title">Dress Batik Short</h3></span>
-						</div>
-						<a href="#product-4" id="product-4-info" class="product-info"> <span>
-								<h3 class="product-title">Dress Batik Short</h3>
-								<h5 class="product-price">Rp 282.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div id="top-product-list" class="product-list-container">
-			<h3 class="list-title">Produk Terlaris</h3>
-			<div class="product-list row">
-				<div id="product-1" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-1-inner" class="product-item-inner"
-						style="background: url('../assets/produk-laris-1.jpg') no-repeat center; background-size: cover">
-						<div id="product-1-info-small" class="product-info-small">
-							<span><h3 class="product-title">T-shirt Batik Cokelat</h3></span>
-						</div>
-						<a href="#product-1" id="product-1-info" class="product-info"> <span>
-								<h3 class="product-title">T-shirt Batik Cokelat</h3>
-								<h5 class="product-price">Rp 129.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-				<div id="product-2" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-2-inner" class="product-item-inner"
-						style="background: url('../assets/produk-laris-2.jpg') no-repeat center; background-size: cover">
-						<div id="product-2-info-small" class="product-info-small">
-							<span><h3 class="product-title">Selendang Batik Sutera</h3></span>
-						</div>
-						<a href="#product-2" id="product-2-info" class="product-info"> <span>
-								<h3 class="product-title">Selendang Batik Sutera</h3>
-								<h5 class="product-price">Rp 372.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-				<div id="product-3" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-3-inner" class="product-item-inner"
-						style="background: url('../assets/produk-laris-3.jpg') no-repeat center; background-size: cover">
-						<div id="product-3-info-small" class="product-info-small">
-							<span><h3 class="product-title">T-shirt Batik Biru</h3></span>
-						</div>
-						<a href="#product-3" id="product-3-info" class="product-info"> <span>
-								<h3 class="product-title">T-shirt Batik Biru</h3>
-								<h5 class="product-price">Rp 152.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-				<div id="product-4" class="product-item col-md-3 col-sm-6 col-xs-12">
-					<div id="product-4-inner" class="product-item-inner"
-						style="background: url('../assets/produk-laris-4.jpg') no-repeat center; background-size: cover">
-						<div id="product-4-info-small" class="product-info-small">
-							<span><h3 class="product-title">Rok Batik Panjang Multicorak</h3></span>
-						</div>
-						<a href="#product-4" id="product-4-info" class="product-info"> <span>
-								<h3 class="product-title">Rok Batik Panjang Multicorak</h3>
-								<h5 class="product-price">Rp 225.000,00</h5>
-						</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php 
+			$newproductlist = getNewProducts();
+			echo print_product_list($newproductlist, "Produk Terbaru", "new-product-list");
+			$topproductlist = getTopProducts();
+			echo print_product_list($topproductlist, "Produk Terlaris", "top-product-list");
+		?>
 	</div>
 
 	<?php echo getBatikFooter(); ?>

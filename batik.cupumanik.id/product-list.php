@@ -34,7 +34,6 @@ function print_product_list($list, $title, $id)
 	
 	
 	$html .= "</div>";
-	$html .= "</div>";
 	return $html;
 }
 ?>

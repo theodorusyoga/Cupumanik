@@ -98,6 +98,69 @@ function getProductByCategory($id)
 	return $res;
 }
 
+function getNewProducts()
+{
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT A.id as prodid, A.title as title, A.image as image, 
+			A.description as description, A.stock as stock, 
+			A.price as price, B.id as categoryid, B.categoryname as categoryname 
+			FROM products A JOIN categories B ON B.id = A.categoryid 
+			ORDER BY A.id DESC LIMIT 4';
+	$result = $conn->query ( $query );
+	//$strresult = '';
+	$res = array();
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['prodid'];
+			$single->title = $item ['title'];
+			$single->imageurl = $item ['image'];
+			$single->description = $item ['description'];
+			$single->stock = $item ['stock'];
+			$single->catid = $item ['categoryid'];
+			$single->price = $item ['price'];
+			$single->category = $item ['categoryname'];
+			array_push($res, $single);
+		}
+	}
+	return $res;
+}
+
+function getTopProducts()
+{
+	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
+	if ($conn->connect_error) {
+		die ( "Connection failed " . $conn->connect_error );
+	}
+	$query = 'SELECT A.id as prodid, A.title as title,
+			A.image as image, A.description as description, 
+			A.stock as stock, A.price as price, B.id as categoryid, B.categoryname as categoryname, C.sold as sold
+			FROM products A JOIN categories B ON B.id = A.categoryid JOIN (SELECT productid, SUM(amount) as sold FROM orderdetails GROUP BY productid) as C on C.productid = A.id
+			ORDER BY sold DESC
+			LIMIT 4';
+	$result = $conn->query ( $query );
+	//$strresult = '';
+	$res = array();
+	if ($result->num_rows > 0) {
+		while ( $item = $result->fetch_assoc () ) {
+			$single = new stdClass ();
+			$single->id = $item ['prodid'];
+			$single->title = $item ['title'];
+			$single->imageurl = $item ['image'];
+			$single->description = $item ['description'];
+			$single->stock = $item ['stock'];
+			$single->catid = $item ['categoryid'];
+			$single->price = $item ['price'];
+			$single->category = $item ['categoryname'];
+			array_push($res, $single);
+		}
+	}
+	return $res;
+}
+
 function searchProduct($query)
 {
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
