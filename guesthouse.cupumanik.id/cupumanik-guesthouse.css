@@ -52,7 +52,7 @@ body
 }
 
 .nav-menu li a:hover {
-	border-bottom: 3px solid #88B526;
+	border-bottom: 3px solid #E73525;
 }
 
 .nav-menu li:last-child {
@@ -61,13 +61,13 @@ body
 }
 
 .nav-menu li:last-child a {
-	background-color: #293127;
-	border-bottom: 3px solid #293127;
+	background-color: #1D0E11;
+	border-bottom: 3px solid #1D0E11;
 	color: #fff !important;
 }
 
 .nav-menu li:last-child a:hover {
-	background-color: #3E6617 !important;
+	background-color: #E73525 !important;
 }
 
 /* banner */
@@ -153,7 +153,7 @@ body
 
 .product-description {
 	font-family: 'Noto Sans', Helvetica;
-	color: #293127;
+	color: #1D0E11;
 	font-size: 110%;
 }
 
@@ -177,11 +177,11 @@ body
 }
 
 .btn-info {
-	background-color: #88B526 !important;	
+	background-color: #E73525 !important;	
 }
 
 .btn:disabled {
-	background-color: #293127 !important;
+	background-color: #1D0E11 !important;
 	cursor: default !important;
 }
 
@@ -265,11 +265,11 @@ body
 }
 
 .selected {
-	border: 2px solid #88B526 !important;
+	border: 2px solid #E73525 !important;
 }
 
 .product-header h2 {
-	color: #88B526;
+	color: #E73525;
 	margin: 0;
 }
 
@@ -393,7 +393,7 @@ body
 }
 
 .footer .container {
-	background-color: #3E6617;
+	background-color: #E73525;
 	margin: 0 !important;
 	width: 100%;
 	padding: 30px 0;
@@ -425,7 +425,7 @@ body
 }
 
 .copyright-info {
-	background-color: #293127;
+	background-color: #1D0E11;
 	padding: 15px 0;
 }
 

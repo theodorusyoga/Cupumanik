@@ -19,8 +19,7 @@ function getBatikHeader() {
   	$header .= "</button>";
 	$header .= "<div class=\"navbar-collapse collapse pull-right\">";
 	$header .= "<ul class=\"nav navbar-nav nav-menu\">";
-	$header .= printCategories();
-	$header .= "<li><a href=\"order.php\">DAFTAR BELANJA <strong>(<span id=\"order-item-count\">0</span>)</strong></a></li>";
+	$header .= "<li><a href=\"order.php\">PESAN</a></li>";
 	$header .= "</ul>";
 	$header .= "</div>";
 	$header .= "</div>";
