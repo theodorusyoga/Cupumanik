@@ -8,17 +8,17 @@ function addOrder(id, name, singleprice, stock, qty) {
 	}
 
 	var list = [];
-	if (sessionStorage.batikOrderList)
-		list = JSON.parse(sessionStorage.batikOrderList);
+	if (sessionStorage.orderList)
+		list = JSON.parse(sessionStorage.orderList);
 
 	list.push(order);
-	sessionStorage.batikOrderList = JSON.stringify(list);
+	sessionStorage.orderList = JSON.stringify(list);
 	return list.length;
 }
 
 function checkOrderExist(id) {
-	if (sessionStorage.batikOrderList) {
-		list = JSON.parse(sessionStorage.batikOrderList);
+	if (sessionStorage.orderList) {
+		list = JSON.parse(sessionStorage.orderList);
 		var isExist = false;
 		for (i = 0; i < list.length; i++) {
 			if (list[i].id == id)
@@ -30,40 +30,40 @@ function checkOrderExist(id) {
 }
 
 function deleteOrder(index) {
-	if (sessionStorage.batikOrderList) {
-		list = JSON.parse(sessionStorage.batikOrderList);
+	if (sessionStorage.orderList) {
+		list = JSON.parse(sessionStorage.orderList);
 		list.splice(index, 1);
-		sessionStorage.batikOrderList = JSON.stringify(list);
+		sessionStorage.orderList = JSON.stringify(list);
 		return list;
 	} else
 		return null;
 }
 
 function deleteAllOrder() {
-	if (sessionStorage.batikOrderList)
-		sessionStorage.batikOrderList = [];
+	if (sessionStorage.orderList)
+		sessionStorage.orderList = [];
 	return;
 }
 
 function updateOrderQty(index, qty) {
-	if (sessionStorage.batikOrderList) {
-		var list = JSON.parse(sessionStorage.batikOrderList);
+	if (sessionStorage.orderList) {
+		var list = JSON.parse(sessionStorage.orderList);
 		list[index].qty = qty;
-		sessionStorage.batikOrderList = JSON.stringify(list);
+		sessionStorage.orderList = JSON.stringify(list);
 	}
 	return;
 };
 
 function getAllOrder() {
-	if (sessionStorage.batikOrderList)
-		return JSON.parse(sessionStorage.batikOrderList);
+	if (sessionStorage.orderList)
+		return JSON.parse(sessionStorage.orderList);
 	else
 		return null;
 }
 
 function getOrderCount() {
-	if (sessionStorage.batikOrderList) {
-		var orderArray = JSON.parse(sessionStorage.batikOrderList);
+	if (sessionStorage.orderList) {
+		var orderArray = JSON.parse(sessionStorage.orderList);
 		return orderArray.length;
 	} else
 		return 0;

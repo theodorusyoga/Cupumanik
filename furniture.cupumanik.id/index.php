@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Cupumanik Batik</title>
+<title>Cupumanik Furniture</title>
 <link href='https://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Noto+Sans'
@@ -10,7 +10,7 @@
 <link href='https://fonts.googleapis.com/css?family=Alegreya'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/../css/style.css">
-'<link rel="stylesheet" href="/cupumanik-batik.css">
+'<link rel="stylesheet" href="/cupumanik-furniture.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -24,7 +24,7 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 <script src="../javascript/accounting.js"></script>
-<script src="../javascript/order.min.js"></script>
+<script src="../javascript/order.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.product-info').hide();
@@ -87,16 +87,15 @@
 		<div id="banner-3" class="banner-bg"></div>
 		<div id="home-content" class="main-body row">
 			<div id="banner-content" class="col-sm-5 col-xs-12">
-				<h3>BATIK EKSKLUSIF TERBAIK DI YOGYAKARTA</h3>
+				<h3>FURNITURE BERKELAS DENGAN KUALITAS TERBAIK DI YOGYAKARTA</h3>
 				<br />
 				<hr />
-				<p>Lebih dari 100 koleksi batik dan kain batik terbaik ada di sini.
-					Temukan favorit anda di sini</p>
+				<p>Menghadirkan koleksi furniture terbaik untuk melengkapi rumah atau tempat usaha Anda.</p>
 				<br />
 				<div id="search-box">
 					<div class="input-group">
 						<input type="Search" id="search-input"
-							placeholder="Cari busana atau kain batik" class="form-control" />
+							placeholder="Cari furniture" class="form-control" />
 						<div class="input-group-btn">
 							<button id="search-btn" class="btn btn-info">
 								<span class="glyphicon glyphicon-search"></span>

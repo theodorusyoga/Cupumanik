@@ -42,8 +42,8 @@ function getBatikFooter() {
 	$footer .= "</ul>";
 	$footer .= "<h3>Lihat Pula</h3>";
 	$footer .= "<ul>";
-	$footer .= "<li><a href=\"http://".str_replace('batik', 'guesthouse', $_SERVER['HTTP_HOST'])."\">Cupumanik Guest House</a></li>";
-	$footer .= "<li><a href=\"http://".str_replace('batik', 'furniture', $_SERVER['HTTP_HOST'])."\">Cupumanik Furniture</a></li>";
+	$footer .= "<li><a href=\"http://".str_replace('furniture', 'batik', $_SERVER['HTTP_HOST'])."\">Cupumanik Batik</a></li>";
+	$footer .= "<li><a href=\"http://".str_replace('furniture', 'guesthouse', $_SERVER['HTTP_HOST'])."\">Cupumanik Guest House</a></li>";
 	$footer .= "</ul>";
 	$footer .= "</div>";
 	$footer .= "<div class=\"shop-footer shop-map col-md-5 col-xs-12\">";
