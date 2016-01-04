@@ -1,4 +1,4 @@
-$url = 'http://batik.cupumanik.id';
+$url = 'http://furniture.cupumanik-local.com';
 
 $(document)
 		.ready(

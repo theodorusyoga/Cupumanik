@@ -17,12 +17,8 @@ include ($path);
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Alegreya'
 	rel='stylesheet' type='text/css'>
-<link rel="stylesheet"
-	href="<?php echo $GLOBALS['rooturl']?>/css/style.css">
-<link rel="stylesheet"
-	href="../cupumanik-batik.css">
-<link rel="stylesheet"
-	href="../cupumanik-style.css">
+<link rel="stylesheet" href="<?php echo $GLOBALS['rooturl']?>/css/style.css">
+<link rel="stylesheet" href="../cupumanik-furniture.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -35,8 +31,7 @@ include ($path);
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
-<script
-	src="<?php echo $GLOBALS['rooturl']; ?>/javascript/accounting.js"></script>
+<script src="<?php echo $GLOBALS['rooturl']?>/javascript/accounting.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
@@ -46,8 +41,8 @@ include ($path);
 	<div class="navbar navbar-default navbar-small navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-brand pull-left">
-				<a href="/admin"> <img class="logo"
-					src="../../assets/logo-black.png" style="height: 40px" />
+				<a href="/admin"> <img class="logo" src="../../assets/logo-black.png"
+					style="height: 40px" />
 				</a>
 			</div>
 			<button type="button" class="navbar-toggle pull-right"
@@ -350,7 +345,7 @@ include ($path);
 							<div class="col-md-4">Pilih Kategori</div>
 							<div class="col-md-8">
 								<select id="selectCategory" class="form-control">
-
+								
 								</select>
 							</div>
 						</div>

@@ -10,6 +10,27 @@ body {
 	display: inline;
 }
 
+.aboutdiv {
+	font-family: 'Raleway', serif;
+	padding-top: 3%;
+	text-align: justify;
+}
+
+.phonediv h3, p, small {
+	font-family: 'Raleway', serif;
+}
+
+.phonediv .row {
+	padding-top: 1.5% !IMPORTANT;
+}
+
+.bbmlogo {
+	font-size: 40px;
+    margin-left: -17.5%;
+	background: url("../assets/BBMicon.png") top left no-repeat;
+	background-size: auto 50px;
+}
+
 .coverage {
 	position: absolute;
 	top: 30%;
@@ -264,7 +285,7 @@ body {
 	.submain .link {
 		font-size: 30px;
 	}
-	.submain{
+	.submain {
 		left: -65%;
 	}
 	.header {

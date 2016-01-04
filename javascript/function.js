@@ -7,6 +7,13 @@ $(document).ready(function() {
 	$('.preview').hide();
 
 	window.setTimeout(onLoad, 750);
+	
+	$('#contactus').click(function(){
+		$('#contactusbox').modal('show');
+	});
+	$('#aboutus').click(function(){
+		$('#aboutusbox').modal('show');
+	});
 
 	function onLoad() {
 		$('img.batiklink#img1').fadeIn(500);

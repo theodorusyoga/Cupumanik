@@ -4,6 +4,7 @@ $servername = 'localhost';
 $dbname = 'cupumanik';
 $dbuser = 'theodorus';
 $dbpass = 'pass@word1';
+
 /* $servername = 'localhost';
 $dbname = 'cupa8479_cupumanik';
 $dbuser = 'cupa8479_admin';
