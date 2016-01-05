@@ -60,9 +60,9 @@ body
 	border-right: 2px solid #bbb; */
 }
 
-.nav-menu li:last-child a {
-	background-color: #1D0E11;
-	border-bottom: 3px solid #1D0E11;
+.nav-menu li:last-child a, .nav-menu li:last-child a:visited, .nav-menu li:last-child a:active{
+	background-color: #1D0E11 !important;
+	border-bottom: 3px solid #1D0E11 !important;
 	color: #fff !important;
 }
 
@@ -75,21 +75,21 @@ body
 .banner-bg {
 	width: 100%;
 	height: 0;
-	padding-top: 500px;
+	padding-top: 600px;
 }
 
 #banner-1 {
-	background: url('../images/batik1.png') no-repeat center fixed;
+	background: url('../images/LM-EAST-NIGHT.jpg') no-repeat center fixed;
 	background-size: cover;
 }
 
 #banner-2 {
-	background: url('../images/batik2.png') no-repeat center fixed;
+	background: url('../images/LM-EAST-NIGHT.jpg') no-repeat center fixed;
 	background-size: cover;
 }
 
 #banner-3 {
-	background: url('../images/batik3.png') no-repeat center fixed;
+	background: url('../images/LM-EAST-NIGHT.jpg') no-repeat center fixed;
 	background-size: cover;
 }
 
@@ -98,7 +98,7 @@ body
 }
 
 .main-body {
-	padding: 30px 5% !important;
+	padding: 0 5% !important;
 	max-width: 1100px !important;
 	margin: 0 auto;
 }
@@ -111,8 +111,8 @@ body
 #banner-content {
 	padding: 50px 20px;
 	background-color: rgba(5, 5, 5, 0.9);
-	margin-top: -500px;
-	min-height: 500px;
+	margin-top: -600px;
+	min-height: 600px;
 	color: #fff;
 	font-family: 'Raleway', Serif;
 }
@@ -128,6 +128,15 @@ body
 
 #banner-empty {
 	height: 0;
+}
+
+#separator {
+	display: block;
+    height: 3px;
+    border: 0;
+    border-top: 2px solid #E73525;
+    margin: 1em 0;
+    padding: 0; 
 }
 
 .input-group input {
@@ -180,6 +189,17 @@ body
 	background-color: #E73525 !important;	
 }
 
+.input-group-addon {
+	background-color: #E73525 !important;	
+	color: white !important;
+	border-bottom-right-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+}
+
+.bootstrap-datetimepicker-widget {
+	color: #000 !important;
+}
+
 .btn:disabled {
 	background-color: #1D0E11 !important;
 	cursor: default !important;
@@ -190,7 +210,7 @@ body
 }*/
 
 .product-list-container {
-	padding: 10px 0;
+	padding: 20px 0;
 	margin: 0 auto;
 }
 
@@ -246,7 +266,7 @@ body
 }
 
 .product-item-inner {
-	height: 250px;
+	height: 200px;
 }
 
 .product-image {
@@ -265,7 +285,38 @@ body
 }
 
 .selected {
-	border: 2px solid #E73525 !important;
+	border-bottom: 5px solid #E73525 !important;
+}
+
+.facilities-icon {
+	height: 125px;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+}
+
+.facilities-icon i {
+	margin: 0 auto;
+	line-height: 75px;
+}
+
+.facilities-icon label {
+	margin: 0 auto;
+	line-height: 50px;
+	white-space: nowrap;
+	vertical-align: top center;
+}
+
+.facilities-desc {
+	height: 200px;
+	font-family: 'Noto Sans', Helvetica;
+	font-size: 130%;
+	text-align: center;
+}
+
+.facilities-desc p {
+	padding-top: 75px;
+	padding-bottom: 0;
 }
 
 .product-header h2 {
