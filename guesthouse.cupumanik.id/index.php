@@ -90,6 +90,88 @@
 		$('#end-date').on('dp.change', function(e) {
 			$('#start-date').data('DateTimePicker').maxDate(e.date);
 		});
+		$('#btn-reservation').click(function() {
+			$('#order-modal').modal({
+				backdrop : 'static',
+				keyboard : false
+			});
+			$('#order-confirmation').hide();
+			$('#btn-ok').hide();
+			var orderList = getAllOrder();
+			if (orderList) {
+				if (orderList.length > 0) {
+					printOrderTable('#order-final', orderList, false);
+					$('#form-order').show();
+					$('#btn-submit').show();
+					$('input[name=customer-name]').val(null);
+					$('input[name=customer-address]').val(null);
+					$('input[name=customer-phone]').val(null);
+					$('input[name=customer-email]').val(null);
+					$('#customer-note').val(null);
+					$('#alert-name-empty').addClass('hide');
+					$('#alert-address-empty').addClass('hide');
+					$('#alert-email-empty').addClass('hide');
+					$('#fail-alert').addClass('hide');
+				}
+			}
+		});
+		/* $('#btn-submit').on('click', function() {
+			var allFilled = true;
+			var customerName = $('input[name=customer-name]').val();
+			if (!customerName) {
+			      $('#alert-name-empty').removeClass('hide');
+			      allFilled = false;
+			}
+			else $('#alert-name-empty').addClass('hide');
+			var customerAddress = $('input[name=customer-address]').val();
+			if (!customerAddress) {
+			      $('#alert-address-empty').removeClass('hide');
+			      allFilled = false;
+			}
+			else $('#alert-address-empty').addClass('hide');
+			var customerPhone = $('input[name=customer-phone]').val();
+			var customerEmail = $('input[name=customer-email]').val();
+			if (!customerEmail) {
+			      $('#alert-email-empty').removeClass('hide');
+			      allFilled = false;
+			}
+			else $('#alert-email-empty').addClass('hide');
+			var customerNote = $('#customer-note').val()
+			var customerPrice = $('#order-final').find('.order-total-price').first().text();
+			if (allFilled) {
+				insertOrder(customerName, customerEmail, customerAddress, customerPhone, customerNote,
+					function(priceWithCode) {
+						var price = accounting.unformat(customerPrice, ',');
+						$('#fail-alert').addClass('hide');
+						$('.modal-header h4').text('Pemesanan Berhasil');
+						$('#form-order').hide();
+						$('#order-confirmation').show();
+						$('#customer-name-success').text(customerName);
+						$('#customer-address-success').text(customerAddress);
+						$('#customer-price-success').text(accounting.formatMoney(price, "Rp ", 2, '.', ','));
+						$('#customer-email-success').text(customerEmail);
+						$('#price-with-code').text(accounting.formatMoney(Number(priceWithCode), "Rp ", 2, '.', ',') + ' *');
+						$('#btn-submit').hide();
+						$('#btn-ok').show();
+						deleteAllOrder();
+					}, function(error) {
+						$('#fail-alert').text("Terjadi kesalahan, silakan coba ulangi pemesanan\n" + error);
+						$('#fail-alert').removeClass('hide');
+					});
+			}
+		}); */
+		$('#btn-ok').click(function() {
+			window.location.reload(true);
+		});
+		$('.product-item').bind('mousedown', function() {
+			var background = $(this).find('.product-item-inner').first().css('background-image');
+			$('#image-big').css('background-image', background);
+			$('#image-big').css('background-size', 'cover');
+			$('#gallery-modal').modal({
+				backdrop : true,
+				keyboard : true
+			});
+		});
 	});
 
 </script>
@@ -317,6 +399,117 @@
 			<p>
 				This site uses Font Awesome by Dave Gandy - http://fontawesome.io
 			</p>
+		</div>
+	</div>
+	
+	<div id="order-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title main-title">Form Pemesanan</h4>
+				</div>
+				<div class="modal-body">
+					<div id="form-order">
+						<div id="order-final">
+						</div>
+						<hr />
+						<p id="fail-alert" class="alert alert-danger hide"></p>
+						<h4 class="main-title">Isikan data diri anda</h4>
+						<form role="form">
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Nama Lengkap <span class="important-mark">*</span></label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-name" required>
+									<p id="alert-name-empty" class="text-danger bg-danger hide">Nama wajib diisi!</p>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Alamat Pengiriman <span class="important-mark">*</span> </label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-address" required>
+									<p id="alert-address-empty" class="text-danger bg-danger hide">Alamat wajib diisi!</p>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Nomor Telepon/HP</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-phone">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Email <span class="important-mark">*</span> </label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control input-sm" name="customer-email" required>
+									<p id="alert-email-empty" class="text-danger bg-danger hide">Email wajib diisi!</p>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="control-label col-xs-3">Keterangan/Informasi Tambahan </label>
+								<div class="col-xs-9">
+									<textarea rows="4" class="form-control input-sm" id="customer-note"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div id="order-confirmation">
+						<div class="order-summary">
+							<div class="row">
+								<label class="col-xs-5">Kode Pemesanan</label>
+								<label class="col-xs-1">:</label>
+								<label class="col-xs-6">82VCM7K91</label>
+							</div>
+							<div class="row">
+								<label class="col-xs-5">Nama Pemesan</label>
+								<label class="col-xs-1">:</label>
+								<label id="customer-name-success" class="col-xs-6">Orang Ketiga</label>
+							</div>
+							<div class="row">
+								<label class="col-xs-5">Total Harga</label>
+								<label class="col-xs-1">:</label>
+								<label id="customer-price-success" class="col-xs-6">Rp 2.679.000,00</label>
+							</div>
+							<div class="row">
+								<label class="col-xs-5">Alamat Pengiriman</label>
+								<label class="col-xs-1">:</label>
+								<label id="customer-address-success" class="col-xs-6">Orang Ketiga</label>
+							</div>
+						</div>
+						<p>Detail pemesanan sudah dikirim ke email <strong id="customer-email-success">orangketiga@blablabla.com</strong></p>
+						<hr/>
+						<p>Harap segera melakukan transfer sejumlah:</p>
+						<h2 id="price-with-code" class="main-title">Rp 2.679.091,00 *</h2>
+						<p>Ke rekening <strong>111111111111111 (Cupumanik Batik)</strong> paling lambat 24 jam setelah pemesanan ini dilakukan. 
+						Jika dalam 24 jam pengiriman tidak dilakukan, pemensanan dianggap batal.</p>
+						<br/>
+						<small>* tambahan 2 angka sebagai kode pemesanan</small>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="btn-submit" class="btn btn-info">Proses Pemesanan</button>
+					<button id="btn-ok" class="btn btn-success">OK</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div id="gallery-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<div id="image-big"><button type="button" class="btn btn-lg btn-primary close pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+						<div style="width: 1000px; height: 400px">
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </body>

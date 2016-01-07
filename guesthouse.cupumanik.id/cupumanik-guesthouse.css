@@ -225,6 +225,7 @@ body
 
 .product-item {
 	padding: 5px !important;
+	cursor: pointer;
 }
 
 .product-info, .product-info-small {
