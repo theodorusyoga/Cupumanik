@@ -227,7 +227,7 @@ body {
 	color: black;
 	top: 2%;
 	right: 0;
-	z-index: 9999;
+	z-index: 5;
 }
 
 @media only screen and (max-width: 600px) {
