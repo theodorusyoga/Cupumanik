@@ -41,8 +41,8 @@ $(document)
 							function() {
 								$('#alertwait').show();
 								var xmlhr = new XMLHttpRequest();
-								xmlhr.open('POST', $url +
-										'/functions/login.php', true);
+								xmlhr.open('POST', $url
+										+ '/functions/login.php', true);
 								xmlhr.onload = function(e) {
 									if (xmlhr.readyState == 4) {
 										if (xmlhr.status == 200) {
@@ -282,7 +282,6 @@ $(document)
 						addCategory();
 						e.preventDefault();
 					});
-
 				});
 
 function logout() {
@@ -432,13 +431,14 @@ function detailOrder(id) {
 						$productcols += '</tr>';
 					}
 					$productcols += '<tr>';
-					if(!obj.randomnum)
+					if (!obj.randomnum)
 						obj.randomnum = 0;
-					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan + angka unik <span style="color:red;">' + obj.randomnum +'</span>:</label></td>';
+					$productcols += '<td colspan="5"><label class="pull-right">Total Pemesanan + angka unik <span style="color:red;">'
+							+ obj.randomnum + '</span>:</label></td>';
 					$productcols += '<td>'
-							+ accounting
-									.formatMoney(($subtotal + obj.randomnum), 'IDR', '.', ',')
-							+ '</td>';
+							+ accounting.formatMoney(
+									($subtotal + obj.randomnum), 'IDR', '.',
+									',') + '</td>';
 					$productcols += '</tr>';
 				}
 
@@ -477,7 +477,7 @@ function detailProduct(id) {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/getProductByIdJson.php', true);
 	xmlhr.onload = function(e) {
-		if (xmlhr.readyState == 4) {	
+		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
 				var obj = JSON.parse(xmlhr.responseText);
 				$('select#selectCategory option').each(function() {

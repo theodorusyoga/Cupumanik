@@ -1,8 +1,7 @@
 @CHARSET "ISO-8859-1";
 
-body 
-{ 
-	padding-top: 30px; 
+body {
+	padding-top: 30px;
 	overflow-y: auto;
 }
 
@@ -11,6 +10,109 @@ body
 }*/
 
 /* navbar */
+time.icon {
+	font-size: 1em; /* change icon size */
+	display: block;
+	position: relative;
+	width: 7em;
+	height: 8.5em;
+	background-color: #fff;
+	border-radius: 0.6em;
+	box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff,
+		0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+	overflow: hidden;
+}
+
+time.icon * {
+	display: block;
+	width: 100%;
+	font-size: 1em;
+	font-weight: bold;
+	font-style: normal;
+	text-align: center;
+}
+
+time.icon strong {
+	position: absolute;
+	top: 0;
+	padding: 0.4em 0;
+	color: #fff;
+	background-color: #003366;
+	border-bottom: 1px dashed #f37302;
+	box-shadow: 0 2px 0 #fd9f1b;
+}
+
+time.icon em {
+	position: absolute;
+	bottom: 0.3em;
+	color: #003366;
+}
+
+time.icon span {
+	font-size: 2.8em;
+	letter-spacing: -0.05em;
+	padding-top: 1.3em;
+	color: #003366;
+}
+
+.timeclock {
+	padding-top: 10px;
+}
+
+.timeclock .hour {
+	display: inline;
+	font: 'Raleway', serif;
+	font-size: 28px;
+	font-weight: bold;
+	/* background: #E2E4F3; */
+	padding-left: 3%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+    padding-right: 3%;
+	color: #FFFFFF;
+	border-color: grey;
+	border-radius: 10px;
+	box-shadow: 1px 2px 0px rgba(243, 115, 2, 1);	
+	/* gradient */
+	background: -webkit-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	/* Opera 11.1 to 12.0 */
+	background: -o-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	/* Firefox 3.6 to 15 */
+	background: -moz-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	/* Standard syntax */
+	background: repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+}
+
+.timeclock span{
+	font: 'Raleway', serif;
+	font-size: 24px;
+	margin-right: -1%;
+	margin-left: -1%;
+}
+
+.timeclock .minute {
+	display: inline;
+	font: 'Raleway', serif;
+	font-size: 28px;
+	font-weight: bold;
+	/* background: #E2E4F3; */
+	padding-left: 3%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	padding-right: 3%;
+	color: #FFFFFF;
+	border-color: grey;
+	border-radius: 10px;
+	box-shadow: 1px 2px 0px rgba(243, 115, 2, 1);
+	/* gradient */
+	background: -webkit-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	/* Opera 11.1 to 12.0 */
+	background: -o-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	/* Firefox 3.6 to 15 */
+	background: -moz-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	/* Standard syntax */
+	background: repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+}
 
 .navbar-default .container {
 	max-width: 1100px;
@@ -23,18 +125,18 @@ body
 	margin-left: 0 !important;
 }
 
-.navbar-collapse {	
-    padding-left: 5% !important;
-    padding-right: 5% !important;
-    /*overflow: hidden;*/
+.navbar-collapse {
+	padding-left: 5% !important;
+	padding-right: 5% !important;
+	/*overflow: hidden;*/
 }
 
 .nav-menu {
-    margin: 0;
-    padding: 0;
-    /*overflow: hidden;*/
-    width: auto;
-    list-style-type: none;
+	margin: 0;
+	padding: 0;
+	/*overflow: hidden;*/
+	width: auto;
+	list-style-type: none;
 }
 
 .nav-menu li {
@@ -44,11 +146,11 @@ body
 .nav-menu li a {
 	display: block;
 	color: black !important;
-    text-align: center;
-    /*padding: 10px 15px !important;*/
-    text-decoration: none;
-    font-family: 'Raleway', serif;
-    border-bottom: 3px solid #f8f8f8;
+	text-align: center;
+	/*padding: 10px 15px !important;*/
+	text-decoration: none;
+	font-family: 'Raleway', serif;
+	border-bottom: 3px solid #f8f8f8;
 }
 
 .nav-menu li a:hover {
@@ -58,9 +160,11 @@ body
 .nav-menu li:last-child {
 	/* border-left: 2px solid #bbb;
 	border-right: 2px solid #bbb; */
+	
 }
 
-.nav-menu li:last-child a, .nav-menu li:last-child a:visited, .nav-menu li:last-child a:active{
+.nav-menu li:last-child a, .nav-menu li:last-child a:visited, .nav-menu li:last-child a:active
+	{
 	background-color: #1D0E11 !important;
 	border-bottom: 3px solid #1D0E11 !important;
 	color: #fff !important;
@@ -71,7 +175,6 @@ body
 }
 
 /* banner */
-
 .banner-bg {
 	width: 100%;
 	height: 0;
@@ -132,11 +235,11 @@ body
 
 #separator {
 	display: block;
-    height: 3px;
-    border: 0;
-    border-top: 2px solid #E73525;
-    margin: 1em 0;
-    padding: 0; 
+	height: 3px;
+	border: 0;
+	border-top: 2px solid #E73525;
+	margin: 1em 0;
+	padding: 0;
 }
 
 .input-group input {
@@ -186,11 +289,11 @@ body
 }
 
 .btn-info {
-	background-color: #E73525 !important;	
+	background-color: #E73525 !important;
 }
 
 .input-group-addon {
-	background-color: #E73525 !important;	
+	background-color: #E73525 !important;
 	color: white !important;
 	border-bottom-right-radius: 0 !important;
 	border-top-right-radius: 0 !important;
@@ -208,7 +311,6 @@ body
 /*.carousel-inner img {
 	height: 500px !important;
 }*/
-
 .product-list-container {
 	padding: 20px 0;
 	margin: 0 auto;
@@ -231,7 +333,7 @@ body
 .product-info, .product-info-small {
 	display: table;
 	width: 100%;
-	text-decoration: none !important;	
+	text-decoration: none !important;
 	height: 250px;
 	vertical-align: middle;
 	/*background-color: rgba(5, 5, 5, 0.9);	*/
@@ -249,7 +351,7 @@ body
 }
 
 .product-info span {
-	line-height: 250px !important;	
+	line-height: 250px !important;
 }
 
 .product-info-small span {
@@ -354,13 +456,12 @@ body
 	margin: 20px 0 !important;
 }
 
-.order-list > thead > tr > th {
+.order-list>thead>tr>th {
 	text-align: center;
 }
 
-.form-order .order-list > thead > tr > th,
-.form-order .order-list > tbody > tr > td,
-.form-order .order-list > tfoot > tr > th {
+.form-order .order-list>thead>tr>th, .form-order .order-list>tbody>tr>td,
+	.form-order .order-list>tfoot>tr>th {
 	padding: 3px;
 }
 
@@ -396,7 +497,7 @@ body
 	font-weight: 400 !important;
 }
 
-#order-confirmation p,label,small {
+#order-confirmation p, label, small {
 	font-family: 'Noto Sans', Helvetica !important;
 }
 
@@ -428,7 +529,7 @@ body
 	padding-left: 0 !important;
 }
 
-.footer li {	
+.footer li {
 	list-style-type: none;
 	display: block;
 	padding: 2px 0;
@@ -455,7 +556,7 @@ body
 	
 }
 
-.inner-container {	
+.inner-container {
 	width: 100%;
 	max-width: 1100px;
 	padding: 0 5%;
@@ -489,7 +590,7 @@ body
 	font-size: 90%;
 }
 
-.admin-body{
+.admin-body {
 	padding-top: 2%;
 	padding-left: 10%;
 	padding-right: 10%;
