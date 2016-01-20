@@ -1,7 +1,7 @@
 <?php
 $root = $_SERVER ['DOCUMENT_ROOT'];
 $servername = 'localhost'; 
-$dbname = 'cupumanik';
+$dbname = 'cupumanik_guesthouse';
 $dbuser = 'theodorus';
 $dbpass = 'pass@word1';
 /* $servername = 'localhost';

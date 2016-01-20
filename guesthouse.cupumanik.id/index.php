@@ -97,9 +97,10 @@
 		$('#start-date').on('dp.change', function(e) {
 			$('#end-date').data('DateTimePicker').minDate(e.date);
 		});
-		$('#end-date').on('dp.change', function(e) {
+		/* restrict startdate aku hapus ya, soalnya jadi error :p *THEO* */
+		/* $('#end-date').on('dp.change', function(e) {
 			$('#start-date').data('DateTimePicker').maxDate(e.date);
-		});
+		}); */
 		$('#btn-reservation').click(function() {
 			var monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
 			                  "Juli", "Agustus", "September", "Oktober", "November", "Desember"

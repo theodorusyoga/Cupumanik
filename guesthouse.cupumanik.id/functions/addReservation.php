@@ -2,8 +2,16 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= '/functions/dbConnection.php';
 include($path);
-if (isset ( $_POST ['catname'] )) {
-	$categoryname = $_POST ['catname'];
+if (isset ( $_POST ['startdate'] ) && isset($_POST['enddate']) && isset($_POST['fullname']) 
+		&& isset($_POST['address']) && isset($_POST['phone']) && isset($_POST['email'])
+		&& isset($_POST['information'])) {
+	$startdate = $_POST ['startdate'];
+	$enddate = $_POST['enddate'];
+	$fullname = $_POST['fullname'];
+	$address = $_POST['address'];
+	$phone = $_POST['phone'];
+	$email = $_POST['email'];
+	$information = $_POST['information'];
 	$link = '/category/' . str_replace ( ' ', '', $categoryname );
 	/* DATABASE */
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
