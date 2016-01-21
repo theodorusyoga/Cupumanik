@@ -12,8 +12,8 @@ if (isset ( $_POST ['catname'] )) {
 	}
 	$query = "INSERT INTO `categories`(`categoryname`, `uniquelink`)
 				VALUES ('" . $categoryname . "', '" . $link . "')";
-	$conn->query ( $query );
-	if ($conn === false) {
+	$res = $conn->query ( $query );
+	if ($res === false) {
 		echo false;
 		return;
 	} else {

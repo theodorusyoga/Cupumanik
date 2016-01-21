@@ -62,10 +62,10 @@ href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		</div>
 	</div>
 	<div class="main-body">
-		<div id="warningcontainer" class="alert alert-info"></div>
 		<div id="admin-content">
 			<h2>Cupumanik Guest House Administrator</h2>
 			<br />
+			<div id="warningcontainer" class="alert alert-info"></div>
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#reservation"
 					aria-controls="reservation" role="tab" data-toggle="tab"
@@ -104,31 +104,13 @@ href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 								Kamar/Rumah
 							</button>
 						</div>
-						<div class="row" style="padding-bottom: 0% !IMPORTANT;">
-							<table class="table table-hover">
-								<tr>
-									<th>No.</th>
-									<th>Nama Kamar/Rumah</th>
-									<th>Deskripsi</th>
-									<th>Kategori</th>
-									<th>Total Pemesanan</th>
-									<th colspan="2">&nbsp;</th>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Rumah Kavling 1</td>
-									<td>Kavling pertama dari jalan utama</td>
-									<td>Rumah</td>
-									<td>3</td>
-									<td><button class="btn">Ubah</button>
-									<button class="btn btn-danger">X</button></td>
-								</tr>
-							</table>
+						<div class="row" id="roomslist"
+							style="padding-bottom: 0% !IMPORTANT;">
+							<!-- FILL WITH ROOMS TABLE -->
 						</div>
 					</div>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="others">
-				</div>
+				<div role="tabpanel" class="tab-pane" id="others"></div>
 			</div>
 		</div>
 
@@ -140,8 +122,8 @@ href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 					<div class="modal-header">
 						<!-- <button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">&times;</span> -->
-						</button>
+						<span aria-hidden="true">&times;</span> 
+						</button> -->
 						<h4 class="modal-title" id="myModalLabel">Masuk ke Administrator</h4>
 					</div>
 					<form id="loginform">
@@ -179,6 +161,69 @@ href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 						<div class="modal-footer">
 							<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
 							<button type="submit" id="loginbtn" class="btn btn-primary">Masuk</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- ROOMS MODAL -->
+		<div id="roombox" class="modal fade" tabindex="-1" role="dialog"
+			aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id="addroomform" class="form-horizontal">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="addRoomModalLabel">Tambah Kamar/Rumah</h4>
+						</div>
+
+						<div class="modal-body">
+							<input type="hidden" id="selectedRoomId" />
+							<div class="row" id="roomdanger">
+								<div class="alert alert-danger">
+									<strong>Terjadi kesalahan: </strong>
+									<p id="roomdangermessage" />
+								</div>
+							</div>
+							<div class="row" id="roomsuccess">
+								<div class="alert alert-success">
+									<strong>Kamar/rumah berhasil disimpan.</strong>
+								</div>
+							</div>
+							<div class="row" id="roomwait">
+								<div class="alert alert-info">
+									<strong>Menunggu... </strong><img
+										src="../../assets/ajax-loader.gif" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-4">Pilih Kategori</div>
+								<div class="col-md-8" id="categorylistdiv">
+									<!-- FILL WITH CATEGORIES DROP DOWN -->
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-4">Nama Kamar/Rumah</div>
+								<div class="col-md-8">
+									<input type="text" class="form-control" id="roomNameTb" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-4">Deskripsi</div>
+								<div class="col-md-8">
+									<textarea id="deskripsiTb" class="form-control" rows="4"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button> -->
+							<button type="submit" id="addroombtn" class="btn btn-primary">
+								<span class="glyphicon glyphicon-plus">&nbsp;</span>Tambah Kamar
+							</button>
 						</div>
 					</form>
 				</div>

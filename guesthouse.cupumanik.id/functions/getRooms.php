@@ -20,8 +20,8 @@ foreach ( $rooms as $room ) {
 	$result .= '<td>' . ( string ) $room->description . '</td>';
 	$result .= '<td>' . ( string ) $room->categoryname . '</td>';
 	$result .= '<td>' . ( string ) $room->ordercount . '</td>';
-	$result .= '<td><button class="btn">Ubah</button>';
-	$result .= '<button class="btn btn-danger">X</button></td>';
+	$result .= "<td><button onclick=\"editRoom('" . (string)$room->roomid . "')\" class=\"btn\">Ubah</button></td>";
+	$result .= "<td><button onclick=\"deleteRoom('" . (string)$room->roomid ."', ". (string)$room->ordercount .")\" class=\"btn btn-danger\">X</button></td>";
 	$result .= '</tr>';
 	$index ++;
 }
@@ -34,7 +34,7 @@ function getRooms() {
 	if ($conn->connect_error) {
 		die ( "Connection failed " . $conn->connect_error );
 	}
-	$query = 'SELECT * FROM gh_roomslist';
+	$query = 'SELECT * FROM gh_roomslist ORDER BY `roomname`';
 	$result = $conn->query ( $query );
 	$strresult = '';
 	if ($result->num_rows > 0) {
@@ -45,7 +45,7 @@ function getRooms() {
 			$single->description = $item ['description'];
 			$single->categoryname = $item ['categoryname'];
 			$single->categoryid = $item ['categoryid'];
-			$single->ordercount = (int) $item ['orderid'];
+			$single->ordercount = $item ['ordercount'];
 			array_push ( $res, $single );
 		}
 	}
