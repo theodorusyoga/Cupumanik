@@ -1,5 +1,5 @@
 $url = 'http://guesthouse.cupumanik-local.com';
-
+$selectedcatid = null;
 $(document)
 		.ready(
 				function() {
@@ -8,6 +8,27 @@ $(document)
 					$('#alertreservation').hide();
 					$('#fail-alert').hide();
 					$('#orderprogressbar').hide();
+					$('#orderalert').hide();
+					
+					$('#btn-submit').click(function(){
+						addReservation();
+					});
+
+					$('#homeonly').click(function() {
+						$selectedcatid = 1;
+						$('#homeonly').css('background-color', '#E84B3A');
+						$('#homeonly .okicon').css('visibility', 'visible');
+						$('#roomonly').css('background-color', '');
+						$('#roomonly .okicon').css('visibility', 'hidden');
+					});
+
+					$('#roomonly').click(function() {
+						$selectedcatid = 2;
+						$('#roomonly').css('background-color', '#E84B3A');
+						$('#roomonly .okicon').css('visibility', 'visible');
+						$('#homeonly').css('background-color', '');
+						$('#homeonly .okicon').css('visibility', 'hidden');
+					});
 
 					$('.scroll').click(
 							function() {
@@ -103,20 +124,24 @@ $(document)
 					 * $('#start-date').data('DateTimePicker').maxDate(e.date);
 					 * });
 					 */
-					$('#btn-reservation').click(function() {
-						/* CHECK AVAILABILITY */
-						if($('#start-date-input').val() == '' ||
-								$('#end-date-input').val() == '' ){
-							$('#fail-alert').html('<span class="glyphicon glyphicon-warning-sign">&nbsp;</span>Isikan tanggal terlebih dahulu!');
-							$('#fail-alert').show();
-							return;
-						}
-						else{
-							$('#fail-alert').hide();
-							getAvailability();
-						}
-						
-					});
+					$('#btn-reservation')
+							.click(
+									function() {
+										/* CHECK AVAILABILITY */
+										if ($selectedcatid == null
+												|| $('#start-date-input').val() == ''
+												|| $('#end-date-input').val() == '') {
+											$('#fail-alert')
+													.html(
+															'<span class="glyphicon glyphicon-warning-sign">&nbsp;</span>Isikan jenis pemesanan (per rumah/kamar) dan tanggal terlebih dahulu!');
+											$('#fail-alert').show();
+											return;
+										} else {
+											$('#fail-alert').hide();
+											getAvailability();
+										}
+
+									});
 					/*
 					 * $('#btn-submit').on('click', function() { var allFilled =
 					 * true; var customerName =
@@ -249,13 +274,19 @@ function getAvailability() {
 	$('#progressbar').show();
 }
 
-function addReservation(){
+
+function addReservation() {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/addReservation.php', true);
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
-				
+				if(xmlhr.responseText == true){
+					$('#orderalert').show();
+					setInterval(function(){
+						location.reload();
+					}, 5000);
+				}
 			}
 		}
 	};
@@ -271,12 +302,12 @@ function addReservation(){
 
 	data.append('startdate', startdatestr);
 	data.append('enddate', enddatestr);
-	data.append('fullname', $('#customer-name').val());
-	data.append('address', $('#customer-address').val());
-	data.append('phone', $('#customer-phone').val());
-	data.append('email', $('#customer-email').val());
+	data.append('fullname', $('input[name=customer-name]').val());
+	data.append('address', $('input[name=customer-address]').val());
+	data.append('phone', $('input[name=customer-phone]').val());
+	data.append('email', $('input[name=customer-email]').val());
 	data.append('information', $('#customer-note').val());
-	data.append('selectedCategoryId', '1');
+	data.append('selectedCategoryId', $selectedcatid);
 	xmlhr.send(data);
 	$('#progressbar').show();
 }

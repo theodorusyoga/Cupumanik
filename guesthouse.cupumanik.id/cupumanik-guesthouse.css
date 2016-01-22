@@ -604,20 +604,55 @@ time.icon span {
 	padding-right: 10%;
 }
 
+a:ACTIVE{
+	text-decoration: none;
+}
+
 .roomoption:HOVER{
 	text-decoration: none;
 	color: white;
+	background-color: #FE7C60;
 }
 
 .roomoption {
+	padding-left: 15%;
 	display: block;
 	min-height: 100px !IMPORTANT;
-	height: 100px;
+	height: 120px;
+	width: 50%;
 	color: white;
+	/* background-color: #E84B3A; */
+	margin-bottom: 3%;
+	float: left;
+	display: inline;
 }
 
-.roomoption span{
+.roomoption .okicon{
+	color: white;
+	position:relative;
+	float: left;
+	left: -35%;
+	padding-top: 5%;
+	overflow: hidden;	
+	visibility: hidden;
+}
+
+.roomoption .bigicon{
 	min-height: 60px;
 	font-size: 50px;
 	color: white;
+	padding-top: 20%;
+}
+
+.roomoption:FOCUS{
+	color: white;
+	text-decoration: none !IMPORTANT;
+}
+
+.roomoption .optionmsg{
+	margin-left: -2%;
+}
+
+.options{
+	margin-top: -6%;
 }

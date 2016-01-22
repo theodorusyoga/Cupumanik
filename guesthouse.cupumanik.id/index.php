@@ -76,15 +76,21 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 				<h3>GUEST HOUSE NYAMAN DAN ASRI DI UTARA KOTA YOGYAKARTA</h3>
 				<br />
 				<hr />
+				<div id="fail-alert" class="alert alert-danger"></div>
 				<p>Pesan sekarang juga</p>
-				<br />
-				<a href="#" class="roomoption">
-						<span class="glyphicon glyphicon-home"></span>
-						<p>Per Rumah</p></a>
-				<a href="#" class="roomoption">
-						<span class="glyphicon glyphicon-lamp"></span>
-						<p>Per Kamar</p></a>
-				<p id="fail-alert" class="alert alert-danger"></p>
+				<br/>
+				<div class="options">
+					<a href="#" id="homeonly" class="roomoption"> <span
+						class="okicon glyphicon glyphicon-ok"></span> <span
+						class="bigicon glyphicon glyphicon-home"></span>
+						<p>Per Rumah</p></a> 
+						<a id="roomonly" href="#" class="roomoption">
+						<span class="okicon glyphicon glyphicon-ok"></span> <span
+						class="bigicon glyphicon glyphicon-lamp"></span>
+						<p>Per Kamar</p>
+					</a>
+				</div>
+				
 				<div id="progressbar" class="progress">
 					<div class="progress-bar progress-bar-striped active"
 						role="progressbar" aria-valuenow="100" aria-valuemin="0"
@@ -354,12 +360,13 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 						</div>
 						<hr />
 
-						
+
 						<div id="orderprogressbar" class="progress">
 							<div class="progress-bar progress-bar-striped active"
 								role="progressbar" aria-valuenow="100" aria-valuemin="0"
 								aria-valuemax="100" style="width: 100%">Memproses pemesanan...</div>
 						</div>
+						<div id="orderalert" class="alert alert-success">Pemesanan berhasil dilakukan. Harap tunggu untuk konfirmasi. Jendela ini akan menutup dalam 5 detik...</div>
 						<h4 class="main-title">Isikan data diri anda</h4>
 						<form role="form">
 							<div class="form-group row">
