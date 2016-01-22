@@ -38,162 +38,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../javascript/accounting.js"></script>
 <script src="../javascript/order.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('.scroll').click(function(){
-			$('html, body').animate({
-				scrollTop: $($(this).attr('href')).offset().top	- 50
-			}, {
-				duration: 500
-			});
-			return false;
-		});
-		$('#search-input').keydown(function(e) {
-			if (e.keyCode == 13 || e.which == 13)
-			{
-				search();
-			}
-		});
-		$('#search-btn').click(function() {
-			search();
-		});
-		$('#banner-1').show();
-		$('#banner-2').hide();
-		$('#banner-3').hide();
-		sessionStorage.guesthouseBanner = 1;
-		var interval = window.setInterval(function() {
-			var index = Number(sessionStorage.banner);
-			var nextIndex = index < 3 ? (index + 1) : 1;
-			//alert(index);
-			$('#banner-' + index).fadeOut(500, function() {
-				$('#banner-' + nextIndex).fadeIn(500);
-			});
-			sessionStorage.guesthouseBanner = nextIndex;
-		}, 5000);
-		$('.facilities-desc').hide();
-		$('#facilities-desc-1').show();
-		$('.facilities-icon').bind('mousedown', function() {
-			var newId = Number($(this).attr('id').replace('facilities-icon-',''));
-			var selectedId = Number($('.facilities-icon.selected').first().attr('id').replace('facilities-icon-',''));
-			if (newId != selectedId) {
-				$('#facilities-icon-' + selectedId).removeClass('selected');
-				$('#facilities-icon-' + newId).addClass('selected');
-				$('#facilities-desc-' + selectedId).hide("slide", { direction: (newId > selectedId ? "left" : "right") }, 300, 
-					function() {
-						$('#facilities-desc-' + newId).show("slide", { direction: (newId > selectedId ? "right" : "left") }, 300)
-					});
-			}
-		});
-		$('#start-date').datetimepicker({
-			 locale: 'id',
-			 sideBySide: true,
-			 format: 'dddd, YYYY-MM-D HH:mm'
-		});
-		$('#end-date').datetimepicker({
-			 locale: 'id',
-			 sideBySide: true,
-			 format: 'dddd, YYYY-MM-D HH:mm'
-		});
-		$('#start-date').on('dp.change', function(e) {
-			$('#end-date').data('DateTimePicker').minDate(e.date);
-		});
-		/* restrict startdate aku hapus ya, soalnya jadi error :p *THEO* */
-		/* $('#end-date').on('dp.change', function(e) {
-			$('#start-date').data('DateTimePicker').maxDate(e.date);
-		}); */
-		$('#btn-reservation').click(function() {
-			var monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
-			                  "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-			                ];
-			$('#order-modal').modal({
-				backdrop : 'static',
-				keyboard : false
-			});
-			$('#order-confirmation').hide();
-			$('#btn-ok').hide();
-
-			/* START DATE */
-			var fullstartdate = $('#start-date-input').val();
-			var allstartdate = fullstartdate.split(',');
-			var startdatestr = allstartdate[1];	
-			var date = new Date(startdatestr);
-			$('#startday').html(allstartdate[0]);
-			$('#startdate').html(date.getDate());
-			$('#startmonth').html(monthNames[date.getMonth()] + '<br/>' + date.getFullYear());
-			$('#starthour').html(("0" + date.getHours()).slice(-2));
-			$('#startminute').html(("0" + date.getMinutes()).slice(-2));
-
-			/* END DATE */
-			var fullenddate = $('#end-date-input').val();
-			var allenddate = fullenddate.split(',');
-			var enddatestr = allenddate[1];	
-			var enddate = new Date(enddatestr);
-			$('#endday').html(allenddate[0]);
-			$('#enddate').html(enddate.getDate());
-			$('#endmonth').html(monthNames[enddate.getMonth()] + '<br/>' + enddate.getFullYear());
-			$('#endhour').html(("0" + enddate.getHours()).slice(-2));
-			$('#endminute').html(("0" + enddate.getMinutes()).slice(-2));
-			});
-		/* $('#btn-submit').on('click', function() {
-			var allFilled = true;
-			var customerName = $('input[name=customer-name]').val();
-			if (!customerName) {
-			      $('#alert-name-empty').removeClass('hide');
-			      allFilled = false;
-			}
-			else $('#alert-name-empty').addClass('hide');
-			var customerAddress = $('input[name=customer-address]').val();
-			if (!customerAddress) {
-			      $('#alert-address-empty').removeClass('hide');
-			      allFilled = false;
-			}
-			else $('#alert-address-empty').addClass('hide');
-			var customerPhone = $('input[name=customer-phone]').val();
-			var customerEmail = $('input[name=customer-email]').val();
-			if (!customerEmail) {
-			      $('#alert-email-empty').removeClass('hide');
-			      allFilled = false;
-			}
-			else $('#alert-email-empty').addClass('hide');
-			var customerNote = $('#customer-note').val()
-			var customerPrice = $('#order-final').find('.order-total-price').first().text();
-			if (allFilled) {
-				insertOrder(customerName, customerEmail, customerAddress, customerPhone, customerNote,
-					function(priceWithCode) {
-						var price = accounting.unformat(customerPrice, ',');
-						$('#fail-alert').addClass('hide');
-						$('.modal-header h4').text('Pemesanan Berhasil');
-						$('#form-order').hide();
-						$('#order-confirmation').show();
-						$('#customer-name-success').text(customerName);
-						$('#customer-address-success').text(customerAddress);
-						$('#customer-price-success').text(accounting.formatMoney(price, "Rp ", 2, '.', ','));
-						$('#customer-email-success').text(customerEmail);
-						$('#price-with-code').text(accounting.formatMoney(Number(priceWithCode), "Rp ", 2, '.', ',') + ' *');
-						$('#btn-submit').hide();
-						$('#btn-ok').show();
-						deleteAllOrder();
-					}, function(error) {
-						$('#fail-alert').text("Terjadi kesalahan, silakan coba ulangi pemesanan\n" + error);
-						$('#fail-alert').removeClass('hide');
-					});
-			}
-		}); */
-		$('#btn-ok').click(function() {
-			window.location.reload(true);
-		});
-		$('.product-item').bind('mousedown', function() {
-			var background = $(this).find('.product-item-inner').first().css('background-image');
-			$('#image-big').css('background-image', background);
-			$('#image-big').css('background-size', 'cover');
-			$('#gallery-modal').modal({
-				backdrop : true,
-				keyboard : true
-			});
-		});
-	});
-
-</script>
+<script src="../javascript/home.js"></script>
 </head>
 <body>
 <?php
@@ -233,6 +78,25 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 				<hr />
 				<p>Pesan sekarang juga</p>
 				<br />
+				<a href="#" class="roomoption">
+						<span class="glyphicon glyphicon-home"></span>
+						<p>Per Rumah</p></a>
+				<a href="#" class="roomoption">
+						<span class="glyphicon glyphicon-lamp"></span>
+						<p>Per Kamar</p></a>
+				<p id="fail-alert" class="alert alert-danger"></p>
+				<div id="progressbar" class="progress">
+					<div class="progress-bar progress-bar-striped active"
+						role="progressbar" aria-valuenow="100" aria-valuemin="0"
+						aria-valuemax="100" style="width: 100%">Melihat ketersediaan...</div>
+				</div>
+				<div class="row" id="alertreservation">
+					<div class="alert alert-danger">
+						<span class="glyphicon glyphicon-warning-sign"></span> Tanggal
+						yang Anda masukkan tidak tersedia/sudah dipesan. Silakan pilih
+						tanggal yang lain.
+					</div>
+				</div>
 				<div id="search-box">
 					<div class="form-group">
 						<div class="input-group date" id='start-date'>
@@ -467,7 +331,7 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 									<time datetime="2014-09-20" class="icon">
 										<em id="startday">Saturday</em> <strong id="startmonth">September
 										</strong> <span id="startdate">20</span>
-									</time> 
+									</time>
 									<div class="timeclock">
 										<div class="hour" id="starthour">00</div>
 										<span>:</span>
@@ -477,7 +341,8 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 								<div class="col-xs-6">
 									<p>Tanggal Check-Out</p>
 									<time datetime="2014-09-20" class="icon">
-										<em id="endday">Saturday</em> <strong id="endmonth">September 2016</strong> <span id="enddate">20</span>
+										<em id="endday">Saturday</em> <strong id="endmonth">September
+											2016</strong> <span id="enddate">20</span>
 									</time>
 									<div class="timeclock">
 										<div class="hour" id="endhour">00</div>
@@ -488,7 +353,13 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 							</div>
 						</div>
 						<hr />
-						<p id="fail-alert" class="alert alert-danger hide"></p>
+
+						
+						<div id="orderprogressbar" class="progress">
+							<div class="progress-bar progress-bar-striped active"
+								role="progressbar" aria-valuenow="100" aria-valuemin="0"
+								aria-valuemax="100" style="width: 100%">Memproses pemesanan...</div>
+						</div>
 						<h4 class="main-title">Isikan data diri anda</h4>
 						<form role="form">
 							<div class="form-group row">

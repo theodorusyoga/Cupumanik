@@ -68,22 +68,26 @@ time.icon span {
 	padding-left: 3%;
 	padding-top: 3%;
 	padding-bottom: 3%;
-    padding-right: 3%;
+	padding-right: 3%;
 	color: #FFFFFF;
 	border-color: grey;
 	border-radius: 10px;
-	box-shadow: 1px 2px 0px rgba(243, 115, 2, 1);	
+	box-shadow: 1px 2px 0px rgba(243, 115, 2, 1);
 	/* gradient */
-	background: -webkit-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: -webkit-repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 	/* Opera 11.1 to 12.0 */
-	background: -o-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: -o-repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 	/* Firefox 3.6 to 15 */
-	background: -moz-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: -moz-repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 	/* Standard syntax */
-	background: repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 }
 
-.timeclock span{
+.timeclock span {
 	font: 'Raleway', serif;
 	font-size: 24px;
 	margin-right: -1%;
@@ -105,13 +109,17 @@ time.icon span {
 	border-radius: 10px;
 	box-shadow: 1px 2px 0px rgba(243, 115, 2, 1);
 	/* gradient */
-	background: -webkit-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: -webkit-repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 	/* Opera 11.1 to 12.0 */
-	background: -o-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: -o-repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 	/* Firefox 3.6 to 15 */
-	background: -moz-repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: -moz-repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 	/* Standard syntax */
-	background: repeating-linear-gradient(rgba(0, 51, 102, 1), rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
+	background: repeating-linear-gradient(rgba(0, 51, 102, 1),
+		rgba(84, 116, 139, 1) 30%, rgba(0, 51, 102, 1));
 }
 
 .navbar-default .container {
@@ -594,4 +602,22 @@ time.icon span {
 	padding-top: 2%;
 	padding-left: 10%;
 	padding-right: 10%;
+}
+
+.roomoption:HOVER{
+	text-decoration: none;
+	color: white;
+}
+
+.roomoption {
+	display: block;
+	min-height: 100px !IMPORTANT;
+	height: 100px;
+	color: white;
+}
+
+.roomoption span{
+	min-height: 60px;
+	font-size: 50px;
+	color: white;
 }

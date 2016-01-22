@@ -42,6 +42,9 @@ $(document)
 												$('#login').hide();
 												$('#logout').show();
 												$('#admin-content').show();
+												
+												/*LOAD DATA*/
+												getRooms();
 											} else {
 												$('#alertdanger').show();
 												$('#alertsuccess').hide();

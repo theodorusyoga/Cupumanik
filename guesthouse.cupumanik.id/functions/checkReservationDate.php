@@ -25,15 +25,10 @@ function array_grouping($array) {
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= '/functions/dbConnection.php';
 include ($path);
-if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset ( $_POST ['fullname'] ) && isset ( $_POST ['address'] ) && isset ( $_POST ['phone'] ) && isset ( $_POST ['email'] ) && isset ( $_POST ['information'] ) && isset ( $_POST ['selectedCategoryId'] )) {
+if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] )) {
 	$startdate = $_POST ['startdate'];
 	$enddate = $_POST ['enddate'];
-	$fullname = $_POST ['fullname'];
-	$address = $_POST ['address'];
-	$phone = $_POST ['phone'];
-	$email = $_POST ['email'];
-	$information = $_POST ['information'];
-	$selectedcat = ( int ) $_POST ['selectedCategoryId'];
+	$selectedcat = 1; // rumah = 1, kamar = 2
 	/* DATABASE */
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
 	if ($conn->connect_error) {
@@ -64,7 +59,8 @@ if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset ( $_
 			$currentorder = $group [$i];
 			$currentstart = $currentorder->startdate;
 			$currentend = $currentorder->enddate;
-			if (check_date_range ( $currentstart, $currentend, $startdate ) || check_date_range ( $currentstart, $currentend, $enddate ) || check_date_range ( $startdate, $enddate, $currentstart ) || check_date_range ( $startdate, $enddate, $currentend )) /* check start and end date */{
+			if (check_date_range ( $currentstart, $currentend, $startdate ) || check_date_range ( $currentstart, $currentend, $enddate )
+					|| check_date_range ( $startdate, $enddate, $currentstart ) || check_date_range ( $startdate, $enddate, $currentend )) /* check start and end date */{
 				$accepted = false;
 				break;
 			}
@@ -76,24 +72,8 @@ if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset ( $_
 		}
 	}
 	
-	if($selectedRoomId != 0){
-		$query = "INSERT INTO `orders`(`startdate`, `enddate`, `name`, `address`, `phone`, `email`, `information`, `roomid`, `isapproved`) 
-				VALUES ('" . $startdate ."','" . $enddate ."','" . $fullname . "','" . $address ."'
-						,'" . $phone ."','" . $email ."','" . $information . "'," . $selectedRoomId .",0)";
-		$result = $conn->query ( $query );
-		if ($result === false) {
-			echo false;
-			return;
-		} else {
-			echo true;
-			return;
-		}
-	}
-	else{
-		echo false;
-		return;
-	}
-
+	echo $selectedRoomId;
+	return;
 }
 
 ?>
