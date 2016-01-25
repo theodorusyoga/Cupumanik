@@ -1,8 +1,13 @@
 $url = 'http://guesthouse.cupumanik-local.com';
-
+var monthNames = [ "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+		"Juli", "Agustus", "September", "Oktober", "November", "Desember" ];
+$selectedcategoryid = 0;
+$selectedorderid = 0;
+$selectedroomid = 0;
 $(document)
 		.ready(
 				function() {
+					$('[data-toggle="tooltip"]').tooltip();
 					$('#loginbox').modal({
 						backdrop : 'static',
 						keyboard : false
@@ -22,47 +27,98 @@ $(document)
 					$('#roomsuccess').hide();
 					$('#roomwait').hide();
 
+					/* RESERVATION ALERTS */
+					$('#orderprogressbar').hide();
+					$('#orderalert').hide();
+
+					$('#start-date').datetimepicker({
+						locale : 'id',
+						sideBySide : true,
+						format : 'YYYY-MM-D HH:mm'
+					});
+					$('#end-date').datetimepicker({
+						locale : 'id',
+						sideBySide : true,
+						format : 'YYYY-MM-D HH:mm'
+					});
+					$('#start-date').on(
+							'dp.change',
+							function(e) {
+								if ($selectedcategoryid != 0
+										&& $selectedorderid != 0
+										&& $selectedroomid != 0)
+									getAvailableRooms($selectedcategoryid,
+											$selectedorderid, $selectedroomid);
+								$('#end-date').data('DateTimePicker').minDate(
+										e.date);
+							});
+
+					$('#end-date').on(
+							'dp.change',
+							function(e) {
+								if ($selectedcategoryid != 0
+										&& $selectedorderid != 0
+										&& $selectedroomid != 0)
+									getAvailableRooms($selectedcategoryid,
+											$selectedorderid, $selectedroomid);
+							});
+
 					check();
 
 					/* EVENTS */
 
-					$('#loginbtn').click(
-							function() {
-								$('#alertwait').show();
-								var xmlhr = new XMLHttpRequest();
-								xmlhr.open('POST', $url
-										+ '/functions/login.php', true);
-								xmlhr.onload = function(e) {
-									if (xmlhr.readyState == 4) {
-										if (xmlhr.status == 200) {
-											if (xmlhr.responseText == '1') {
-												$('#alertdanger').hide();
-												$('#alertsuccess').show();
-												$('#loginbox').modal('hide');
-												$('#login').hide();
-												$('#logout').show();
-												$('#admin-content').show();
-												
-												/*LOAD DATA*/
-												getRooms();
-											} else {
-												$('#alertdanger').show();
-												$('#alertsuccess').hide();
-												$('#admin-content').hide();
+					$('#loginbtn')
+							.click(
+									function() {
+										$('#alertwait').show();
+										var xmlhr = new XMLHttpRequest();
+										xmlhr.open('POST', $url
+												+ '/functions/login.php', true);
+										xmlhr.onload = function(e) {
+											if (xmlhr.readyState == 4) {
+												if (xmlhr.status == 200) {
+													if (xmlhr.responseText == '1') {
+														$('#alertdanger')
+																.hide();
+														$('#alertsuccess')
+																.show();
+														$('#loginbox').modal(
+																'hide');
+														$('#login').hide();
+														$('#logout').show();
+														$('#admin-content')
+																.show();
+
+														/* LOAD DATA */
+														$query = $(
+																'#sortParam option:selected')
+																.val();
+														getRooms();
+														addRoomsDropDown();
+														getReservations($query);
+													} else {
+														$('#alertdanger')
+																.show();
+														$('#alertsuccess')
+																.hide();
+														$('#admin-content')
+																.hide();
+													}
+												} else {
+													$('#alertdanger').show();
+													$('#alertsuccess').hide();
+													$('#admin-content').hide();
+												}
 											}
-										} else {
-											$('#alertdanger').show();
-											$('#alertsuccess').hide();
-											$('#admin-content').hide();
-										}
-									}
-									$('#alertwait').hide();
-								};
-								var data = new FormData();
-								data.append('user', $('#usernameTb').val());
-								data.append('pass', $('#passwordTb').val());
-								xmlhr.send(data);
-							});
+											$('#alertwait').hide();
+										};
+										var data = new FormData();
+										data.append('user', $('#usernameTb')
+												.val());
+										data.append('pass', $('#passwordTb')
+												.val());
+										xmlhr.send(data);
+									});
 
 					$('#login').click(function() {
 						$('#loginbox').modal('toggle');
@@ -97,7 +153,11 @@ $(document)
 										$('#admin-content').show();
 
 										/* LOAD DATA */
+										$query = $('#sortParam option:selected')
+												.val();
 										getRooms();
+										addRoomsDropDown();
+										getReservations($query);
 									}
 								} else {
 									$('#login').hide();
@@ -139,6 +199,17 @@ $(document)
 						e.preventDefault();
 						refreshFilteredProducts();
 
+					});
+
+					$('#sortParam').on('change', function() {
+						$query = $('#sortParam option:selected').val();
+						getReservations($query);
+					});
+
+					$('#sortform').on('submit', function(e) {
+						$query = $('#sortParam option:selected').val();
+						getReservations($query);
+						e.preventDefault();
 					});
 
 				});
@@ -254,7 +325,7 @@ function editRoom(id) {
 		$('#warningcontainer').show();
 		$('#warningcontainer')
 				.html(
-						'Gagal menambahkan kamar/rumah. Ulangi menyimpan atau kontak administrator apabila terjadi kesalahan yang sama.');
+						'Gagal mengubah kamar/rumah. Ulangi menyimpan atau kontak administrator apabila terjadi kesalahan yang sama.');
 	}
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
@@ -325,6 +396,11 @@ function getRooms() {
 					'<strong>Memuat daftar kamar/rumah... </strong><img src="../../assets/ajax-loader.gif" />');
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/getRooms.php', true);
+	xmlhr.onerror = function(e) {
+		$('#warningcontainer')
+				.html(
+						'<strong>Terjadi kesalahan saat memuat kamar/rumah! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+	}
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
@@ -340,7 +416,179 @@ function getRooms() {
 	$('#warningcontainer').show();
 }
 
+function addRoomsDropDown() {
+	$('#warningcontainer')
+			.html(
+					'<strong>Memuat daftar kamar/rumah... </strong><img src="../../assets/ajax-loader.gif" />');
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getRoomsAsDropDown.php', true);
+	xmlhr.onerror = function(e) {
+		$('#warningcontainer')
+				.html(
+						'<strong>Terjadi kesalahan saat memuat kamar/rumah! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+	}
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				if (xmlhr.responseText) {
+					$('#daftarKamarFilter').html(xmlhr.responseText);
+					$('#warningcontainer').hide();
+				}
+			}
+		}
+	};
+	var data = new FormData();
+	xmlhr.send(data);
+	$('#warningcontainer').show();
+}
+
 /* end ROOMS/HOUSES */
+
+/* start RESERVATIONS */
+
+function getReservations(filterQuery) {
+	$('#warningcontainer')
+			.html(
+					'<strong>Memuat daftar pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getReservations.php', true);
+	xmlhr.onerror = function(e) {
+		$('#warningcontainer')
+				.html(
+						'<strong>Terjadi kesalahan saat memuat pemesanan! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+	}
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$('#reservationcontent').html(xmlhr.responseText);
+				$('#warningcontainer').hide();
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('query', filterQuery);
+	data.append('search', $('#cariTb').val());
+	xmlhr.send(data);
+	$('#warningcontainer').show();
+}
+
+function detailReservasi(id) {
+	$selectedcategoryid = 0;
+	$selectedorderid = 0;
+	$selectedroomid = 0;
+	$('#warningcontainer')
+			.html(
+					'<strong>Memuat data pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getSingleReservation.php', true);
+	xmlhr.onerror = function(e) {
+		$('#warningcontainer')
+				.html(
+						'<strong>Terjadi kesalahan saat membuka detail pemesanan! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+	}
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$obj = JSON.parse(xmlhr.responseText);
+				$('#jenis-pemesanan').text($obj.categoryname);
+				$('#customer-name').text($obj.name);
+				$('#customer-address').text($obj.address);
+				$('#customer-phone').text($obj.phone);
+				$('#customer-email').text($obj.email);
+				$('#customer-note').text($obj.info);
+				var reservedate = new Date($obj.reservationdate);
+				$('#customer-reservation-date').text(
+						reservedate.getDate() + ' '
+								+ monthNames[reservedate.getMonth()] + ' '
+								+ reservedate.getFullYear() + ' '
+								+ reservedate.getHours() + ':'
+								+ reservedate.getMinutes());
+
+				/* DATE RELATED */
+				var startdate = new Date($obj.startdate);
+				var enddate = new Date($obj.enddate);
+				$('#start-date').data('DateTimePicker').date(startdate);
+				$('#end-date').data('DateTimePicker').date(enddate);
+				$('#end-date').data('DateTimePicker').minDate(startdate);
+				$selectedcategoryid = $obj.categoryid;
+				$selectedorderid = $obj.orderid;
+				$selectedroomid = $obj.roomid;
+				getAvailableRoomsInitial($selectedcategoryid, $selectedorderid,
+						$selectedroomid);
+				$('#order-modal').modal('show');
+				$('#warningcontainer').hide();
+
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('id', id);
+	xmlhr.send(data);
+	$('#warningcontainer').show();
+}
+
+function getAvailableRooms(categoryId, orderId, roomId) {
+	$('#orderalert')
+			.html(
+					'<strong>Memuat kamar/rumah tersedia... </strong><img src="../../assets/ajax-loader.gif" />');
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getAvailableRoomsInitial.php', true);
+	xmlhr.onerror = function(e) {
+		$('#orderalert')
+				.html(
+						'<strong>Terjadi kesalahan saat mencari kamar/rumah tersedia! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+	}
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$('#pilihKamarDetail').html(xmlhr.responseText);
+				$('#orderalert').hide();
+
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('startdate', $('#start-date-input').val());
+	data.append('enddate', $('#end-date-input').val());
+	data.append('selectedcat', categoryId);
+	data.append('orderid', orderId);
+	xmlhr.send(data);
+	$('#orderalert').show();
+}
+
+function getAvailableRoomsInitial(categoryId, orderId, roomId) {
+	$('#orderalert')
+			.html(
+					'<strong>Memuat kamar/rumah tersedia... </strong><img src="../../assets/ajax-loader.gif" />');
+	var xmlhr = new XMLHttpRequest();
+	xmlhr.open('POST', $url + '/functions/getAvailableRoomsInitial.php', true);
+	xmlhr.onerror = function(e) {
+		$('#orderalert')
+				.html(
+						'<strong>Terjadi kesalahan saat mencari kamar/rumah tersedia! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+	}
+	xmlhr.onload = function(e) {
+		if (xmlhr.readyState == 4) {
+			if (xmlhr.status == 200) {
+				$('#pilihKamarDetail').html(xmlhr.responseText);
+				$('select#pilihKamarDetail option').each(function() {
+					this.selected = (this.value == roomId);
+				});
+				$('#orderalert').hide();
+
+			}
+		}
+	};
+	var data = new FormData();
+	data.append('startdate', $('#start-date-input').val());
+	data.append('enddate', $('#end-date-input').val());
+	data.append('selectedcat', categoryId);
+	data.append('orderid', orderId);
+	xmlhr.send(data);
+	$('#orderalert').show();
+}
+
+/* END RESERVATIONS */
 
 function logout() {
 	$('#warningcontainer')
@@ -348,6 +596,11 @@ function logout() {
 					'<strong>Mengeluarkan Anda dari administrator... </strong><img src="../../assets/ajax-loader.gif" />');
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/logout.php', true);
+	xmlhr.onerror = function(e) {
+		$('#warningcontainer')
+				.html(
+						'<strong>Terjadi kesalahan saat mengeluarkan Anda dari administrator! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+	}
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
@@ -386,9 +639,7 @@ function changePassword() {
 					$('#warningcontainer').show();
 				}
 
-			} else {
-				alert(xmlhr.statusText);
-			}
+			} 
 		}
 	};
 	var data = new FormData();

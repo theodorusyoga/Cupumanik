@@ -21,15 +21,7 @@ function array_grouping($array) {
 	}
 	return $groups;
 }
-
-$path = $_SERVER ['DOCUMENT_ROOT'];
-$path .= '/functions/dbConnection.php';
-include ($path);
-if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset($_POST['selectedcat'])) {
-	$startdate = $_POST ['startdate'];
-	$enddate = $_POST ['enddate'];
-	$selectedcat = (int)$_POST['selectedcat']; // rumah = 1, kamar = 2
-	/* DATABASE */
+function getAvailableRooms($startdate, $enddate, $orderid, $selectedcat) {
 	$conn = new mysqli ( $GLOBALS ['servername'], $GLOBALS ['dbuser'], $GLOBALS ['dbpass'], $GLOBALS ['dbname'] );
 	if ($conn->connect_error) {
 		die ( "Connection failed " . $conn->connect_error );
@@ -44,6 +36,7 @@ if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset($_PO
 			$single->startdate = $item ['startdate'];
 			$single->enddate = $item ['enddate'];
 			$single->roomid = $item ['roomid'];
+			$single->roomname = $item ['roomname'];
 			array_push ( $selectres, $single );
 		}
 	} else {
@@ -51,28 +44,48 @@ if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset($_PO
 		return;
 	}
 	
+	$res = array ();
 	$grouped = array_grouping ( $selectres );
-	$selectedRoomId = 0;
 	foreach ( $grouped as $group ) {
 		$accepted = true;
 		for($i = 0; $i < count ( $group ); $i ++) {
 			$currentorder = $group [$i];
 			$currentstart = $currentorder->startdate;
 			$currentend = $currentorder->enddate;
-			if (check_date_range ( $currentstart, $currentend, $startdate ) || check_date_range ( $currentstart, $currentend, $enddate )
-					|| check_date_range ( $startdate, $enddate, $currentstart ) || check_date_range ( $startdate, $enddate, $currentend )) /* check start and end date */{
-				$accepted = false;
-				break;
+			if ($currentorder->orderid != $orderid) {
+				if (check_date_range ( $currentstart, $currentend, $startdate ) || check_date_range ( $currentstart, $currentend, $enddate ) || check_date_range ( $startdate, $enddate, $currentstart ) || check_date_range ( $startdate, $enddate, $currentend )) /* check start and end date */{
+					$accepted = false;
+					break;
+				}
 			}
 		}
 		
 		if ($accepted === true) {
-			$selectedRoomId = $group [0]->roomid;
-			break;
+			$single = new stdClass ();
+			$single->roomid = $group [0]->roomid;
+			$single->roomname = $group [0]->roomname;
+			array_push ( $res, $single );
 		}
 	}
+	return $res;
+}
+
+$path = $_SERVER ['DOCUMENT_ROOT'];
+$path .= '/functions/dbConnection.php';
+include ($path);
+if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset ( $_POST ['selectedcat'] ) && isset ( $_POST ['orderid'] )) {
+	$startdate = $_POST ['startdate'];
+	$enddate = $_POST ['enddate'];
+	$orderid = (int) $_POST ['orderid'];
+	$selectedcat = ( int ) $_POST ['selectedcat']; // rumah = 1, kamar = 2
 	
-	echo $selectedRoomId;
+	$rooms = getAvailableRooms($startdate, $enddate, $orderid, $selectedcat);
+	$result = '';
+	foreach ($rooms as $room) {
+		$result .= '<option value="' . $room->roomid .'">' . $room->roomname .'</option>';
+	}
+	
+	echo $result;
 	return;
 }
 

@@ -77,25 +77,6 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 				<br />
 				<hr />
 				<div id="fail-alert" class="alert alert-danger"></div>
-				<p>Pesan sekarang juga</p>
-				<br/>
-				<div class="options">
-					<a href="#" id="homeonly" class="roomoption"> <span
-						class="okicon glyphicon glyphicon-ok"></span> <span
-						class="bigicon glyphicon glyphicon-home"></span>
-						<p>Per Rumah</p></a> 
-						<a id="roomonly" href="#" class="roomoption">
-						<span class="okicon glyphicon glyphicon-ok"></span> <span
-						class="bigicon glyphicon glyphicon-lamp"></span>
-						<p>Per Kamar</p>
-					</a>
-				</div>
-				
-				<div id="progressbar" class="progress">
-					<div class="progress-bar progress-bar-striped active"
-						role="progressbar" aria-valuenow="100" aria-valuemin="0"
-						aria-valuemax="100" style="width: 100%">Melihat ketersediaan...</div>
-				</div>
 				<div class="row" id="alertreservation">
 					<div class="alert alert-danger">
 						<span class="glyphicon glyphicon-warning-sign"></span> Tanggal
@@ -103,6 +84,25 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 						tanggal yang lain.
 					</div>
 				</div>
+				<p>Pesan sekarang juga</p>
+				<br />
+				<div class="options">
+					<a href="#" id="homeonly" class="roomoption"> <span
+						class="okicon glyphicon glyphicon-ok"></span> <span
+						class="bigicon glyphicon glyphicon-home"></span>
+						<p>Per Rumah</p></a> <a id="roomonly" href="#" class="roomoption">
+						<span class="okicon glyphicon glyphicon-ok"></span> <span
+						class="bigicon glyphicon glyphicon-lamp"></span>
+						<p>Per Kamar</p>
+					</a>
+				</div>
+
+				<div id="progressbar" class="progress">
+					<div class="progress-bar progress-bar-striped active"
+						role="progressbar" aria-valuenow="100" aria-valuemin="0"
+						aria-valuemax="100" style="width: 100%">Melihat ketersediaan...</div>
+				</div>
+
 				<div id="search-box">
 					<div class="form-group">
 						<div class="input-group date" id='start-date'>
@@ -360,13 +360,14 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 						</div>
 						<hr />
 
-
 						<div id="orderprogressbar" class="progress">
 							<div class="progress-bar progress-bar-striped active"
 								role="progressbar" aria-valuenow="100" aria-valuemin="0"
 								aria-valuemax="100" style="width: 100%">Memproses pemesanan...</div>
 						</div>
-						<div id="orderalert" class="alert alert-success">Pemesanan berhasil dilakukan. Harap tunggu untuk konfirmasi. Jendela ini akan menutup dalam 5 detik...</div>
+						<div id="orderalert" class="alert alert-success">Pemesanan
+							berhasil dilakukan. Harap tunggu untuk konfirmasi. Jendela ini
+							akan menutup dalam 5 detik...</div>
 						<h4 class="main-title">Isikan data diri anda</h4>
 						<form role="form">
 							<div class="form-group row">

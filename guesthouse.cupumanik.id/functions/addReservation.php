@@ -64,7 +64,8 @@ if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset ( $_
 			$currentorder = $group [$i];
 			$currentstart = $currentorder->startdate;
 			$currentend = $currentorder->enddate;
-			if (check_date_range ( $currentstart, $currentend, $startdate ) || check_date_range ( $currentstart, $currentend, $enddate ) || check_date_range ( $startdate, $enddate, $currentstart ) || check_date_range ( $startdate, $enddate, $currentend )) /* check start and end date */{
+			if (check_date_range ( $currentstart, $currentend, $startdate ) || check_date_range ( $currentstart, $currentend, $enddate ) 
+					|| check_date_range ( $startdate, $enddate, $currentstart ) || check_date_range ( $startdate, $enddate, $currentend )) /* check start and end date */{
 				$accepted = false;
 				break;
 			}
@@ -76,10 +77,11 @@ if (isset ( $_POST ['startdate'] ) && isset ( $_POST ['enddate'] ) && isset ( $_
 		}
 	}
 	
+	
 	if($selectedRoomId != 0){
-		$query = "INSERT INTO `orders`(`startdate`, `enddate`, `name`, `address`, `phone`, `email`, `information`, `roomid`, `isapproved`) 
+		$query = "INSERT INTO `orders`(`startdate`, `enddate`, `name`, `address`, `phone`, `email`, `information`, `roomid`, `isapproved`, `tanggalpesan`) 
 				VALUES ('" . $startdate ."','" . $enddate ."','" . $fullname . "','" . $address ."'
-						,'" . $phone ."','" . $email ."','" . $information . "'," . $selectedRoomId .",0)";
+						,'" . $phone ."','" . $email ."','" . $information . "'," . $selectedRoomId .",0, '" . date('Y-m-d H:i:s') ."')";
 		$result = $conn->query ( $query );
 		if ($result === false) {
 			echo false;

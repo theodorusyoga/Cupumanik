@@ -5,6 +5,10 @@ body {
 	overflow-y: auto;
 }
 
+body p,table,td,th,button,input,textarea,select,option,h3,h2,small,ul,li,div{
+	font-family: 'Raleway', 'Serif';
+}
+
 /*.navbar-default {
 	min-height: 40px !important;
 }*/

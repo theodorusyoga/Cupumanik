@@ -207,6 +207,10 @@ $(document)
 function getAvailability() {
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/checkReservationDate.php', true);
+	xmlhr.onerror = function(e){
+		alert('Terjadi kesalahan dalam memproses pesanan Anda. Silakan ulangi atau hubungi administrator.');
+		$('#progressbar').hide();
+	}
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
@@ -251,6 +255,7 @@ function getAvailability() {
 					$('#endhour').html(("0" + enddate.getHours()).slice(-2));
 					$('#endminute')
 							.html(("0" + enddate.getMinutes()).slice(-2));
+					$('#alertreservation').hide();	
 				} else {
 					$('#alertreservation').show();
 				}
@@ -270,14 +275,20 @@ function getAvailability() {
 
 	data.append('startdate', startdatestr);
 	data.append('enddate', enddatestr);
+	data.append('selectedcat', $selectedcatid);
 	xmlhr.send(data);
 	$('#progressbar').show();
 }
 
 
 function addReservation() {
+	
 	var xmlhr = new XMLHttpRequest();
 	xmlhr.open('POST', $url + '/functions/addReservation.php', true);
+	xmlhr.onerror = function(e){
+		$('#orderprogressbar').hide();
+		alert('Terjadi kesalahan dalam memproses pesanan Anda. Silakan ulangi atau hubungi administrator.');
+	}
 	xmlhr.onload = function(e) {
 		if (xmlhr.readyState == 4) {
 			if (xmlhr.status == 200) {
@@ -309,5 +320,6 @@ function addReservation() {
 	data.append('information', $('#customer-note').val());
 	data.append('selectedCategoryId', $selectedcatid);
 	xmlhr.send(data);
-	$('#progressbar').show();
+	$('#orderprogressbar').show();
 }
+
