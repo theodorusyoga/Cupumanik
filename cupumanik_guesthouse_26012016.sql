@@ -149,7 +149,7 @@ INSERT INTO `rooms` (`roomid`, `roomname`, `description`, `categoryid`) VALUES
 --
 DROP TABLE IF EXISTS `gh_allorderswithcategory`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `gh_allorderswithcategory`  AS  select `roomslist`.`roomid` AS `roomid`,`roomslist`.`roomname` AS `roomname`,`roomslist`.`description` AS `description`,`roomslist`.`categoryname` AS `categoryname`,`roomslist`.`categoryid` AS `categoryid`,`roomslist`.`ordercount` AS `ordercount`,ifnull(`orders`.`id`,0) AS `orderid`,ifnull(`orders`.`startdate`,'0000-00-00 00:00') AS `startdate`,ifnull(`orders`.`enddate`,'0000-00-00 00:00') AS `enddate`,`orders`.`name` AS `name`,`orders`.`address` AS `address`,`orders`.`phone` AS `phone`,`orders`.`email` AS `email`,`orders`.`information` AS `information`,`orders`.`isapproved` AS `isapproved`,`orders`.`tanggalpesan` AS `tanggalpesan` from (`gh_roomslist` `roomslist` left join `orders` on((`orders`.`roomid` = `roomslist`.`roomid`))) order by `roomslist`.`roomname` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`cupa8479_admin`@`localhost` SQL SECURITY DEFINER VIEW `gh_allorderswithcategory`  AS  select `roomslist`.`roomid` AS `roomid`,`roomslist`.`roomname` AS `roomname`,`roomslist`.`description` AS `description`,`roomslist`.`categoryname` AS `categoryname`,`roomslist`.`categoryid` AS `categoryid`,`roomslist`.`ordercount` AS `ordercount`,ifnull(`orders`.`id`,0) AS `orderid`,ifnull(`orders`.`startdate`,'0000-00-00 00:00') AS `startdate`,ifnull(`orders`.`enddate`,'0000-00-00 00:00') AS `enddate`,`orders`.`name` AS `name`,`orders`.`address` AS `address`,`orders`.`phone` AS `phone`,`orders`.`email` AS `email`,`orders`.`information` AS `information`,`orders`.`isapproved` AS `isapproved`,`orders`.`tanggalpesan` AS `tanggalpesan` from (`gh_roomslist` `roomslist` left join `orders` on((`orders`.`roomid` = `roomslist`.`roomid`))) order by `roomslist`.`roomname` ;
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `gh_roomslist`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `gh_roomslist`  AS  select `rooms`.`roomid` AS `roomid`,`rooms`.`roomname` AS `roomname`,`rooms`.`description` AS `description`,`categories`.`categoryname` AS `categoryname`,`categories`.`id` AS `categoryid`,count(`orders`.`id`) AS `ordercount` from ((`rooms` left join `categories` on((`rooms`.`categoryid` = `categories`.`id`))) left join `orders` on((`orders`.`roomid` = `rooms`.`roomid`))) group by `rooms`.`roomid`,`rooms`.`roomname`,`rooms`.`description`,`categories`.`categoryname` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`cupa8479_admin`@`localhost` SQL SECURITY DEFINER VIEW `gh_roomslist`  AS  select `rooms`.`roomid` AS `roomid`,`rooms`.`roomname` AS `roomname`,`rooms`.`description` AS `description`,`categories`.`categoryname` AS `categoryname`,`categories`.`id` AS `categoryid`,count(`orders`.`id`) AS `ordercount` from ((`rooms` left join `categories` on((`rooms`.`categoryid` = `categories`.`id`))) left join `orders` on((`orders`.`roomid` = `rooms`.`roomid`))) group by `rooms`.`roomid`,`rooms`.`roomname`,`rooms`.`description`,`categories`.`categoryname` ;
 
 --
 -- Indexes for dumped tables
