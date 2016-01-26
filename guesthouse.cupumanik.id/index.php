@@ -145,7 +145,7 @@ include ($_SERVER ['DOCUMENT_ROOT'] . '/include.php');
 		$html = "";
 		for($i = 1; $i <= 8; $i ++) {
 			$html .= "<div id=\"gallery-" . $i . "\" class=\"product-item col-md-3 col-sm-6 col-xs-12\">";
-			$html .= "<div id=\"gallery-" . $i . "-inner\" class=\"product-item-inner\" style=\"background: url('../images/gh" . $i . ".jpg') no-repeat center; background-size: cover\">";
+			$html .= "<div id=\"gallery-" . $i . "-inner\" class=\"product-item-inner\" style=\"background: url('../images/thumb" . $i . ".jpg') no-repeat center; background-size: cover\">";
 			$html .= "</div>";
 			$html .= "</div>";
 		}

@@ -8,7 +8,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 	crossorigin="anonymous">
-<link rel="shortcut icon" type="image/png" href="http://cupumanik-local.com/assets/cupumanikicon.png"/>
+<link rel="shortcut icon" type="image/png"
+	href="http://cupumanik-local.com/assets/cupumanikicon.png" />
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"
 	type="text/javascript"></script>
@@ -29,10 +30,7 @@
 	<div class="menu">
 		<ul class="list">
 			<li><a class="link" href="#" id="aboutus">ABOUT US</a></li>
-			<li><a class="link" href="#" id="contactus">CONTACT US</a></li>
-			<li><a class="link" href="#" target="_blank">FACEBOOK</a>
-			
-			<li><a class="link" href="#" target="_blank">TWITTER</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<li><a class="link" href="#" id="contactus">CONTACT US</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
 			</li>
 		</ul>
 	</div>
@@ -45,7 +43,7 @@
 				<?php
 				echo '<li><a id="batiklink" class="link" href="http://batik.' . $_SERVER ['HTTP_HOST'] . '">Batik</a></li>
 					<li><a id="furnilink" class="link" href="http://furniture.' . $_SERVER ['HTTP_HOST'] . '">Furniture</a></li>
-					<li><a id="guesthouselink" class="link" href="http://guesthouse.' . $_SERVER ['HTTP_HOST'] . '">Guesthouse</a></li>'?>
+					<li><a id="guesthouselink" class="link" href="http://guesthouse.' . $_SERVER ['HTTP_HOST'] . '">Guest House</a></li>'?>
 				</ul>
 			</div>
 		</div>
@@ -53,37 +51,37 @@
 			<div class="previewcontent">&nbsp;</div>
 			<div class="images batiklink">
 				<div class="column">
-					<img id="img1" src="images/batik1.png" class="previewimg batiklink" />
+					<img id="img1" src="images/batik1.jpg" class="previewimg batiklink" />
 				</div>
 				<div class="column">
-					<img id="img2" src="images/batik2.png" class="previewimg batiklink" />
+					<img id="img2" src="images/batik2.jpg" class="previewimg batiklink" />
 				</div>
 				<div class="column">
-					<img id="img3" src="images/batik3.png" class="previewimg batiklink" />
+					<img id="img3" src="images/batik3.jpg" class="previewimg batiklink" />
 				</div>
 			</div>
 			<div class="images furnilink">
 				<div class="column">
-					<img id="img1" src="images/home.png" class="previewimg furnilink" />
+					<img id="img1" src="images/furni_1.jpg" class="previewimg furnilink" />
 				</div>
 				<div class="column">
-					<img id="img2" src="images/home.png" class="previewimg furnilink" />
+					<img id="img2" src="images/furni_2.jpg" class="previewimg furnilink" />
 				</div>
 				<div class="column">
-					<img id="img3" src="images/home.png" class="previewimg furnilink" />
+					<img id="img3" src="images/furni_3.jpg" class="previewimg furnilink" />
 				</div>
 			</div>
 			<div class="images guesthouselink">
 				<div class="column">
-					<img id="img1" src="images/home.png"
+					<img id="img1" src="images/guest_1.jpg"
 						class="previewimg guesthouselink" />
 				</div>
 				<div class="column">
-					<img id="img2" src="images/home.png"
+					<img id="img2" src="images/guest_2.jpg"
 						class="previewimg guesthouselink" />
 				</div>
 				<div class="column">
-					<img id="img3" src="images/home.png"
+					<img id="img3" src="images/guest_3.jpg"
 						class="previewimg guesthouselink" />
 				</div>
 			</div>
@@ -209,22 +207,46 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div style="padding-left: 50%;">
-										<div 
-											class="bbmlogo">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+										<div class="bbmlogo">&nbsp;&nbsp;&nbsp;&nbsp;</div>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
 									<div style="padding-left: 36%;">
-										<small style="font-size: 16px; margin: auto;">BlackBerry Messenger</small>
+										<small style="font-size: 16px; margin: auto;">BlackBerry
+											Messenger</small>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
 									<div style="margin-left: 35%;">
-										<h3 style="font-size: 40px; margin: auto; left: -50%;">A1B2C3D</h3>
+										<h3 style="font-size: 40px; margin: auto; left: -50%;">5A70AE52</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="phonediv">
+							<div class="row">
+								<div class="col-sm-12">
+									<div style="padding-left: 50%;">
+										<span class="glyphicon glyphicon-envelope"
+											style="font-size: 40px; margin: auto; left: -7.5%;"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<div style="padding-left: 46%;">
+										<small style="font-size: 16px; margin: auto;">E-mail</small>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<div style="margin-left: 23%;">
+										<h3 style="font-size: 40px; margin: auto; left: -50%;">info@cupumanik.id</h3>
 									</div>
 								</div>
 							</div>

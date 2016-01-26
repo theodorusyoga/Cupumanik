@@ -54,7 +54,7 @@ $(document)
 					$('#banner-3').hide();
 					sessionStorage.guesthouseBanner = 1;
 					var interval = window.setInterval(function() {
-						var index = Number(sessionStorage.banner);
+						var index = Number(sessionStorage.guesthouseBanner);
 						var nextIndex = index < 3 ? (index + 1) : 1;
 						// alert(index);
 						$('#banner-' + index).fadeOut(500, function() {
@@ -294,7 +294,8 @@ function addReservation() {
 			if (xmlhr.status == 200) {
 				if(xmlhr.responseText == true){
 					$('#orderalert').show();
-					setInterval(function(){
+					var interval = setInterval(function(){
+						clearInterval(interval);
 						location.reload();
 					}, 5000);
 				}

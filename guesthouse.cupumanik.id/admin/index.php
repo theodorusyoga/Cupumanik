@@ -164,7 +164,42 @@ include ($path);
 						</div>
 					</div>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="others"></div>
+				<div role="tabpanel" class="tab-pane" id="others">
+					<form id="changepassform">
+						<div style="padding-top: 2%; padding-bottom: 0%;" class="col-sm-6">
+							<h3>Pengaturan Administrator</h3>
+							<div style="padding-bottom: 2%">
+								<button type="submit" class="btn btn-success">
+									<span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Simpan
+									Password Baru
+								</button>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col-md-4">Password Lama:</div>
+									<div class="col-md-8">
+										<input type="password" class="form-control"
+											id="passwordLamaTb" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">Password Baru:</div>
+									<div class="col-md-8">
+										<input type="password" class="form-control"
+											id="passwordBaruTb" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">Ulangi Password Baru:</div>
+									<div class="col-md-8">
+										<input type="password" class="form-control"
+											id="ulangPasswordBaruTb" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -338,9 +373,8 @@ include ($path);
 							<label class="control-label col-xs-3">Pilih Kamar/Rumah</label>
 							<div class="col-xs-9">
 								<select class="form-control" id="pilihKamarDetail">
-									
-								</select>
-								<small
+
+								</select> <small
 									style="color: red; text-decoration: underline; cursor: pointer; font-size: x-small;"
 									data-toggle="tooltip" data-placement="right"
 									title="Kamar/rumah yang ditampilkan hanya yang tersedia pada tanggal check-in/out yang diberikan.">
@@ -390,8 +424,8 @@ include ($path);
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="btn-submit" class="btn btn-info">Proses Pemesanan</button>
-					<button id="btn-ok" class="btn btn-success">OK</button>
+					<button id="btn-submit" class="btn btn-primary">Terima Pemesanan</button>
+					<button id="btn-ok" class="btn btn-info" data-dismiss="modal">Tutup</button>
 				</div>
 			</div>
 

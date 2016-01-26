@@ -62,6 +62,19 @@ $(document)
 									getAvailableRooms($selectedcategoryid,
 											$selectedorderid, $selectedroomid);
 							});
+					$('#btn-submit').click(function() {
+						acceptReservation();
+					});
+
+					$('#reservationlink').click(function() {
+						$query = $('#sortParam option:selected').val();
+						addRoomsDropDown();
+						getReservations($query);
+					});
+					
+					$('#roomlistlink').click(function(){
+						getRooms();
+					});
 
 					check();
 
@@ -515,6 +528,19 @@ function detailReservasi(id) {
 				$selectedroomid = $obj.roomid;
 				getAvailableRoomsInitial($selectedcategoryid, $selectedorderid,
 						$selectedroomid);
+				if ($obj.isapproved == true) {
+					$('#btn-submit').hide();
+					$('#start-date-input').attr('disabled', true);
+					$('#end-date-input').attr('disabled', true);
+					$('#pilihKamarDetail').attr('disabled', true);
+
+				} else {
+					$('#btn-submit').show();
+					$('#start-date-input').removeAttr('disabled');
+					$('#end-date-input').removeAttr('disabled');
+					$('#pilihKamarDetail').removeAttr('disabled');
+				}
+
 				$('#order-modal').modal('show');
 				$('#warningcontainer').hide();
 
@@ -525,6 +551,42 @@ function detailReservasi(id) {
 	data.append('id', id);
 	xmlhr.send(data);
 	$('#warningcontainer').show();
+}
+
+function hapusReservasi(id) {
+	if (confirm('Yakin akan menghapus pemesanan ini?')) {
+		$selectedcategoryid = 0;
+		$selectedorderid = 0;
+		$selectedroomid = 0;
+		$('#warningcontainer')
+				.html(
+						'<strong>Menghapus pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
+		var xmlhr = new XMLHttpRequest();
+		xmlhr.open('POST', $url + '/functions/removeReservation.php', true);
+		xmlhr.onerror = function(e) {
+			$('#warningcontainer')
+					.html(
+							'<strong>Terjadi kesalahan saat menghapus pemesanan! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+		}
+		xmlhr.onload = function(e) {
+			if (xmlhr.readyState == 4) {
+				if (xmlhr.status == 200) {
+					if (xmlhr.responseText == true) {
+						$query = $('#sortParam option:selected').val();
+						getReservations($query);
+						$('#warningcontainer').hide();
+					} else
+						$('#warningcontainer')
+								.html(
+										'<strong>Terjadi kesalahan saat menghapus pemesanan! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+				}
+			}
+		};
+		var data = new FormData();
+		data.append('orderid', id);
+		xmlhr.send(data);
+		$('#warningcontainer').show();
+	}
 }
 
 function getAvailableRooms(categoryId, orderId, roomId) {
@@ -588,6 +650,45 @@ function getAvailableRoomsInitial(categoryId, orderId, roomId) {
 	$('#orderalert').show();
 }
 
+function acceptReservation() {
+	if (confirm('Yakin menerima pemesanan ini? Tanggal dan kamar/rumah tidak dapat diubah setelah diterima!')) {
+		$('#orderalert')
+				.html(
+						'<strong>Menerima pemesanan... </strong><img src="../../assets/ajax-loader.gif" />');
+		var xmlhr = new XMLHttpRequest();
+		xmlhr.open('POST', $url + '/functions/acceptReservation.php', true);
+		xmlhr.onerror = function(e) {
+			$('#orderalert')
+					.html(
+							'<strong>Terjadi kesalahan saat menerima pemesanan! Silakan refresh halaman ini jika kesalahan tetap terjadi atau hubungi administrator.</strong>');
+		}
+		xmlhr.onload = function(e) {
+			if (xmlhr.readyState == 4) {
+				if (xmlhr.status == 200) {
+					if (xmlhr.responseText == true) {
+						$query = $('#sortParam option:selected').val();
+						getReservations($query);
+						$('#orderalert')
+								.html(
+										'<span class="glyphicon glyphicon-ok">&nbsp;</span>Pemesanan telah diterima. Tunggu jendela ini menutup...');
+						var interval = setInterval(function() {
+							$('#order-modal').modal('hide');
+							clearInterval(interval);
+						}, 3000);
+					}
+				}
+			}
+		};
+		var data = new FormData();
+		data.append('startdate', $('#start-date-input').val());
+		data.append('enddate', $('#end-date-input').val());
+		data.append('orderid', $selectedorderid);
+		data.append('roomid', $('#pilihKamarDetail option:selected').val());
+		xmlhr.send(data);
+		$('#orderalert').show();
+	}
+}
+
 /* END RESERVATIONS */
 
 function logout() {
@@ -639,7 +740,7 @@ function changePassword() {
 					$('#warningcontainer').show();
 				}
 
-			} 
+			}
 		}
 	};
 	var data = new FormData();
