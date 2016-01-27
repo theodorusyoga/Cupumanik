@@ -32,7 +32,6 @@
 		<ul class="list">
 			<li><a class="link" href="#" id="aboutus">ABOUT US</a></li>
 			<li><a class="link" href="#" id="contactus">CONTACT US</a></li>
-			&nbsp;&nbsp;&nbsp;&nbsp;
 		</ul>
 	</div>
 	<div class="main">
@@ -90,7 +89,7 @@
 		<div class="foot">
 			<p>
 				Copyright &copy; 2015 <a
-					href="https://www.facebook.com/theodorus.yoga" target="_blank">Tampilin
+					href="https://www.facebook.com/theodorus.yoga" target="_blank">T&S
 					Design and Program Team</a>
 			</p>
 			<!-- <button id="testremove">CLICK ME TO REMOVE!!!</button>
