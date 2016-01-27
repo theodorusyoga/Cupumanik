@@ -230,7 +230,7 @@ body {
 	z-index: 5;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
 	.menu .link {
 		font-size: 11px;
 	}
@@ -277,7 +277,7 @@ body {
 	}
 }
 
-@media only screen and (min-width: 600px) and (max-width:900px) {
+/* @media only screen and (max-width:100px) {
 	.submain .list li {
 		display: block;
 		text-align: center;
@@ -312,4 +312,4 @@ body {
 		min-height: 25%;
 		max-height: 50%;
 	}
-}
+} */
