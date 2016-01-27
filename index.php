@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Cupumanik.id - Welcome</title>
+<meta name="viewport" content="width=device-width" />
 <link href='https://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/css/style.css">
@@ -30,8 +31,8 @@
 	<div class="menu">
 		<ul class="list">
 			<li><a class="link" href="#" id="aboutus">ABOUT US</a></li>
-			<li><a class="link" href="#" id="contactus">CONTACT US</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-			</li>
+			<li><a class="link" href="#" id="contactus">CONTACT US</a></li>
+			&nbsp;&nbsp;&nbsp;&nbsp;
 		</ul>
 	</div>
 	<div class="main">
@@ -70,7 +71,7 @@
 				<div class="column">
 					<img id="img3" src="images/furni_3.jpg" class="previewimg furnilink" />
 				</div>
-			</div>
+			</div>	
 			<div class="images guesthouselink">
 				<div class="column">
 					<img id="img1" src="images/guest_1.jpg"
@@ -89,7 +90,7 @@
 		<div class="foot">
 			<p>
 				Copyright &copy; 2015 <a
-					href="https://www.facebook.com/theodorus.yoga" target="_blank">T&S
+					href="https://www.facebook.com/theodorus.yoga" target="_blank">Tampilin
 					Design and Program Team</a>
 			</p>
 			<!-- <button id="testremove">CLICK ME TO REMOVE!!!</button>

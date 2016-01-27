@@ -126,6 +126,7 @@ body {
 	min-height: 100%;
 	min-width: 100%;
 	overflow: hidden;
+	position: absolute;
 }
 
 .main {
@@ -199,7 +200,7 @@ body {
 
 .column {
 	max-width: 33.5%;
-	display: inline-table;
+	display: inline-block;
 	right: 0;
 	margin-right: -0.5%;
 	left: 0;
@@ -231,7 +232,7 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-	.menu .link {
+	.menu .link {	
 		font-size: 11px;
 	}
 	.submain .link {
@@ -277,7 +278,7 @@ body {
 	}
 }
 
-/* @media only screen and (max-width:100px) {
+@media only screen and (min-width:768px) and (max-width:1024px) {
 	.submain .list li {
 		display: block;
 		text-align: center;
@@ -312,4 +313,4 @@ body {
 		min-height: 25%;
 		max-height: 50%;
 	}
-} */
+}
