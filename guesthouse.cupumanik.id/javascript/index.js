@@ -1,4 +1,4 @@
-$url = 'http://guesthouse.cupumanik-local.com';
+$url = 'http://guesthouse.cupumanik.id';
 var monthNames = [ "Januari", "Februari", "Maret", "April", "Mei", "Juni",
 		"Juli", "Agustus", "September", "Oktober", "November", "Desember" ];
 $selectedcategoryid = 0;
@@ -34,12 +34,12 @@ $(document)
 					$('#start-date').datetimepicker({
 						locale : 'id',
 						sideBySide : true,
-						format : 'YYYY-MM-D HH:mm'
+						format : 'YYYY/MM/D HH:mm'
 					});
 					$('#end-date').datetimepicker({
 						locale : 'id',
 						sideBySide : true,
-						format : 'YYYY-MM-D HH:mm'
+						format : 'YYYY/MM/D HH:mm'
 					});
 					$('#start-date').on(
 							'dp.change',
@@ -71,8 +71,8 @@ $(document)
 						addRoomsDropDown();
 						getReservations($query);
 					});
-					
-					$('#roomlistlink').click(function(){
+
+					$('#roomlistlink').click(function() {
 						getRooms();
 					});
 
@@ -518,6 +518,11 @@ function detailReservasi(id) {
 								+ reservedate.getMinutes());
 
 				/* DATE RELATED */
+				while ($obj.startdate.indexOf('-') > -1)
+					$obj.startdate = $obj.startdate.replace('-', '/');
+				while ($obj.enddate.indexOf('-') > -1)
+					$obj.enddate = $obj.enddate.replace('-', '/');
+				
 				var startdate = new Date($obj.startdate);
 				var enddate = new Date($obj.enddate);
 				$('#start-date').data('DateTimePicker').date(startdate);

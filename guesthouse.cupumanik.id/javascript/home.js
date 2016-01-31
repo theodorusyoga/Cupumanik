@@ -1,4 +1,4 @@
-$url = 'http://guesthouse.cupumanik-local.com';
+$url = 'http://guesthouse.cupumanik.id';
 $selectedcatid = null;
 $(document)
 		.ready(
@@ -105,12 +105,12 @@ $(document)
 					$('#start-date').datetimepicker({
 						locale : 'id',
 						sideBySide : true,
-						format : 'dddd, YYYY-MM-D HH:mm'
+						format : 'dddd, YYYY/MM/D HH:mm'
 					});
 					$('#end-date').datetimepicker({
 						locale : 'id',
 						sideBySide : true,
-						format : 'dddd, YYYY-MM-D HH:mm'
+						format : 'dddd, YYYY/MM/D HH:mm'
 					});
 					$('#start-date').on('dp.change', function(e) {
 						$('#end-date').data('DateTimePicker').minDate(e.date);
